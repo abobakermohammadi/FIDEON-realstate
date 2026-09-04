@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" role="img" aria-labelledby="title">
+<title>FIDEON crest</title>
+<defs>
+  <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0" stop-color="#0a2b21"/>
+    <stop offset="1" stop-color="#061c16"/>
+  </linearGradient>
+</defs>
+<circle cx="60" cy="60" r="56" fill="url(#bg)" stroke="#b99155" stroke-width="1.5"/>
+<path d="M60 17 88 28v27c0 22-11 36-28 48C43 91 32 77 32 55V28z" fill="none" stroke="#b99155" stroke-width="2"/>
+<path d="M47 38h26M47 38v42M47 58h21M60 38v41M60 79h21" fill="none" stroke="#b99155" stroke-width="2.5" stroke-linecap="round"/>
+<path d="M72 38c7 2 11 7 11 14 0 8-5 13-13 14" fill="none" stroke="#b99155" stroke-width="2"/>
+</svg>

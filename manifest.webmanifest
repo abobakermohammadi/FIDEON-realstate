@@ -1,0 +1,9 @@
+{
+  "name":"FIDEON Real Estate",
+  "short_name":"FIDEON",
+  "start_url":"/",
+  "display":"standalone",
+  "background_color":"#061c16",
+  "theme_color":"#061c16",
+  "icons":[]
+}

@@ -1,0 +1,45 @@
+from pathlib import Path
+from http.server import ThreadingHTTPServer, SimpleHTTPRequestHandler
+from threading import Thread
+from urllib.request import urlopen
+import os
+
+ROOT = Path(__file__).resolve().parents[1]
+ROUTES = [
+    "/", "/properties/", "/properties/aurora-palm-villa/",
+    "/properties/desert-retreat/", "/properties/skyline-residence/",
+    "/properties/waterfront-house/", "/properties/view/", "/private/", "/sell/", "/find/",
+    "/referrals/", "/about/", "/journal/", "/contact/", "/saved/",
+    "/admin/", "/privacy.html", "/terms.html", "/assets/styles.css",
+    "/assets/data.js", "/assets/app.js", "/assets/admin.js",
+]
+
+class Quiet(SimpleHTTPRequestHandler):
+    def log_message(self, format, *args):
+        pass
+
+os.chdir(ROOT)
+server = ThreadingHTTPServer(("127.0.0.1", 0), Quiet)
+thread = Thread(target=server.serve_forever, daemon=True)
+thread.start()
+port = server.server_address[1]
+
+errors = []
+try:
+    for route in ROUTES:
+        with urlopen(f"http://127.0.0.1:{port}{route}", timeout=3) as response:
+            body = response.read()
+            if response.status != 200:
+                errors.append(f"{route}: HTTP {response.status}")
+            if not body:
+                errors.append(f"{route}: empty response")
+finally:
+    server.shutdown()
+    server.server_close()
+
+if errors:
+    for error in errors:
+        print("ERROR:", error)
+    raise SystemExit(1)
+
+print(f"PASS: {len(ROUTES)} localhost routes served successfully")
