@@ -10,7 +10,8 @@ ROUTES = [
     "/properties/desert-retreat/", "/properties/skyline-residence/",
     "/properties/waterfront-house/", "/properties/view/", "/private/", "/sell/", "/find/",
     "/referrals/", "/about/", "/journal/", "/contact/", "/saved/",
-    "/admin/", "/privacy.html", "/terms.html", "/assets/styles.css",
+    "/admin/", "/privacy.html", "/terms.html", "/404.html",
+    "/assets/styles-base.css", "/assets/styles-components-a.css", "/assets/styles-components-b.css", "/assets/styles-admin-responsive.css",
     "/assets/data.js", "/assets/app.js", "/assets/admin.js",
 ]
 

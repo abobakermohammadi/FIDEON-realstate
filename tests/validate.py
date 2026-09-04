@@ -1,7 +1,6 @@
-
 from pathlib import Path
 from html.parser import HTMLParser
-import re, sys
+import sys
 
 ROOT = Path(__file__).resolve().parents[1]
 errors = []
@@ -24,7 +23,10 @@ EXPECTED = [
     "privacy.html",
     "terms.html",
     "404.html",
-    "assets/styles.css",
+    "assets/styles-base.css",
+    "assets/styles-components-a.css",
+    "assets/styles-components-b.css",
+    "assets/styles-admin-responsive.css",
     "assets/app.js",
     "assets/admin.js",
     "assets/data.js",
@@ -73,14 +75,12 @@ for path in html_files:
             if clean.endswith("/"):
                 target = target / "index.html"
             elif target.suffix == "":
-                # clean URLs may refer to directory route
                 dir_index = target / "index.html"
                 if dir_index.exists():
                     target = dir_index
             if not target.exists():
                 errors.append(f"broken local {key}: {path.relative_to(ROOT)} -> {ref}")
 
-# Preview safety checks
 robots = (ROOT/"robots.txt").read_text()
 if "Disallow: /" not in robots:
     errors.append("preview robots.txt must block indexing")
@@ -95,8 +95,7 @@ if "fideon.official@gmail.com" not in all_html:
 if "Sample" not in all_html and "sample" not in all_html:
     errors.append("development sample inventory is not labeled")
 
-# CSS basic safety
-css = (ROOT/"assets/styles.css").read_text()
+css = "\n".join((ROOT/f"assets/{name}").read_text() for name in ["styles-base.css","styles-components-a.css","styles-components-b.css","styles-admin-responsive.css"])
 if "prefers-reduced-motion" not in css:
     errors.append("reduced-motion handling missing")
 if "overflow-x" not in css and "overflow:hidden" not in css:

@@ -10,44 +10,154 @@
 </head>
 <body>
 <a class="skip-link" href="#admin-title">Skip to admin content</a>
+
 <div class="admin-page" data-admin-app hidden>
   <div class="admin-shell">
     <aside class="admin-sidebar">
-      <div class="admin-brand"><a class="brand" href="/" aria-label="FIDEON public site"><img class="brand-mark" src="/assets/fideon-mark.svg" alt=""><span class="brand-word">FIDEON / ADMIN</span></a></div>
-      <nav class="admin-nav" aria-label="Admin"><button type="button" data-admin-nav="dashboard" class="active">Command center</button><button type="button" data-admin-nav="properties">Properties</button><button type="button" data-admin-nav="leads">Lead CRM</button><button type="button" data-admin-nav="viewings">Viewings</button><button type="button" data-admin-nav="journal">Journal</button><button type="button" data-admin-nav="settings">Settings</button></nav>
-      <div class="admin-sidebar-status" data-admin-sidebar-status>Preview console.<br>Local browser persistence.</div>
+      <div class="admin-brand">
+        <a class="brand" href="/" aria-label="FIDEON public site"><img class="brand-mark" src="/assets/fideon-mark.svg" alt=""><span class="brand-word">FIDEON / ADMIN</span></a>
+      </div>
+      <nav class="admin-nav" aria-label="Admin">
+        <button type="button" data-admin-nav="dashboard" class="active">Command center</button>
+        <button type="button" data-admin-nav="properties">Properties</button>
+        <button type="button" data-admin-nav="leads">Lead CRM</button>
+        <button type="button" data-admin-nav="viewings">Viewings</button>
+        <button type="button" data-admin-nav="journal">Journal</button>
+        <button type="button" data-admin-nav="settings">Settings</button>
+      </nav>
+      <div class="admin-sidebar-status" data-admin-sidebar-status>
+        Preview console.<br>Local browser persistence.
+      </div>
     </aside>
+
     <section class="admin-main">
-      <div class="admin-topbar"><div><div class="section-kicker" style="margin-bottom:5px">Owner workspace</div><h1 id="admin-title">Command center</h1></div><div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap"><span class="admin-badge" data-admin-mode-badge>Preview data layer</span><button class="btn btn-outline" type="button" data-admin-signout hidden>Sign out</button><button class="btn btn-dark" type="button" data-add-property>Add property</button></div></div>
+      <div class="admin-topbar">
+        <div>
+          <div class="section-kicker" style="margin-bottom:5px">Owner workspace</div>
+          <h1 id="admin-title">Command center</h1>
+        </div>
+        <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
+          <span class="admin-badge" data-admin-mode-badge>Preview data layer</span>
+          <button class="btn btn-outline" type="button" data-admin-signout hidden>Sign out</button>
+          <button class="btn btn-dark" type="button" data-add-property>Add property</button>
+        </div>
+      </div>
+
       <section class="admin-view active" data-view="dashboard">
-        <div class="metric-grid"><div class="metric-card"><div class="metric-label">Inventory</div><div class="metric-value" data-metric="inventory">0</div></div><div class="metric-card"><div class="metric-label">Public</div><div class="metric-value" data-metric="public">0</div></div><div class="metric-card"><div class="metric-label">Private</div><div class="metric-value" data-metric="private">0</div></div><div class="metric-card"><div class="metric-label">New leads</div><div class="metric-value" data-metric="leads">0</div></div></div>
-        <div class="admin-grid-2"><div class="admin-panel"><div class="panel-head"><h2>Inventory pulse</h2><button class="btn-link" type="button" data-admin-nav="properties">Open properties</button></div><div class="admin-table-wrap"><table class="admin-table"><thead><tr><th>Property</th><th>Type</th><th>Visibility</th><th>Price</th></tr></thead><tbody data-dashboard-properties></tbody></table></div></div><div class="admin-panel"><div class="panel-head"><h2>Newest leads</h2><button class="btn-link" type="button" data-admin-nav="leads">Open CRM</button></div><div data-dashboard-leads></div></div></div>
-        <div class="admin-panel" style="margin-top:14px;background:#fff8e8;border-color:#ead9ae"><div class="panel-head"><h2>Localhost mode</h2><span class="status-pill">Owner-selected phase</span></div><p data-production-gate-copy style="font-size:12px;color:var(--ink-700);line-height:1.65;margin:0">Properties, leads and media previews stay in this browser. No cloud database or external service is used in the current localhost-only phase. Do not publish this admin route to the public internet in this mode.</p></div>
+        <div class="metric-grid">
+          <div class="metric-card"><div class="metric-label">Inventory</div><div class="metric-value" data-metric="inventory">0</div></div>
+          <div class="metric-card"><div class="metric-label">Public</div><div class="metric-value" data-metric="public">0</div></div>
+          <div class="metric-card"><div class="metric-label">Private</div><div class="metric-value" data-metric="private">0</div></div>
+          <div class="metric-card"><div class="metric-label">New leads</div><div class="metric-value" data-metric="leads">0</div></div>
+        </div>
+        <div class="admin-grid-2">
+          <div class="admin-panel">
+            <div class="panel-head"><h2>Inventory pulse</h2><button class="btn-link" type="button" data-admin-nav="properties">Open properties</button></div>
+            <div class="admin-table-wrap">
+              <table class="admin-table"><thead><tr><th>Property</th><th>Type</th><th>Visibility</th><th>Price</th></tr></thead><tbody data-dashboard-properties></tbody></table>
+            </div>
+          </div>
+          <div class="admin-panel">
+            <div class="panel-head"><h2>Newest leads</h2><button class="btn-link" type="button" data-admin-nav="leads">Open CRM</button></div>
+            <div data-dashboard-leads></div>
+          </div>
+        </div>
+        <div class="admin-panel" style="margin-top:14px;background:#fff8e8;border-color:#ead9ae">
+          <div class="panel-head"><h2>Localhost mode</h2><span class="status-pill">Owner-selected phase</span></div>
+          <p data-production-gate-copy style="font-size:12px;color:var(--ink-700);line-height:1.65;margin:0">Properties, leads and media previews stay in this browser. No cloud database or external service is used in the current localhost-only phase. Do not publish this admin route to the public internet in this mode.</p>
+        </div>
       </section>
+
       <section class="admin-view" data-view="properties">
-        <div class="admin-panel"><div class="panel-head"><h2>Inventory</h2><span class="status-pill">Tap Edit or add a new property</span></div><div class="admin-table-wrap"><table class="admin-table"><thead><tr><th>Property</th><th>Type</th><th>Intent</th><th>Visibility</th><th>Price</th><th></th></tr></thead><tbody data-admin-properties></tbody></table></div></div>
+        <div class="admin-panel">
+          <div class="panel-head"><h2>Inventory</h2><span class="status-pill">Tap Edit or add a new property</span></div>
+          <div class="admin-table-wrap">
+            <table class="admin-table">
+              <thead><tr><th>Property</th><th>Type</th><th>Intent</th><th>Visibility</th><th>Price</th><th></th></tr></thead>
+              <tbody data-admin-properties></tbody>
+            </table>
+          </div>
+        </div>
+
         <div class="admin-panel" style="margin-top:14px" id="property-editor">
           <div class="panel-head"><h2 data-editor-title>Add property</h2><span class="status-pill">Saved locally in this browser</span></div>
           <form class="admin-form-grid" onsubmit="return false">
             <input type="hidden" name="id">
-            <div class="field"><label>Reference code</label><input name="referenceCode" placeholder="Auto-generated if empty"></div><div class="field"><label>Title</label><input name="title" required placeholder="e.g. Waterfront Villa"></div><div class="field"><label>Slug</label><input name="slug" placeholder="Auto-generated if empty"></div>
-            <div class="field"><label>Property type</label><select name="type"><option>Villa</option><option>Apartment</option><option>Penthouse</option><option>Estate</option><option>Land</option><option>Commercial</option></select></div><div class="field"><label>Intent</label><select name="intent"><option>Buy</option><option>Rent</option></select></div><div class="field"><label>Status</label><select name="status"><option>Draft</option><option>Showcase</option><option>Available</option><option>Private</option><option>Reserved</option><option>Sold</option><option>Rented</option><option>Archived</option></select></div><div class="field"><label>Visibility</label><select name="visibility"><option>Public</option><option>Teaser</option><option>Private</option><option>Hidden</option></select></div><div class="field"><label>Location privacy</label><select name="locationPrivacy"><option value="district">District only</option><option value="approximate">Approximate</option><option value="exact">Exact</option></select></div>
-            <div class="field"><label>Country</label><input name="country" placeholder="United Arab Emirates"></div><div class="field"><label>City</label><input name="city" placeholder="Dubai"></div><div class="field"><label>District / area</label><input name="district" placeholder="Palm Jumeirah"></div><div class="field full"><label>Exact address · internal unless privacy allows</label><input name="address" placeholder="Never publish without verification"></div>
-            <div class="field"><label>Currency</label><select name="currency"><option>AED</option><option>USD</option><option>EUR</option><option>TRY</option><option>GBP</option></select></div><div class="field"><label>Price</label><input name="price" inputmode="decimal" type="number" min="0" step="1" placeholder="Leave empty for price on request"></div><div class="field"><label><input name="priceOnRequest" type="checkbox" style="width:auto;min-height:auto;margin-right:8px">Price on request</label></div>
-            <div class="field"><label>Bedrooms</label><input name="beds" inputmode="numeric" type="number" min="0"></div><div class="field"><label>Bathrooms</label><input name="baths" inputmode="numeric" type="number" min="0"></div><div class="field"><label>Interior area · m²</label><input name="interiorArea" inputmode="decimal" type="number" min="0" step="0.01"></div><div class="field"><label>Plot area · m²</label><input name="plotArea" inputmode="decimal" type="number" min="0" step="0.01"></div>
-            <div class="field full"><label>Short summary</label><textarea name="summary" placeholder="Verified, concise property summary"></textarea></div><div class="field full"><label>Full description</label><textarea name="description" placeholder="Only verified property facts. No invented claims."></textarea></div><div class="field full"><label>Highlights · one per line</label><textarea name="highlights" placeholder="Waterfront setting&#10;Private pool&#10;Guest suite"></textarea></div><div class="field full"><label>Amenities · one per line</label><textarea name="amenities" placeholder="Private pool&#10;Gym&#10;Cinema"></textarea></div>
-            <div class="field"><label>SEO title</label><input name="metaTitle" maxlength="70"></div><div class="field"><label>SEO description</label><input name="metaDescription" maxlength="170"></div><div class="field full"><label><input name="indexable" type="checkbox" style="width:auto;min-height:auto;margin-right:8px">Mark as indexable in a future public phase</label></div>
-            <div class="field full"><label>Media</label><div class="media-drop"><input id="media-input" type="file" accept="image/*" capture="environment" multiple style="max-width:100%"><p style="font-size:11px;color:var(--ink-500);line-height:1.5;margin:10px 0 0">Phone camera/photo library supported. Images stay in this browser as local preview data and can be reordered or removed before saving.</p></div><div class="media-previews" data-media-previews></div></div>
-            <div class="full" style="display:flex;gap:9px;justify-content:space-between;flex-wrap:wrap;padding-top:4px"><button class="btn btn-outline" type="button" data-delete-property hidden>Delete preview property</button><div style="display:flex;gap:8px;margin-left:auto"><button class="btn btn-outline" type="reset">Clear fields</button><button class="btn btn-dark" type="button" data-save-property>Save property</button></div></div>
+            <div class="field"><label>Reference code</label><input name="referenceCode" placeholder="Auto-generated if empty"></div>
+            <div class="field"><label>Title</label><input name="title" required placeholder="e.g. Waterfront Villa"></div>
+            <div class="field"><label>Slug</label><input name="slug" placeholder="Auto-generated if empty"></div>
+            <div class="field"><label>Property type</label><select name="type"><option>Villa</option><option>Apartment</option><option>Penthouse</option><option>Estate</option><option>Land</option><option>Commercial</option></select></div>
+            <div class="field"><label>Intent</label><select name="intent"><option>Buy</option><option>Rent</option></select></div>
+            <div class="field"><label>Status</label><select name="status"><option>Draft</option><option>Showcase</option><option>Available</option><option>Private</option><option>Reserved</option><option>Sold</option><option>Rented</option><option>Archived</option></select></div>
+            <div class="field"><label>Visibility</label><select name="visibility"><option>Public</option><option>Teaser</option><option>Private</option><option>Hidden</option></select></div>
+            <div class="field"><label>Location privacy</label><select name="locationPrivacy"><option value="district">District only</option><option value="approximate">Approximate</option><option value="exact">Exact</option></select></div>
+            <div class="field"><label>Country</label><input name="country" placeholder="United Arab Emirates"></div>
+            <div class="field"><label>City</label><input name="city" placeholder="Dubai"></div>
+            <div class="field"><label>District / area</label><input name="district" placeholder="Palm Jumeirah"></div>
+            <div class="field full"><label>Exact address · internal unless privacy allows</label><input name="address" placeholder="Never publish without verification"></div>
+            <div class="field"><label>Currency</label><select name="currency"><option>AED</option><option>USD</option><option>EUR</option><option>TRY</option><option>GBP</option></select></div>
+            <div class="field"><label>Price</label><input name="price" inputmode="decimal" type="number" min="0" step="1" placeholder="Leave empty for price on request"></div>
+            <div class="field"><label><input name="priceOnRequest" type="checkbox" style="width:auto;min-height:auto;margin-right:8px">Price on request</label></div>
+            <div class="field"><label>Bedrooms</label><input name="beds" inputmode="numeric" type="number" min="0"></div>
+            <div class="field"><label>Bathrooms</label><input name="baths" inputmode="numeric" type="number" min="0"></div>
+            <div class="field"><label>Interior area · m²</label><input name="interiorArea" inputmode="decimal" type="number" min="0" step="0.01"></div>
+            <div class="field"><label>Plot area · m²</label><input name="plotArea" inputmode="decimal" type="number" min="0" step="0.01"></div>
+            <div class="field full"><label>Short summary</label><textarea name="summary" placeholder="Verified, concise property summary"></textarea></div>
+            <div class="field full"><label>Full description</label><textarea name="description" placeholder="Only verified property facts. No invented claims."></textarea></div>
+            <div class="field full"><label>Highlights · one per line</label><textarea name="highlights" placeholder="Waterfront setting&#10;Private pool&#10;Guest suite"></textarea></div>
+            <div class="field full"><label>Amenities · one per line</label><textarea name="amenities" placeholder="Private pool&#10;Gym&#10;Cinema"></textarea></div>
+            <div class="field"><label>SEO title</label><input name="metaTitle" maxlength="70"></div>
+            <div class="field"><label>SEO description</label><input name="metaDescription" maxlength="170"></div>
+            <div class="field full"><label><input name="indexable" type="checkbox" style="width:auto;min-height:auto;margin-right:8px">Mark as indexable in a future public phase</label></div>
+            <div class="field full">
+              <label>Media</label>
+              <div class="media-drop">
+                <input id="media-input" type="file" accept="image/*" capture="environment" multiple style="max-width:100%">
+                <p style="font-size:11px;color:var(--ink-500);line-height:1.5;margin:10px 0 0">Phone camera/photo library supported. Images stay in this browser as local preview data and can be reordered or removed before saving.</p>
+              </div>
+              <div class="media-previews" data-media-previews></div>
+            </div>
+            <div class="full" style="display:flex;gap:9px;justify-content:space-between;flex-wrap:wrap;padding-top:4px">
+              <button class="btn btn-outline" type="button" data-delete-property hidden>Delete preview property</button>
+              <div style="display:flex;gap:8px;margin-left:auto"><button class="btn btn-outline" type="reset">Clear fields</button><button class="btn btn-dark" type="button" data-save-property>Save property</button></div>
+            </div>
           </form>
         </div>
       </section>
-      <section class="admin-view" data-view="leads"><div class="admin-grid-2"><div class="admin-panel"><div class="panel-head"><h2>Lead CRM</h2><span class="status-pill">Local preview records</span></div><div class="admin-table-wrap"><table class="admin-table"><thead><tr><th>Lead</th><th>Source</th><th>Property</th><th>Stage</th><th>Created</th><th></th></tr></thead><tbody data-admin-leads></tbody></table></div></div><div class="admin-panel" data-lead-detail><div style="padding:36px 12px;text-align:center;color:var(--ink-500);font-size:12px">Open a lead to see its structured context.</div></div></div></section>
-      <section class="admin-view" data-view="viewings"><div class="admin-panel" data-viewings></div></section><section class="admin-view" data-view="journal"><div class="admin-panel" data-journal></div></section><section class="admin-view" data-view="settings"><div class="admin-panel"><div class="panel-head"><h2>Business settings</h2><button class="btn btn-outline" type="button" data-reset-preview>Reset preview data</button></div><div data-settings></div></div></section>
+
+      <section class="admin-view" data-view="leads">
+        <div class="admin-grid-2">
+          <div class="admin-panel">
+            <div class="panel-head"><h2>Lead CRM</h2><span class="status-pill">Local preview records</span></div>
+            <div class="admin-table-wrap">
+              <table class="admin-table">
+                <thead><tr><th>Lead</th><th>Source</th><th>Property</th><th>Stage</th><th>Created</th><th></th></tr></thead>
+                <tbody data-admin-leads></tbody>
+              </table>
+            </div>
+          </div>
+          <div class="admin-panel" data-lead-detail>
+            <div style="padding:36px 12px;text-align:center;color:var(--ink-500);font-size:12px">Open a lead to see its structured context.</div>
+          </div>
+        </div>
+      </section>
+
+      <section class="admin-view" data-view="viewings"><div class="admin-panel" data-viewings></div></section>
+      <section class="admin-view" data-view="journal"><div class="admin-panel" data-journal></div></section>
+      <section class="admin-view" data-view="settings">
+        <div class="admin-panel"><div class="panel-head"><h2>Business settings</h2><button class="btn btn-outline" type="button" data-reset-preview>Reset preview data</button></div><div data-settings></div></div>
+      </section>
     </section>
   </div>
-  <nav class="admin-mobile-bar" aria-label="Admin mobile"><button type="button" data-admin-nav="dashboard" class="active">Home</button><button type="button" data-admin-nav="properties">Properties</button><button type="button" data-admin-nav="leads">Leads</button><button type="button" data-admin-nav="viewings">Viewings</button><button type="button" data-admin-nav="settings">Settings</button></nav>
+  <nav class="admin-mobile-bar" aria-label="Admin mobile">
+    <button type="button" data-admin-nav="dashboard" class="active">Home</button>
+    <button type="button" data-admin-nav="properties">Properties</button>
+    <button type="button" data-admin-nav="leads">Leads</button>
+    <button type="button" data-admin-nav="viewings">Viewings</button>
+    <button type="button" data-admin-nav="settings">Settings</button>
+  </nav>
 </div>
+
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 <script src="/assets/data.js"></script><script src="/assets/app.js"></script><script src="/assets/admin.js"></script>
 </body></html>
