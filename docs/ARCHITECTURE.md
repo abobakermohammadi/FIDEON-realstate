@@ -3,10 +3,10 @@
 ## Truth model
 - **Notion** preserves durable product decisions and continuation context.
 - **GitHub `main`** is implementation truth.
-- **Localhost** is the only authorized runtime target for this phase.
+- **ChatGPT Sites** serves the public static experience; localhost remains the owner-console preview target.
 
 ## Runtime
-The site is dependency-light HTML, CSS and JavaScript. It runs with Python's built-in static server and does not require accounts, API keys, a database or cloud hosting.
+The site is dependency-light HTML, CSS and JavaScript. It runs with Python's built-in static server and does not require accounts, API keys, a database or remote runtime services.
 
 ```bash
 python3 -m http.server 4173
@@ -50,7 +50,7 @@ No fake property inventory is active. The included Aşiyan Konakları record is 
 The default editor exposes only common listing fields. Advanced metadata and optional details live under a collapsed section.
 
 ## Localhost safety boundary
-This phase intentionally does **not** provide remote authentication, shared persistence, hosted media, notifications or deployment. `/admin/` must stay on localhost. Indexing is blocked.
+The owner console and browser-local data stay on localhost. The public bundle omits `/admin/`, so owner tooling is not exposed by the hosted Site. Indexing remains blocked until a public SEO launch is explicitly prepared.
 
 ## Future infrastructure
 A backend/cloud phase can be designed later only if the owner explicitly authorizes it. No provider is selected or required by the current localhost product.

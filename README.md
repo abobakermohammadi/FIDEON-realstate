@@ -1,6 +1,6 @@
 # FIDEON Real Estate
 
-Minimal, mobile-first localhost website and owner admin for FIDEON in Istanbul.
+Minimal, mobile-first public website and localhost owner admin for FIDEON in Istanbul.
 
 ## Current product rule
 
@@ -10,7 +10,9 @@ The public site is Turkish-first, Istanbul-wide and intentionally quiet. No seed
 
 ## Mode locked by owner
 
-**Localhost only for now.** No Supabase, no cloud database, no deployment, no production publishing.
+The public experience is a lightweight static Site. No Supabase, cloud database,
+remote authentication or hosted media is required. The owner console stays local
+and is excluded from the public bundle.
 
 The browser is the preview data layer. Owner-created properties, uploaded preview media and leads use `localStorage`, so the site can run without external services or credentials.
 
@@ -26,6 +28,7 @@ The FIDEON favicon/monogram and full logo lockup are code-based SVG vectors trac
 
 - `assets/fideon-mark.svg`
 - `assets/fideon-logo.svg`
+- `assets/fideon-logo-reference.jpg`
 
 Core identity colors are deep green and warm antique gold.
 
@@ -53,11 +56,11 @@ Core identity colors are deep green and warm antique gold.
 
 The common listing fields stay visible. Advanced fields are collapsed under **Diğer detaylar** so the main workflow stays simple.
 
-## Important local-only truth
+## Important architecture truth
 
-This is a localhost product, not a production backend. There is intentionally no remote authentication, multi-device database, hosted media storage, automated outbound messaging or deployment.
+The public Site is static and intentionally has no remote authentication, multi-device database, hosted media storage or automated outbound messaging.
 
-The admin route must not be published publicly in this mode.
+The admin route is localhost-only and is excluded from the public build.
 
 ## Run locally
 
