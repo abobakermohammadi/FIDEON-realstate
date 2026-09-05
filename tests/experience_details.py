@@ -68,7 +68,18 @@ for required in (
 if "if (!id || !manual) return" in admin_hygiene:
     errors.append("admin room plan cannot be cleared")
 
-for required in ("trapMobileMenuFocus", "autoGrowTextarea", "MutationObserver", "installHeadPolish", "manifest.webmanifest", "apple-mobile-web-app-title"):
+for required in (
+    "trapMobileMenuFocus",
+    "autoGrowTextarea",
+    "MutationObserver",
+    "installHeadPolish",
+    "manifest.webmanifest",
+    "apple-mobile-web-app-title",
+    "markActiveNavigation",
+    "navigationChanged",
+    "guardImages",
+    "property-placeholder.svg",
+):
     if required not in neo_live_js:
         errors.append(f"live mobile/form/browser refinement missing: {required}")
 for required in ("mask-image:url", ".mobile-contact-dock .dock-link>span"):
