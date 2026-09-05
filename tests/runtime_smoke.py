@@ -12,7 +12,7 @@ ROUTES = [
     "/assets/styles-base.css", "/assets/styles-components-a.css", "/assets/styles-components-b.css", "/assets/styles-admin-responsive.css",
     "/assets/v2.css", "/assets/portfolio-polish.css", "/assets/real-listing.css", "/assets/minimal.css",
     "/assets/data.js", "/assets/app.js", "/assets/admin.js", "/assets/real-listing-detail.js", "/assets/whatsapp-forms.js", "/assets/public-polish.js",
-    "/assets/asiyan-exterior.svg", "/assets/asiyan-reel-preview.svg",
+    "/assets/asiyan-exterior.svg", "/assets/asiyan-reel-preview.svg", "/assets/property-palm.svg",
 ]
 
 class Quiet(SimpleHTTPRequestHandler):
