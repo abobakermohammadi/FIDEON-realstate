@@ -70,14 +70,16 @@
     const form = editorForm();
     const id = form?.elements.id?.value || form?.dataset.editing;
     const manual = normalizeRoomPlan(form?.elements.roomPlanManual?.value);
-    if (!id || !manual) return;
+    if (!id) return;
     const properties = migrateStoredMedia();
+    const beds = roomPlanToBeds(manual);
     let changed = false;
     const next = properties.map(property => {
       if (String(property.id) !== String(id)) return property;
-      if (property.roomPlan === manual) return property;
+      const nextBeds = beds === '' ? null : Number(beds);
+      if (String(property.roomPlan || '') === manual && property.beds === nextBeds) return property;
       changed = true;
-      return {...property, roomPlan:manual, beds:roomPlanToBeds(manual) === '' ? null : Number(roomPlanToBeds(manual))};
+      return {...property, roomPlan:manual, beds:nextBeds};
     });
     if (changed) writeProperties(next);
   }
