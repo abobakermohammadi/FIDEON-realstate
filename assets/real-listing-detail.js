@@ -6,6 +6,26 @@
     return items.map(item => `<div class="${className}">${esc(item)}</div>`).join("");
   }
 
+  async function shareListing(button, title) {
+    const shareData = { title: `${title} | FIDEON`, text: `${title} ilanını inceleyin.`, url: location.href };
+    try {
+      if (navigator.share) {
+        await navigator.share(shareData);
+        return;
+      }
+      if (navigator.clipboard?.writeText) {
+        await navigator.clipboard.writeText(location.href);
+        const old = button.textContent;
+        button.textContent = "Bağlantı kopyalandı";
+        setTimeout(() => { button.textContent = old; }, 1800);
+        return;
+      }
+      window.prompt("İlan bağlantısını kopyalayın:", location.href);
+    } catch (error) {
+      if (error?.name !== "AbortError") window.prompt("İlan bağlantısını kopyalayın:", location.href);
+    }
+  }
+
   function render() {
     const root = document.querySelector("[data-dynamic-property]");
     if (!root) return;
@@ -40,7 +60,10 @@
 
     root.innerHTML = `
       <div class="real-listing-shell">
-        <a class="real-listing-back" href="/properties/" aria-label="İlanlara dön">← İlanlara dön</a>
+        <div class="real-listing-toolbar">
+          <a class="real-listing-back" href="/properties/" aria-label="İlanlara dön">← İlanlara dön</a>
+          <button class="real-listing-share" type="button" data-share-listing>Paylaş ↗</button>
+        </div>
 
         <section class="real-listing-media" aria-label="Aşiyan Konakları görselleri">
           <div class="real-listing-media-main">
@@ -77,7 +100,7 @@
             <div class="real-listing-section">
               <h2>Daire hakkında</h2>
               <p>${esc(p.description)}</p>
-              <div class="real-listing-note">Bu sayfada yalnızca bize verilen doğrulanmış ilan bilgileri gösteriliyor. m², kat, bina yaşı gibi paylaşılmayan bilgiler uydurulmadı. Güncel detaylar için doğrudan iletişime geçebilirsiniz.</div>
+              <div class="real-listing-note">m², kat, bina yaşı ve diğer detayları öğrenmek için WhatsApp'tan sorun veya bizi arayın.</div>
             </div>
 
             <div class="real-listing-section">
@@ -107,6 +130,8 @@
         <a class="wa" href="${waHref}" target="_blank" rel="noreferrer">WhatsApp'tan Sor</a>
         <a class="call" href="${callHref}">Ara</a>
       </div>`;
+
+    root.querySelector("[data-share-listing]")?.addEventListener("click", event => shareListing(event.currentTarget, p.title));
   }
 
   document.addEventListener("DOMContentLoaded", render);
