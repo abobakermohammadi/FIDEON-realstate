@@ -18,13 +18,13 @@
         <button type="button" data-admin-nav="leads">Talepler</button>
         <button type="button" data-admin-nav="settings">Ayarlar</button>
       </nav>
-      <div class="admin-sidebar-status" data-admin-sidebar-status>Localhost.<br>Veriler bu tarayıcıda kalır.</div>
+      <div class="admin-sidebar-status">Localhost.<br>Veriler bu tarayıcıda kalır.</div>
     </aside>
 
     <section class="admin-main">
       <div class="admin-topbar">
         <div><div class="section-kicker" style="margin-bottom:5px">FIDEON</div><h1 id="admin-title">Yönetim merkezi</h1></div>
-        <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap"><span class="admin-badge" data-admin-mode-badge>Localhost</span><button class="btn btn-dark" type="button" data-add-property>+ İlan ekle</button></div>
+        <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap"><span class="admin-badge">Localhost</span><button class="btn btn-dark" type="button" data-add-property>+ İlan ekle</button></div>
       </div>
 
       <section class="admin-view active" data-view="dashboard">
@@ -98,29 +98,5 @@
   <nav class="admin-mobile-bar" aria-label="Mobil yönetim"><button type="button" data-admin-nav="dashboard" class="active">Ana</button><button type="button" data-admin-nav="properties">İlanlar</button><button type="button" data-admin-nav="leads">Talepler</button><button type="button" data-admin-nav="settings">Ayarlar</button></nav>
 </div>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
-<script src="/assets/data.js"></script>
-<script>
-(() => {
-  try {
-    const key = "fideon.properties.v2";
-    const legacy = "fideon.properties.v1";
-    const raw = localStorage.getItem(key);
-    if (raw !== null) {
-      localStorage.removeItem(legacy);
-      const saved = JSON.parse(raw);
-      if (Array.isArray(saved) && saved.length === 0) window.FIDEON.sampleProperties = [];
-    }
-  } catch {}
-  window.FIDEON.ui = window.FIDEON.ui || {};
-  window.FIDEON.ui.toast = message => {
-    const node = document.getElementById("toast");
-    if (!node) return;
-    node.textContent = message;
-    node.classList.add("show");
-    clearTimeout(window.__fideonAdminToast);
-    window.__fideonAdminToast = setTimeout(() => node.classList.remove("show"), 2400);
-  };
-})();
-</script>
-<script src="/assets/admin.js"></script>
+<script src="/assets/data.js"></script><script src="/assets/admin.js"></script>
 </body></html>
