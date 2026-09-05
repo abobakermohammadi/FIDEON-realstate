@@ -1,4 +1,6 @@
 from pathlib import Path
+import base64
+import re
 import sys
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -47,12 +49,26 @@ if ".page-hero{padding-block:" not in minimal_css or "color:var(--ink-950)" not 
     errors.append("interior page hero contrast regression returned")
 if ".home-property-grid .property-card:only-child .property-image{min-width:0;width:100%;aspect-ratio:auto}" not in minimal_css:
     errors.append("single-listing desktop card can clip its content again")
+if "aspect-ratio:4/3!important" not in minimal_css or "height:auto!important" not in minimal_css:
+    errors.append("homepage mobile listing can become a giant uncropped portrait again")
+if ".reveal{opacity:1!important;transform:none!important;transition:none!important}" not in minimal_css:
+    errors.append("essential public content can be hidden behind decorative reveal animation")
 
 reel_preview = (ROOT / "assets/asiyan-reel-preview.svg").read_text(encoding="utf-8")
 if "Aşiyan Konakları salon görüntüsü" not in reel_preview:
     errors.append("real interior preview is missing")
 if "animation:fade" in reel_preview:
     errors.append("obsolete corrupted animated reel preview returned")
+media_match = re.search(r"data:image/jpeg;base64,([^\"]+)", reel_preview)
+if not media_match:
+    errors.append("real interior preview JPEG is not embedded")
+else:
+    try:
+        media_bytes = base64.b64decode(media_match.group(1), validate=True)
+        if not (media_bytes.startswith(b"\xff\xd8") and media_bytes.endswith(b"\xff\xd9")):
+            errors.append("embedded salon preview is not a complete JPEG")
+    except Exception:
+        errors.append("embedded salon preview base64 is invalid")
 
 admin_html = (ROOT / "admin/index.html").read_text(encoding="utf-8")
 admin_js = (ROOT / "assets/admin.js").read_text(encoding="utf-8")
