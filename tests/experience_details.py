@@ -7,6 +7,8 @@ errors = []
 viewer_js = (ROOT / "assets/portfolio-viewer.js").read_text(encoding="utf-8")
 viewer_css = (ROOT / "assets/portfolio-viewer.css").read_text(encoding="utf-8")
 detail_html = (ROOT / "properties/view/index.html").read_text(encoding="utf-8")
+index_html = (ROOT / "index.html").read_text(encoding="utf-8")
+mobile_home_css = (ROOT / "assets/mobile-home-fix.css").read_text(encoding="utf-8")
 admin_html = (ROOT / "admin/index.html").read_text(encoding="utf-8")
 admin_hygiene = (ROOT / "assets/admin-hygiene.js").read_text(encoding="utf-8")
 neo_live_js = (ROOT / "assets/neo-live.js").read_text(encoding="utf-8")
@@ -48,6 +50,24 @@ for required in (
 for required in ("/assets/portfolio-viewer.css", "/assets/portfolio-viewer.js"):
     if required not in detail_html:
         errors.append(f"property detail does not load viewer asset: {required}")
+
+if '/assets/mobile-home-fix.css' not in index_html:
+    errors.append("homepage does not load the real-phone repair stylesheet")
+else:
+    if index_html.find('/assets/mobile-home-fix.css') < index_html.find('/assets/neo-live.css'):
+        errors.append("mobile homepage repair must load after neo layers")
+for required in (
+    "min-height:560px!important",
+    "padding:84px 18px 174px!important",
+    "height:170px!important",
+    "@media (max-width:340px)",
+    "orientation:landscape",
+    ".home-action-section .container",
+):
+    if required not in mobile_home_css:
+        errors.append(f"real-phone homepage repair missing: {required}")
+if "padding:92px 18px 230px!important" in mobile_home_css or "min-height:640px!important" in mobile_home_css:
+    errors.append("mobile homepage reverted to oversized dead-zone geometry")
 
 for required in ('name="roomPlanManual"', "/assets/admin-hygiene.js", "/assets/admin-polish.css"):
     if required not in admin_html:
@@ -121,4 +141,4 @@ if errors:
         print("ERROR:", error)
     sys.exit(1)
 
-print("PASS: obsessive portfolio, admin, browser, legal, retired-route, mobile and WhatsApp detail checks")
+print("PASS: obsessive portfolio, admin, browser, legal, retired-route, real-phone mobile and WhatsApp detail checks")
