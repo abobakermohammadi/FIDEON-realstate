@@ -3,7 +3,7 @@ window.FIDEON.config = {
   brand: "FIDEON",
   email: "fideon.official@gmail.com",
   instagram: "https://www.instagram.com/fideon.official/",
-  domain: "https://fideon.com.tr",
+  domain: "",
   whatsapp: "905013575635",
   phone: "+90 501 357 56 35",
   city: "İstanbul",
