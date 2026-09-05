@@ -4,7 +4,7 @@
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#f4f3ef"><title>FIDEON Yönetim Paneli · Localhost</title><meta name="robots" content="noindex,nofollow">
 <link rel="icon" href="/assets/fideon-mark.svg" type="image/svg+xml">
-<link rel="stylesheet" href="/assets/styles-base.css"><link rel="stylesheet" href="/assets/styles-components-a.css"><link rel="stylesheet" href="/assets/styles-components-b.css"><link rel="stylesheet" href="/assets/styles-admin-responsive.css"><link rel="stylesheet" href="/assets/delight.css"><link rel="stylesheet" href="/assets/immersive.css"><link rel="stylesheet" href="/assets/neo.css"><link rel="stylesheet" href="/assets/neo-live.css">
+<link rel="stylesheet" href="/assets/styles-base.css"><link rel="stylesheet" href="/assets/styles-components-a.css"><link rel="stylesheet" href="/assets/styles-components-b.css"><link rel="stylesheet" href="/assets/styles-admin-responsive.css"><link rel="stylesheet" href="/assets/delight.css"><link rel="stylesheet" href="/assets/immersive.css"><link rel="stylesheet" href="/assets/neo.css"><link rel="stylesheet" href="/assets/neo-live.css"><link rel="stylesheet" href="/assets/admin-polish.css">
 </head>
 <body class="admin-page">
 <a class="skip-link" href="#admin-title">Yönetim içeriğine geç</a>
@@ -30,14 +30,14 @@
         <div class="admin-panel" style="margin-top:14px" id="property-editor">
           <div class="panel-head"><h2 data-editor-title>Yeni portföy ilanı</h2><span class="status-pill">Yerel kayıt</span></div>
           <form class="admin-form-grid" onsubmit="return false">
-            <input type="hidden" name="id">
+            <input type="hidden" name="id"><input type="hidden" name="beds">
             <div class="field full"><label>İlan başlığı</label><input name="title" required placeholder="Örn. Beylikdüzü'nde 3+1 Daire"></div>
             <div class="field"><label>Konum</label><input name="district" required placeholder="Örn. Beylikdüzü, İstanbul"></div>
             <div class="field"><label>Tip</label><select name="type"><option value="Daire">Daire</option><option value="Villa">Villa</option><option value="Arsa">Arsa</option><option value="Ticari">Ticari</option><option value="Penthouse">Penthouse</option><option value="Müstakil Ev">Müstakil Ev</option></select></div>
             <div class="field"><label>İşlem</label><select name="intent"><option value="Buy">Satılık</option><option value="Rent">Kiralık</option></select></div>
             <div class="field"><label>Durum</label><select name="status"><option value="Satılık">Satılık</option><option value="Kiralık">Kiralık</option><option value="Rezerve">Rezerve</option><option value="Satıldı">Satıldı</option><option value="Kiralandı">Kiralandı</option><option value="Taslak">Taslak</option><option value="Arşiv">Arşiv</option></select></div>
             <div class="field"><label>Fiyat</label><input name="price" inputmode="decimal" type="number" min="0" step="1" placeholder="Boş = WhatsApp'tan sorun"></div>
-            <div class="field"><label>Oda</label><input name="beds" inputmode="numeric" type="number" min="0" placeholder="3 = 3+1"></div>
+            <div class="field"><label>Oda planı</label><input name="roomPlanManual" inputmode="text" autocomplete="off" placeholder="3+1"></div>
             <div class="field full"><label><input name="priceOnRequest" type="checkbox" style="width:auto;min-height:auto;margin-right:8px">Fiyatı sitede gösterme</label></div>
             <div class="field full"><label>Kısa açıklama</label><textarea name="summary" placeholder="Müşterinin ilk bakışta bilmesi gerekenler"></textarea></div>
             <div class="field full"><label>Fotoğraflar</label><div class="media-drop"><input id="media-input" type="file" accept="image/*" capture="environment" multiple style="max-width:100%"><p style="font-size:11px;color:var(--ink-500);line-height:1.5;margin:10px 0 0">İlk fotoğraf kapak olur. Telefondan kamera veya galeriyi kullanabilirsiniz.</p></div><div class="media-previews" data-media-previews></div></div>
@@ -63,5 +63,5 @@
   <nav class="admin-mobile-bar" aria-label="Mobil yönetim"><button type="button" data-admin-nav="dashboard" class="active">Ana</button><button type="button" data-admin-nav="properties">Portföy</button><button type="button" data-admin-nav="leads">Talepler</button><button type="button" data-admin-nav="settings">Ayarlar</button></nav>
 </div>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
-<script src="/assets/data.js"></script><script src="/assets/admin.js"></script><script src="/assets/delight.js"></script><script src="/assets/immersive.js"></script><script src="/assets/neo-live.js"></script>
+<script src="/assets/data.js"></script><script src="/assets/admin.js"></script><script src="/assets/admin-hygiene.js"></script><script src="/assets/delight.js"></script><script src="/assets/immersive.js"></script><script src="/assets/neo-live.js"></script>
 </body></html>
