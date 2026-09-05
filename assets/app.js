@@ -52,7 +52,7 @@
   }
 
   function ensurePublicStyles() {
-    ["/assets/v2.css","/assets/minimal.css","/assets/delight.css"].forEach(href => {
+    ["/assets/v2.css","/assets/minimal.css","/assets/delight.css","/assets/immersive.css"].forEach(href => {
       if ($(`link[href="${href}"]`)) return;
       const link = document.createElement("link");
       link.rel = "stylesheet";
@@ -61,13 +61,15 @@
     });
   }
 
-  function ensureDelightScript() {
-    if ($("#fideon-delight")) return;
-    const script = document.createElement("script");
-    script.id = "fideon-delight";
-    script.src = "/assets/delight.js";
-    script.async = false;
-    document.head.appendChild(script);
+  function ensureExperienceScripts() {
+    [["fideon-delight","/assets/delight.js"],["fideon-immersive","/assets/immersive.js"]].forEach(([id,src]) => {
+      if ($(`#${id}`)) return;
+      const script = document.createElement("script");
+      script.id = id;
+      script.src = src;
+      script.async = false;
+      document.head.appendChild(script);
+    });
   }
 
   const propertyURL = property => `/properties/view/?slug=${encodeURIComponent(property.slug || property.id)}`;
@@ -229,7 +231,7 @@
   function initYear() { $$("[data-year]").forEach(node => { node.textContent = new Date().getFullYear(); }); }
 
   ensurePublicStyles();
-  ensureDelightScript();
+  ensureExperienceScripts();
   document.addEventListener("DOMContentLoaded", () => {
     initMenu();
     initHeader();
