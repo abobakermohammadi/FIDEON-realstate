@@ -1,4 +1,4 @@
-/* Public inventory polish: designed for real listings, not filler grids. */
+/* Public inventory polish: designed for FIDEON's own portfolio, not filler grids. */
 .hero-v2 .hero-media img{object-position:center 38%;filter:saturate(.88) contrast(.98) brightness(.88)}
 .hero-property-caption{position:absolute;z-index:2;right:24px;bottom:24px;display:flex;flex-direction:column;gap:3px;max-width:260px;padding:11px 14px;border:1px solid rgba(255,255,255,.18);border-radius:11px;background:rgba(7,27,21,.68);color:#fff;backdrop-filter:blur(10px);box-shadow:0 10px 30px rgba(0,0,0,.16)}
 .hero-property-caption strong{font-size:12px;letter-spacing:.01em}
@@ -16,6 +16,13 @@
 .results-head{align-items:end}
 .results-count{margin-top:8px;color:var(--ink-500);font-size:13px}
 
+.property-origin{display:flex;align-items:center;gap:8px;margin-bottom:10px;color:var(--gold-700);font-size:9px;font-weight:800;letter-spacing:.18em;text-transform:uppercase}
+.property-origin::before{content:"";width:18px;height:1px;background:linear-gradient(90deg,var(--gold-500),transparent);transform-origin:left;transition:width .45s cubic-bezier(.16,1,.3,1)}
+.property-card:hover .property-origin::before{width:31px}
+.property-card .property-body{position:relative}
+.property-card .property-body::after{content:"";position:absolute;right:18px;top:16px;width:54px;aspect-ratio:1;background:url('/assets/fideon-mark.svg') center/contain no-repeat;opacity:.026;transform:rotate(-8deg);transition:opacity .45s ease,transform .7s cubic-bezier(.16,1,.3,1);pointer-events:none}
+.property-card:hover .property-body::after{opacity:.06;transform:rotate(0deg) scale(1.04)}
+
 @media(max-width:760px){
   .hero-v2 .hero-media img{object-position:center 28%}
   .hero-property-caption{right:14px;bottom:14px;max-width:220px;padding:9px 11px}
@@ -29,4 +36,5 @@
   .home-property-grid .property-card:only-child .property-meta{margin-top:10px!important}
   .home-property-grid .property-card:only-child .property-foot{margin-top:9px!important}
   .properties-grid .property-card:only-child .property-image{aspect-ratio:auto}
+  .property-origin{font-size:8px;margin-bottom:7px;letter-spacing:.15em}.property-card .property-body::after{width:42px;right:10px;top:10px}
 }
