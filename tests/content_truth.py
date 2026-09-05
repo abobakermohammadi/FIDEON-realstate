@@ -42,6 +42,18 @@ for rel in ("index.html", "properties/index.html"):
     if "/assets/public-polish.js" in text:
         errors.append(f"obsolete public polish shim still loaded: {rel}")
 
+minimal_css = (ROOT / "assets/minimal.css").read_text(encoding="utf-8")
+if ".page-hero{padding-block:" not in minimal_css or "color:var(--ink-950)" not in minimal_css:
+    errors.append("interior page hero contrast regression returned")
+if ".home-property-grid .property-card:only-child .property-image{min-width:0;width:100%;aspect-ratio:auto}" not in minimal_css:
+    errors.append("single-listing desktop card can clip its content again")
+
+reel_preview = (ROOT / "assets/asiyan-reel-preview.svg").read_text(encoding="utf-8")
+if "Aşiyan Konakları salon görüntüsü" not in reel_preview:
+    errors.append("real interior preview is missing")
+if "animation:fade" in reel_preview:
+    errors.append("obsolete corrupted animated reel preview returned")
+
 admin_html = (ROOT / "admin/index.html").read_text(encoding="utf-8")
 admin_js = (ROOT / "assets/admin.js").read_text(encoding="utf-8")
 if 'type="reset">Temizle' in admin_html:
@@ -66,6 +78,8 @@ if "F.store?.getProperties?.()" not in real_detail:
     errors.append("real Aşiyan detail is not synced with current browser-local inventory")
 if "F.store?.isPublicProperty" not in real_detail:
     errors.append("real Aşiyan detail bypasses public visibility guard")
+if "İç mekandan" not in real_detail or "Salon görüntüsü" not in real_detail:
+    errors.append("listing interior media copy drifted from the real static preview")
 
 readme = (ROOT / "README.md").read_text(encoding="utf-8")
 for stale in ("four clearly labeled sample", "global referral flow", "sample inventory is labeled"):
