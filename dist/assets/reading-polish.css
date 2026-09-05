@@ -1,0 +1,42 @@
+/* FIDEON quiet reading surface
+   Forgotten pages still deserve the same precision as the homepage. */
+.legal-page .page-hero{min-height:360px!important}
+.legal-page .section{padding-top:34px!important;padding-bottom:88px!important}
+.legal-page .section>.container{max-width:980px!important}
+.legal-page .page-copy{
+  counter-reset:legal-section;position:relative;max-width:860px!important;margin:0 auto!important;padding:clamp(28px,5vw,56px)!important;
+  border:1px solid rgba(255,255,255,.82);border-radius:30px;background:linear-gradient(145deg,rgba(255,255,255,.72),rgba(255,255,255,.44));
+  box-shadow:0 24px 74px rgba(28,31,29,.08),inset 0 1px 0 rgba(255,255,255,.94);
+  backdrop-filter:blur(24px) saturate(1.12);-webkit-backdrop-filter:blur(24px) saturate(1.12);
+  font-size:16px!important;line-height:1.82!important;color:rgba(15,17,16,.66)!important;overflow:hidden
+}
+.legal-page .page-copy::before{
+  content:"";position:absolute;left:0;right:0;top:0;height:2px;
+  background:linear-gradient(90deg,transparent,rgba(255,155,113,.72),rgba(159,140,255,.68),rgba(104,215,230,.62),transparent);opacity:.72
+}
+.legal-page .page-copy::after{
+  content:"FIDEON";position:absolute;right:-12px;bottom:-14px;font-size:86px;font-weight:750;letter-spacing:-.07em;
+  color:rgba(15,17,16,.025);pointer-events:none;user-select:none
+}
+.legal-page .page-copy h2{
+  counter-increment:legal-section;position:relative;margin:40px 0 12px!important;padding-left:42px!important;
+  color:#111311!important;font-size:clamp(24px,3vw,34px)!important;font-weight:640!important;letter-spacing:-.045em!important;line-height:1.05!important
+}
+.legal-page .page-copy h2:first-child{margin-top:0!important}
+.legal-page .page-copy h2::before{
+  content:"0" counter(legal-section);position:absolute;left:0;top:.32em;width:28px;font-size:9px;font-weight:800;letter-spacing:.12em;color:#9b7445
+}
+.legal-page .page-copy p{margin:0 0 22px!important;max-width:720px}
+.legal-page .page-copy p:last-child{margin-bottom:0!important}
+.legal-page .site-footer{padding-top:34px!important}
+
+@media(max-width:760px){
+  .legal-page .page-hero{min-height:330px!important}
+  .legal-page .section{padding:18px 12px 64px!important}
+  .legal-page .section>.container{padding:0!important}
+  .legal-page .page-copy{border-radius:22px;padding:28px 22px!important;font-size:15px!important;line-height:1.72!important}
+  .legal-page .page-copy h2{padding-left:34px!important;font-size:25px!important;margin-top:34px!important}
+  .legal-page .page-copy::after{font-size:58px;right:-8px;bottom:-9px}
+}
+
+@media(prefers-reduced-motion:reduce){.legal-page .page-copy{scroll-behavior:auto}}
