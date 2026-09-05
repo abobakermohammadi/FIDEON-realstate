@@ -27,6 +27,7 @@ EXPECTED = [
     "assets/styles-components-b.css",
     "assets/styles-admin-responsive.css",
     "assets/v2.css",
+    "assets/minimal.css",
     "assets/portfolio-polish.css",
     "assets/real-listing.css",
     "assets/app.js",
@@ -113,13 +114,20 @@ for stale in ("Dubai · Global", "Global Referrals", "Private development previe
     if stale.lower() in public_truth.lower():
         errors.append(f"stale global/template positioning found in active public surface: {stale}")
 
-# High-intent public forms must hand the visitor straight to WhatsApp.
-for rel in ("contact/index.html", "find/index.html", "sell/index.html", "private/index.html"):
+# Lead forms that remain should hand visitors straight to WhatsApp.
+for rel in ("find/index.html", "sell/index.html", "private/index.html"):
     text = (ROOT/rel).read_text(encoding="utf-8")
     if "data-whatsapp-form" not in text:
         errors.append(f"direct WhatsApp form handoff missing: {rel}")
     if "/assets/whatsapp-forms.js" not in text:
         errors.append(f"WhatsApp form runtime missing: {rel}")
+
+# Contact is intentionally form-free in the minimal design but must expose direct actions.
+contact = (ROOT/"contact/index.html").read_text(encoding="utf-8")
+if "data-whatsapp" not in contact:
+    errors.append("direct WhatsApp action missing: contact/index.html")
+if "tel:+905013575635" not in contact:
+    errors.append("direct phone action missing: contact/index.html")
 
 data = (ROOT/"assets/data.js").read_text(encoding="utf-8")
 if 'whatsapp: "905013575635"' not in data:
@@ -130,7 +138,7 @@ for obsolete in ("skyline-residence", "waterfront-house", "desert-retreat", "aur
     if obsolete in data:
         errors.append(f"obsolete sample listing still present in active inventory: {obsolete}")
 
-css = "\n".join((ROOT/f"assets/{name}").read_text() for name in ["styles-base.css","styles-components-a.css","styles-components-b.css","styles-admin-responsive.css","v2.css","real-listing.css","portfolio-polish.css"])
+css = "\n".join((ROOT/f"assets/{name}").read_text() for name in ["styles-base.css","styles-components-a.css","styles-components-b.css","styles-admin-responsive.css","v2.css","minimal.css","real-listing.css","portfolio-polish.css"])
 if "prefers-reduced-motion" not in css:
     errors.append("reduced-motion handling missing")
 if "overflow-x" not in css and "overflow:hidden" not in css:
