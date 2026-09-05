@@ -47,10 +47,11 @@ html.fx-leaving .fx-curtain::before{transform:translateX(100%)}
 html.fx-leaving main{opacity:.82!important;transform:translateY(-2px)!important;transition:opacity .18s ease,transform .22s ease!important}
 
 /* Motion is crisp, not floaty. */
-.fx-enabled .fx-intro{transform:translate3d(0,12px,0)!important;filter:blur(3px)!important;animation-duration:.72s!important}
-.fx-enabled .fx-reveal{transform:translate3d(0,16px,0)!important;filter:blur(2px)!important;transition:opacity .58s var(--imm-ease),transform .72s var(--imm-spring),filter .45s ease!important}
-.fx-enabled .fx-reveal[data-fx-side]{transform:translate3d(0,14px,0)!important}
-.fx-enabled .fx-reveal.fx-in{transform:none!important;filter:none!important}
+.fx-enabled .fx-intro{transform:translate3d(0,12px,0);filter:blur(3px);animation-duration:.72s}
+.fx-enabled .fx-reveal{transform:translate3d(0,16px,0);filter:blur(2px);transition:opacity .58s var(--imm-ease),transform .72s var(--imm-spring),filter .45s ease}
+.fx-enabled .fx-reveal[data-fx-side]{transform:translate3d(0,14px,0)}
+.fx-enabled .fx-reveal.fx-in{transform:none;filter:none}
+html.fx-loaded .fx-intro{animation:none;opacity:1;transform:none;filter:none;transition:opacity .72s ease,transform .72s var(--imm-spring),filter .72s ease}
 
 /* Hero canvas: editorial on the left, living product object on the right. */
 .hero,.page-hero{--scene-x:0px;--scene-y:0px;--scene-rx:0deg;--scene-ry:0deg;--hero-scroll:0px;position:relative;isolation:isolate;overflow:hidden}
@@ -58,7 +59,7 @@ html.fx-leaving main{opacity:.82!important;transform:translateY(-2px)!important;
 .v2-home .hero-media{background:transparent!important}
 .v2-home .hero-media::after{background:radial-gradient(760px circle at 76% 48%,rgba(219,193,148,.09),transparent 68%)!important}
 .hero>.fx-depth-scene,.page-hero>.fx-depth-scene{position:absolute;inset:0;z-index:0;overflow:hidden;pointer-events:none;perspective:1200px}
-.hero>.hero-content,.page-hero>.container{position:relative;z-index:3}
+.hero>.hero-content,.v2-home .hero-v2-content,.page-hero>.container{position:relative;z-index:3}
 .v2-home .hero-v2-content{width:min(1280px,calc(100% - 64px))!important;margin-inline:auto!important}
 .v2-home .hero-v2-copy{max-width:690px!important;padding-right:34px}
 .v2-home .hero h1{font-size:clamp(56px,6.2vw,104px)!important;line-height:.94!important;letter-spacing:-.055em!important;text-wrap:balance;text-shadow:none!important}

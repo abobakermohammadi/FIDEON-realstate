@@ -8,6 +8,10 @@
 }
 
 .neo-reactive{position:relative;isolation:isolate;--neo-x:50%;--neo-y:50%}
+.site-header.neo-reactive{position:absolute!important}
+.site-header.scrolled.neo-reactive{position:fixed!important}
+.mobile-menu.neo-reactive{position:fixed!important}
+.mobile-contact-dock.neo-reactive{position:fixed!important}
 .neo-glint{
   position:absolute;inset:0;z-index:9;pointer-events:none;border-radius:inherit;opacity:0;
   background:radial-gradient(420px circle at var(--neo-x) var(--neo-y),rgba(255,255,255,.48),rgba(255,255,255,.12) 24%,transparent 62%);
@@ -139,4 +143,27 @@
   .v2-home .hero::after,.page-hero::after,.v2-home .hero-v2-copy::after{animation:none!important}
   .neo-pressed{animation:none!important}
   .neo-glint{display:none!important}
+}
+
+/* Owner-supplied lockup: the dark green and antique gold mark is the signature
+   object inside the glass scene, while the header keeps its lightweight vector lockup. */
+.fx-core{
+  overflow:hidden!important;
+  padding:0!important;
+  background:#071b15!important;
+  border-color:rgba(201,166,107,.62)!important;
+  box-shadow:0 22px 58px rgba(7,27,21,.22),inset 0 0 0 1px rgba(201,166,107,.18)!important;
+}
+.fx-core img{
+  width:100%!important;
+  height:100%!important;
+  object-fit:cover!important;
+  opacity:1!important;
+  filter:none!important;
+  border-radius:inherit!important;
+}
+body:not(.admin-page) .brand-word{opacity:.96!important}
+
+@media(max-width:760px){
+  .v2-home .fx-core{box-shadow:0 16px 38px rgba(7,27,21,.20),inset 0 0 0 1px rgba(201,166,107,.18)!important}
 }

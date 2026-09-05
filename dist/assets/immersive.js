@@ -19,7 +19,7 @@
   }
 
   function sceneMarkup() {
-    return `<div class="fx-depth-grid"></div><div class="fx-depth-glow"></div><div class="fx-orbit-stage"><div class="fx-orbit fx-orbit-a"></div><div class="fx-orbit fx-orbit-b"></div><div class="fx-orbit fx-orbit-c"></div><div class="fx-arc fx-arc-a"></div><div class="fx-arc fx-arc-b"></div><div class="fx-core"><img src="/assets/fideon-mark.svg" alt=""></div><i class="fx-spark"></i><i class="fx-spark"></i><i class="fx-spark"></i><i class="fx-spark"></i><i class="fx-beam"></i><i class="fx-beam"></i></div>`;
+    return `<div class="fx-depth-grid"></div><div class="fx-depth-glow"></div><div class="fx-orbit-stage"><div class="fx-orbit fx-orbit-a"></div><div class="fx-orbit fx-orbit-b"></div><div class="fx-orbit fx-orbit-c"></div><div class="fx-arc fx-arc-a"></div><div class="fx-arc fx-arc-b"></div><div class="fx-core"><img src="/assets/fideon-logo-reference.jpg" alt=""></div><i class="fx-spark"></i><i class="fx-spark"></i><i class="fx-spark"></i><i class="fx-spark"></i><i class="fx-beam"></i><i class="fx-beam"></i></div>`;
   }
 
   function installScenes(scope=document) {
