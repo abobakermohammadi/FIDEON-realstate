@@ -1,35 +1,43 @@
 # Build status
 
-## 2026-09-04 · Localhost v1 completion pass
+## 2026-09-05 · Minimal localhost finish pass
 
 ### Owner constraint
 - localhost only
-- no Supabase for now
+- no Supabase or cloud backend
 - no deployment or publishing
+- Turkish-first, Istanbul-wide
+- minimum effort to browse, understand and contact FIDEON
 
 ### Proven in repository
-- complete primary public route set exists
-- responsive public shell and FIDEON visual system exist
-- property discovery and sample detail routes exist
-- conversion forms persist into the browser-local lead store
-- saved properties persist in browser storage
-- admin property CRUD persists in browser storage
-- admin lead pipeline stage changes persist in browser storage
-- admin property editor selector bug found during audit and fixed
-- no verified WhatsApp number is invented
-- sample inventory is labeled as sample
-- indexing is blocked for the localhost preview
-- structural validation passes
-- JavaScript syntax checks pass
+- real Aşiyan Konakları listing and supplied media are active
+- verified contact is preserved: `+90 501 357 56 35`
+- homepage and listings were reduced to the essential visitor journey
+- buyer, seller and private request forms hand directly to WhatsApp
+- buyer/seller forms no longer ask for redundant name/phone fields before WhatsApp
+- Contact is intentionally form-free and exposes WhatsApp, call and email immediately
+- listing cards use the listing-specific WhatsApp message when available
+- saved-list UI was retired from the minimal public flow
+- stale Dubai/global 404 and old global/template positioning were removed
+- synthetic sample property routes and unused synthetic property art were removed
+- missing-photo fallback is now a neutral FIDEON placeholder
+- owner admin is isolated from the public runtime
+- admin common listing fields are visible while advanced fields are collapsed
+- explicit empty local inventory remains empty instead of resurrecting seed data
+- Turkish privacy and terms drafts exist
+- indexing is blocked for localhost
+- `npm run check` is the repository gate
+- GitHub Actions runs validation and static build on `main`
 
-### Intentional limitations of localhost mode
-- data is browser/device-local, not shared across devices
-- clearing browser storage clears locally created properties/leads/saved items
+### Intentional localhost limitations
+- data is browser/device-local
+- clearing browser storage clears local properties and leads
 - admin has no production authentication and must remain local
-- media uploaded in admin is stored as browser data URLs and is suitable only for preview/demo use
-- no production notifications or analytics
+- uploaded admin media is stored as browser data URLs
+- no production notifications, analytics or external persistence
+
+### Remaining evidence boundary
+Automated structural, runtime-smoke, syntax, safety and build checks can be proven in GitHub Actions. A final pixel-level desktop/mobile browser review still requires an environment capable of rendering and inspecting the actual localhost UI.
 
 ### Definition of done for this phase
-The repository is a coherent, runnable localhost product that covers the complete public browsing/conversion experience and a usable owner admin preview without pretending cloud infrastructure exists.
-
-Production hardening is a separate future phase and requires fresh owner approval because it would add external services/deployment.
+The repository must remain coherent, minimal and runnable on localhost with the real listing, direct contact flows, honest local persistence, green automated checks and no knowingly unresolved code/content defects. Production infrastructure is a separate future phase requiring owner approval.
