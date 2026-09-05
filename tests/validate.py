@@ -35,6 +35,7 @@ EXPECTED = [
     "assets/data.js",
     "assets/real-listing-detail.js",
     "assets/whatsapp-forms.js",
+    "assets/public-polish.js",
     "assets/fideon-mark.svg",
     "assets/asiyan-exterior.svg",
     "assets/asiyan-reel-preview.svg",
@@ -103,16 +104,20 @@ if "fideon.official@gmail.com" not in all_html:
 if "+90 501 357 56 35" not in all_html:
     errors.append("verified public phone missing from site")
 
-# Product-truth regression gates: FIDEON is Istanbul-first, not a Dubai/global brokerage.
+# Product-truth regression gates: no old Dubai/global/template positioning anywhere in HTML.
+for stale in ("Dubai · Global", "Global Referrals", "Private development preview", "sample inventory"):
+    if stale.lower() in all_html.lower():
+        errors.append(f"stale global/template positioning found in HTML: {stale}")
+
+# Active public surfaces stay Turkish/Istanbul-first and use the minimal shell.
 public_truth_paths = [
     "index.html", "properties/index.html", "properties/view/index.html",
     "private/index.html", "sell/index.html", "find/index.html",
-    "about/index.html", "contact/index.html", "saved/index.html"
+    "about/index.html", "contact/index.html", "404.html"
 ]
 public_truth = "\n".join((ROOT/p).read_text(encoding="utf-8") for p in public_truth_paths)
-for stale in ("Dubai · Global", "Global Referrals", "Private development preview"):
-    if stale.lower() in public_truth.lower():
-        errors.append(f"stale global/template positioning found in active public surface: {stale}")
+if "İstanbul" not in public_truth:
+    errors.append("Istanbul positioning missing from active public surfaces")
 
 # Lead forms that remain should hand visitors straight to WhatsApp.
 for rel in ("find/index.html", "sell/index.html", "private/index.html"):
@@ -128,6 +133,22 @@ if "data-whatsapp" not in contact:
     errors.append("direct WhatsApp action missing: contact/index.html")
 if "tel:+905013575635" not in contact:
     errors.append("direct phone action missing: contact/index.html")
+
+# Property cards use the final direct-contact polish and do not surface the old saved-list detour.
+for rel in ("index.html", "properties/index.html"):
+    text = (ROOT/rel).read_text(encoding="utf-8")
+    if "/assets/public-polish.js" not in text:
+        errors.append(f"public card polish missing: {rel}")
+saved = (ROOT/"saved/index.html").read_text(encoding="utf-8")
+if "url=/properties/" not in saved:
+    errors.append("saved route should return visitors to active listings in minimal mode")
+
+# Admin is intentionally isolated from public app behavior and must preserve an explicit empty local inventory.
+admin = (ROOT/"admin/index.html").read_text(encoding="utf-8")
+if "/assets/app.js" in admin:
+    errors.append("admin must not load public app runtime")
+if "fideon.properties.v2" not in admin or "saved.length === 0" not in admin:
+    errors.append("admin empty-inventory guard missing")
 
 data = (ROOT/"assets/data.js").read_text(encoding="utf-8")
 if 'whatsapp: "905013575635"' not in data:
