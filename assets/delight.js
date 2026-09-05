@@ -4,13 +4,10 @@
   const finePointer = matchMedia('(pointer:fine)').matches;
   const $ = (s, r=document) => r.querySelector(s);
   const $$ = (s, r=document) => [...r.querySelectorAll(s)];
+  let revealObserver = null;
+  let scrollFrame = 0;
 
   root.classList.add(reduceMotion ? 'fx-reduced' : 'fx-enabled');
-
-  const curtain = document.createElement('div');
-  curtain.className = 'fx-curtain';
-  curtain.setAttribute('aria-hidden', 'true');
-  document.body.appendChild(curtain);
 
   function addIntroSequence() {
     if (reduceMotion) return;
@@ -51,7 +48,7 @@
       '.metric-card'
     ];
     const nodes = selectors.flatMap(selector => $$(selector, scope)).filter((node, index, all) => all.indexOf(node) === index);
-    if (reduceMotion || !('IntersectionObserver' in window)) {
+    if (reduceMotion || !revealObserver) {
       nodes.forEach(node => node.classList.add('fx-in'));
       return;
     }
@@ -63,16 +60,6 @@
       revealObserver.observe(node);
     });
   }
-
-  const revealObserver = !reduceMotion && 'IntersectionObserver' in window
-    ? new IntersectionObserver(entries => {
-        entries.forEach(entry => {
-          if (!entry.isIntersecting) return;
-          entry.target.classList.add('fx-in');
-          revealObserver.unobserve(entry.target);
-        });
-      }, { threshold:.08, rootMargin:'0px 0px -6% 0px' })
-    : null;
 
   function ripple(event) {
     const target = event.target.closest('.btn,.icon-btn,.dock-link,.action-choice');
@@ -135,7 +122,6 @@
   function isInternalNavigation(anchor) {
     if (!anchor || anchor.hasAttribute('download') || anchor.target === '_blank') return false;
     if (anchor.dataset.whatsapp != null) return false;
-    if (anchor.hasAttribute('data-menu-open') || anchor.hasAttribute('data-menu-close')) return false;
     const href = anchor.getAttribute('href') || '';
     if (!href || href === '#' || href.startsWith('#') || href.startsWith('tel:') || href.startsWith('mailto:') || href.startsWith('javascript:')) return false;
     let url;
@@ -168,7 +154,45 @@
     bindCardGlow(scope);
   }
 
+  function installPageChrome() {
+    const curtain = document.createElement('div');
+    curtain.className = 'fx-curtain';
+    curtain.setAttribute('aria-hidden', 'true');
+    document.body.appendChild(curtain);
+
+    const progress = document.createElement('div');
+    progress.className = 'fx-progress';
+    progress.setAttribute('aria-hidden', 'true');
+    document.body.appendChild(progress);
+
+    const syncProgress = () => {
+      scrollFrame = 0;
+      const max = Math.max(1, document.documentElement.scrollHeight - innerHeight);
+      const ratio = Math.max(0, Math.min(1, scrollY / max));
+      progress.style.setProperty('--fx-progress', ratio.toFixed(4));
+      progress.classList.toggle('fx-progress-active', max > 24);
+    };
+    const scheduleProgress = () => {
+      if (scrollFrame) return;
+      scrollFrame = requestAnimationFrame(syncProgress);
+    };
+    syncProgress();
+    addEventListener('scroll', scheduleProgress, { passive:true });
+    addEventListener('resize', scheduleProgress, { passive:true });
+  }
+
   function boot() {
+    installPageChrome();
+    if (!reduceMotion && 'IntersectionObserver' in window) {
+      revealObserver = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if (!entry.isIntersecting) return;
+          entry.target.classList.add('fx-in');
+          revealObserver.unobserve(entry.target);
+        });
+      }, { threshold:.08, rootMargin:'0px 0px -6% 0px' });
+    }
+
     requestAnimationFrame(() => root.classList.add('fx-loaded'));
     decorate();
     document.addEventListener('pointerdown', ripple, { passive:true });
@@ -177,7 +201,7 @@
     document.addEventListener('submit', pulseForms, true);
 
     const observer = new MutationObserver(records => {
-      const scopes = records.flatMap(record => [...record.addedNodes]).filter(node => node.nodeType === 1);
+      const scopes = records.flatMap(record => [...record.addedNodes]).filter(node => node.nodeType === 1 && !node.classList.contains('fx-ripple'));
       scopes.forEach(node => decorate(node));
     });
     observer.observe(document.body, { childList:true, subtree:true });
