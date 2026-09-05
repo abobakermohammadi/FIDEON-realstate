@@ -33,6 +33,7 @@ EXPECTED = [
     "assets/admin.js",
     "assets/data.js",
     "assets/real-listing-detail.js",
+    "assets/whatsapp-forms.js",
     "assets/fideon-mark.svg",
     "assets/asiyan-exterior.svg",
     "assets/asiyan-reel-preview.svg",
@@ -100,6 +101,25 @@ if "fideon.official@gmail.com" not in all_html:
     errors.append("verified public email missing from site")
 if "+90 501 357 56 35" not in all_html:
     errors.append("verified public phone missing from site")
+
+# Product-truth regression gates: FIDEON is Istanbul-first, not a Dubai/global brokerage.
+public_truth_paths = [
+    "index.html", "properties/index.html", "properties/view/index.html",
+    "private/index.html", "sell/index.html", "find/index.html",
+    "about/index.html", "contact/index.html", "saved/index.html"
+]
+public_truth = "\n".join((ROOT/p).read_text(encoding="utf-8") for p in public_truth_paths)
+for stale in ("Dubai · Global", "Global Referrals", "Private development preview"):
+    if stale.lower() in public_truth.lower():
+        errors.append(f"stale global/template positioning found in active public surface: {stale}")
+
+# High-intent public forms must hand the visitor straight to WhatsApp.
+for rel in ("contact/index.html", "find/index.html", "sell/index.html", "private/index.html"):
+    text = (ROOT/rel).read_text(encoding="utf-8")
+    if "data-whatsapp-form" not in text:
+        errors.append(f"direct WhatsApp form handoff missing: {rel}")
+    if "/assets/whatsapp-forms.js" not in text:
+        errors.append(f"WhatsApp form runtime missing: {rel}")
 
 data = (ROOT/"assets/data.js").read_text(encoding="utf-8")
 if 'whatsapp: "905013575635"' not in data:
