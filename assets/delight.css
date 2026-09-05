@@ -1,0 +1,413 @@
+/* FIDEON Delight Layer v1
+   Minimal surface, obsessive craft underneath.
+   Progressive enhancement only: content stays usable without JS and all motion disappears for reduced-motion users. */
+
+:root{
+  --fx-gold:#c9a66b;
+  --fx-gold-soft:#dfc79d;
+  --fx-forest:#061d14;
+  --fx-ease:cubic-bezier(.22,.72,.2,1);
+  --fx-spring:cubic-bezier(.16,1,.3,1);
+  --fx-x:50vw;
+  --fx-y:30vh;
+}
+
+/* Tiny ambient polish, never blocking interaction. */
+html.fx-enabled body::after{
+  content:"";
+  position:fixed;
+  inset:0;
+  z-index:9990;
+  pointer-events:none;
+  opacity:.22;
+  background:radial-gradient(360px circle at var(--fx-x) var(--fx-y),rgba(201,166,107,.09),transparent 72%);
+  mix-blend-mode:soft-light;
+  transition:opacity .35s ease;
+}
+html.fx-leaving body::after{opacity:0}
+
+/* Page-change curtain: fast enough to feel instantaneous, detailed enough to feel intentional. */
+.fx-curtain{
+  position:fixed;
+  inset:0;
+  z-index:10000;
+  pointer-events:none;
+  background:var(--fx-forest);
+  transform:translate3d(0,101%,0);
+  transition:transform .34s var(--fx-ease);
+}
+.fx-curtain::before{
+  content:"";
+  position:absolute;
+  left:0;right:0;top:0;
+  height:1px;
+  background:linear-gradient(90deg,transparent,var(--fx-gold-soft),transparent);
+  box-shadow:0 0 22px rgba(201,166,107,.42);
+}
+html.fx-leaving .fx-curtain{transform:translate3d(0,0,0)}
+html.fx-leaving main{opacity:.72;transform:translate3d(0,-4px,0);transition:opacity .2s ease,transform .28s var(--fx-ease)}
+
+/* Brand mark: not a logo slapped into a header, a small crafted object. */
+.brand{position:relative}
+.brand-mark{
+  transform-origin:50% 50%;
+  filter:drop-shadow(0 0 0 rgba(201,166,107,0));
+  transition:transform .55s var(--fx-spring),filter .45s ease,opacity .3s ease;
+}
+.brand::after{
+  content:"";
+  position:absolute;
+  left:calc(36px + 10px);
+  right:0;
+  bottom:-6px;
+  height:1px;
+  transform:scaleX(0);
+  transform-origin:left;
+  background:linear-gradient(90deg,var(--fx-gold),transparent);
+  transition:transform .5s var(--fx-spring);
+  opacity:.7;
+}
+.brand:hover .brand-mark,.brand:focus-visible .brand-mark{transform:rotate(-4deg) scale(1.055);filter:drop-shadow(0 7px 12px rgba(201,166,107,.16))}
+.brand:hover::after,.brand:focus-visible::after{transform:scaleX(1)}
+.header-over-hero .brand-mark{filter:drop-shadow(0 5px 14px rgba(0,0,0,.18))}
+
+/* Navigation details. */
+.desktop-nav a{transition:color .25s ease,opacity .25s ease,transform .35s var(--fx-spring)}
+.desktop-nav a::before{
+  content:"";
+  position:absolute;
+  left:50%;
+  top:1px;
+  width:3px;height:3px;
+  border-radius:50%;
+  background:var(--fx-gold);
+  opacity:0;
+  transform:translate(-50%,5px) scale(.2);
+  transition:opacity .25s ease,transform .4s var(--fx-spring);
+}
+.desktop-nav a:hover,.desktop-nav a:focus-visible{transform:translateY(-1px)}
+.desktop-nav a:hover::before,.desktop-nav a:focus-visible::before,.desktop-nav a[aria-current="page"]::before{opacity:.9;transform:translate(-50%,0) scale(1)}
+
+/* Buttons: tactile press, internal highlight, one light sweep, precise magnetic movement. */
+.btn,.icon-btn,.dock-link,.btn-link,.whatsapp-card-link{
+  position:relative;
+  isolation:isolate;
+  -webkit-tap-highlight-color:transparent;
+}
+.btn,.icon-btn,.dock-link{overflow:hidden}
+.fx-magnetic{transform:translate3d(var(--mag-x,0px),var(--mag-y,0px),0)!important;will-change:transform}
+.btn{
+  transition:transform .22s var(--fx-spring),box-shadow .32s ease,border-color .3s ease,background-position .6s var(--fx-ease),color .25s ease!important;
+}
+.btn::after,.icon-btn::after,.dock-link::after{
+  content:"";
+  position:absolute;
+  z-index:-1;
+  top:-45%;bottom:-45%;
+  left:-80%;
+  width:42%;
+  pointer-events:none;
+  transform:skewX(-18deg) translateX(-240%);
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.34),transparent);
+  transition:transform .72s var(--fx-ease);
+}
+.btn:hover::after,.icon-btn:hover::after,.dock-link:hover::after{transform:skewX(-18deg) translateX(650%)}
+.btn:active,.icon-btn:active,.dock-link:active{transform:scale(.965)!important;transition-duration:.08s!important}
+.btn-gold{
+  background-image:linear-gradient(112deg,#ac7e47 0%,#d8b87f 32%,#f0d6a6 48%,#c99d62 66%,#ad7d45 100%)!important;
+  background-size:220% 100%!important;
+  color:#071b14!important;
+  border-color:rgba(255,255,255,.18)!important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.48),0 12px 34px rgba(201,166,107,.13)!important;
+}
+.btn-gold:hover{background-position:100% 0!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.58),0 15px 42px rgba(201,166,107,.22)!important}
+.btn-whatsapp{box-shadow:inset 0 1px 0 rgba(255,255,255,.16),0 10px 28px rgba(31,143,95,.10)!important}
+.btn-whatsapp:hover{box-shadow:inset 0 1px 0 rgba(255,255,255,.22),0 13px 34px rgba(31,143,95,.20)!important}
+.header-over-hero .btn-outline,.v2-home .hero-actions .btn-outline{backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);background:rgba(255,255,255,.025)!important}
+
+.fx-ripple{
+  position:absolute;
+  z-index:5;
+  width:12px;height:12px;
+  margin:-6px 0 0 -6px;
+  border-radius:50%;
+  pointer-events:none;
+  background:rgba(255,255,255,.42);
+  transform:scale(0);
+  animation:fx-ripple .58s ease-out forwards;
+}
+@keyframes fx-ripple{to{transform:scale(18);opacity:0}}
+
+/* Hero: responsive ambient light + exquisitely slow seal movement. */
+.hero,.page-hero{position:relative;isolation:isolate}
+.v2-home .hero-media::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  background:
+    radial-gradient(520px circle at var(--hero-x,72%) var(--hero-y,34%),rgba(221,196,147,.16),transparent 68%),
+    linear-gradient(110deg,transparent 44%,rgba(255,255,255,.025) 51%,transparent 57%);
+  transition:background-position .2s ease;
+}
+.v2-home .hero::before{
+  content:"";
+  position:absolute;
+  z-index:1;
+  left:clamp(20px,5vw,72px);
+  bottom:26px;
+  width:min(210px,28vw);
+  height:1px;
+  transform-origin:left;
+  background:linear-gradient(90deg,var(--fx-gold),rgba(201,166,107,0));
+  opacity:.52;
+  animation:fx-line-breathe 5.4s ease-in-out infinite;
+}
+@keyframes fx-line-breathe{0%,100%{transform:scaleX(.38);opacity:.32}50%{transform:scaleX(1);opacity:.68}}
+.hero-brand-seal{animation:fx-seal-float 8.5s ease-in-out infinite;will-change:transform,opacity}
+.hero-brand-seal img{filter:drop-shadow(0 12px 26px rgba(0,0,0,.08))}
+@keyframes fx-seal-float{0%,100%{transform:translate3d(0,0,0) rotate(0deg)}50%{transform:translate3d(0,-7px,0) rotate(1.2deg)}}
+
+/* Hero/page entrance. Content remains visible before JS adds fx-enabled. */
+.fx-enabled .fx-intro{
+  opacity:0;
+  transform:translate3d(0,22px,0);
+  filter:blur(7px);
+  animation:fx-intro .86s var(--fx-spring) forwards;
+  animation-delay:var(--fx-delay,0ms);
+}
+@keyframes fx-intro{to{opacity:1;transform:none;filter:blur(0)}}
+
+.page-hero{overflow:hidden}
+.page-hero::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:-1;
+  pointer-events:none;
+  background:
+    radial-gradient(420px circle at var(--hero-x,78%) var(--hero-y,42%),rgba(201,166,107,.10),transparent 72%),
+    linear-gradient(135deg,transparent 0%,rgba(201,166,107,.025) 50%,transparent 100%);
+}
+.page-hero::after{
+  content:"";
+  position:absolute;
+  right:clamp(-30px,2vw,24px);
+  top:50%;
+  width:clamp(180px,22vw,310px);
+  aspect-ratio:1;
+  transform:translateY(-50%) rotate(-6deg);
+  background:url('/assets/fideon-mark.svg') center/contain no-repeat;
+  opacity:.045;
+  pointer-events:none;
+}
+.page-hero .container{position:relative;z-index:1}
+.page-hero .eyebrow::after,.v2-home .eyebrow::after{
+  content:"";
+  display:inline-block;
+  width:34px;height:1px;
+  margin-left:10px;
+  vertical-align:middle;
+  background:linear-gradient(90deg,var(--fx-gold),transparent);
+  transform-origin:left;
+  animation:fx-eyebrow-line 1.1s .25s var(--fx-spring) both;
+}
+@keyframes fx-eyebrow-line{from{transform:scaleX(0);opacity:0}to{transform:scaleX(1);opacity:1}}
+
+/* Scroll reveals are added by JS only, so a JS failure can never hide content. */
+.fx-enabled .fx-reveal{
+  opacity:0;
+  transform:translate3d(0,28px,0);
+  transition:opacity .72s var(--fx-ease),transform .9s var(--fx-spring),filter .65s ease;
+  filter:blur(5px);
+}
+.fx-enabled .fx-reveal.fx-in{opacity:1;transform:none;filter:blur(0)}
+.fx-enabled .fx-reveal[data-fx-side="left"]{transform:translate3d(-24px,0,0)}
+.fx-enabled .fx-reveal[data-fx-side="right"]{transform:translate3d(24px,0,0)}
+.fx-enabled .fx-reveal.fx-in[data-fx-side]{transform:none}
+
+/* Choice rows: no extra UI, but every hover reveals care. */
+.action-choice{
+  position:relative;
+  overflow:hidden;
+  isolation:isolate;
+  transition:background .4s ease,transform .5s var(--fx-spring),border-color .3s ease!important;
+}
+.action-choice::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:-1;
+  opacity:0;
+  background:radial-gradient(320px circle at var(--card-x,50%) var(--card-y,50%),rgba(201,166,107,.16),transparent 74%);
+  transition:opacity .35s ease;
+}
+.action-choice:hover::before{opacity:1}
+.action-choice h3,.action-choice p{transition:transform .5s var(--fx-spring),color .3s ease}
+.action-choice:hover h3,.action-choice:hover p{transform:translateX(4px)}
+.action-arrow{
+  width:36px;height:36px;
+  display:grid;place-items:center;
+  border:1px solid rgba(159,121,72,.28);
+  border-radius:50%;
+  transition:transform .5s var(--fx-spring),background .35s ease,color .35s ease,border-color .35s ease;
+}
+.action-choice:hover .action-arrow{transform:translateX(3px) rotate(-24deg);background:var(--fx-forest);border-color:var(--fx-forest);color:var(--fx-gold-soft)}
+
+/* Property cards, when inventory returns later. */
+.property-card{position:relative;overflow:hidden;isolation:isolate;transition:box-shadow .45s ease,border-color .35s ease,transform .55s var(--fx-spring)!important}
+.property-card::after{
+  content:"";
+  position:absolute;inset:0;
+  pointer-events:none;
+  opacity:0;
+  background:radial-gradient(400px circle at var(--card-x,50%) var(--card-y,50%),rgba(201,166,107,.11),transparent 72%);
+  transition:opacity .35s ease;
+}
+.property-card:hover{transform:translateY(-4px)!important;border-color:rgba(159,121,72,.24)!important;box-shadow:0 22px 60px rgba(6,29,20,.10)!important}
+.property-card:hover::after{opacity:1}
+.property-image img{transition:transform .9s var(--fx-spring),filter .6s ease}
+.property-card:hover .property-image img{transform:scale(1.025);filter:saturate(1.04) contrast(1.02)}
+.property-foot .btn-link,.whatsapp-card-link{transition:transform .32s var(--fx-spring),color .25s ease}
+.property-foot .btn-link:hover,.whatsapp-card-link:hover{transform:translateX(3px)}
+
+/* Forms: a three-field form can still feel like someone obsessed over it. */
+.flow-panel{
+  position:relative;
+  overflow:hidden;
+  transition:box-shadow .5s ease,border-color .4s ease,transform .55s var(--fx-spring)!important;
+}
+.flow-panel::before{
+  content:"";
+  position:absolute;
+  left:8%;right:8%;top:0;
+  height:1px;
+  background:linear-gradient(90deg,transparent,var(--fx-gold-soft),transparent);
+  opacity:.72;
+}
+.flow-panel::after{
+  content:"";
+  position:absolute;
+  width:190px;height:190px;
+  right:-110px;top:-110px;
+  border:1px solid rgba(201,166,107,.14);
+  border-radius:50%;
+  box-shadow:0 0 0 24px rgba(201,166,107,.025),0 0 0 52px rgba(201,166,107,.018);
+  pointer-events:none;
+}
+.flow-panel:focus-within{border-color:rgba(159,121,72,.24)!important;box-shadow:0 22px 64px rgba(6,29,20,.075)!important}
+.field{position:relative}
+.field label{transition:color .25s ease,transform .3s var(--fx-spring),letter-spacing .3s ease}
+.field::after{
+  content:"";
+  position:absolute;
+  left:0;right:100%;bottom:0;
+  height:1px;
+  background:linear-gradient(90deg,var(--fx-gold),transparent);
+  transition:right .45s var(--fx-spring);
+  pointer-events:none;
+}
+.field:focus-within label{color:var(--gold-700);transform:translateX(2px);letter-spacing:.015em}
+.field:focus-within::after{right:0}
+.field input,.field select,.field textarea{
+  transition:border-color .28s ease,background .28s ease,box-shadow .35s ease,transform .35s var(--fx-spring)!important;
+}
+.field input:hover,.field select:hover,.field textarea:hover{background:#fff!important;border-color:rgba(159,121,72,.22)!important}
+.field input:focus,.field select:focus,.field textarea:focus{background:#fff!important;transform:translateY(-1px);box-shadow:0 9px 30px rgba(6,29,20,.055),0 0 0 3px rgba(201,166,107,.10)!important}
+.field input::placeholder,.field textarea::placeholder{transition:opacity .25s ease,transform .3s var(--fx-spring)}
+.field input:focus::placeholder,.field textarea:focus::placeholder{opacity:.45;transform:translateX(3px)}
+form.fx-submit-pulse .btn[type="submit"]{animation:fx-submit-pulse .55s var(--fx-spring)}
+@keyframes fx-submit-pulse{45%{transform:scale(.97)}70%{box-shadow:0 0 0 7px rgba(31,143,95,.12)}100%{transform:none}}
+
+/* Empty inventory is a designed state, not an empty box. */
+.empty-state{position:relative;overflow:hidden}
+.empty-state::before{
+  content:"";
+  display:block;
+  width:58px;height:58px;
+  margin:0 auto 19px;
+  background:url('/assets/fideon-mark.svg') center/contain no-repeat;
+  opacity:.58;
+  filter:drop-shadow(0 8px 18px rgba(159,121,72,.10));
+  animation:fx-empty-mark 5.6s ease-in-out infinite;
+}
+@keyframes fx-empty-mark{0%,100%{transform:translateY(0);opacity:.52}50%{transform:translateY(-4px);opacity:.72}}
+.empty-state::after{
+  content:"";
+  position:absolute;
+  width:220px;height:220px;
+  left:50%;top:18px;
+  transform:translateX(-50%);
+  border-radius:50%;
+  background:radial-gradient(circle,rgba(201,166,107,.07),transparent 68%);
+  pointer-events:none;
+}
+
+/* Footer links and legal copy get detail too. */
+.footer-col a,.footer-bottom a,.page-copy a{position:relative;width:max-content;max-width:100%;transition:color .28s ease,transform .35s var(--fx-spring)}
+.footer-col a::after,.footer-bottom a::after,.page-copy a::after{
+  content:"";
+  position:absolute;
+  left:0;right:100%;bottom:2px;
+  height:1px;
+  background:currentColor;
+  opacity:.45;
+  transition:right .45s var(--fx-spring);
+}
+.footer-col a:hover,.footer-bottom a:hover,.page-copy a:hover{transform:translateX(2px)}
+.footer-col a:hover::after,.footer-bottom a:hover::after,.page-copy a:hover::after{right:0}
+.page-copy h2{position:relative}
+.page-copy h2::before{content:"";position:absolute;left:-18px;top:.22em;bottom:.18em;width:2px;border-radius:99px;background:linear-gradient(var(--fx-gold),transparent);transform:scaleY(.25);transform-origin:top;transition:transform .6s var(--fx-spring)}
+.page-copy h2:hover::before{transform:scaleY(1)}
+
+/* Mobile menu opens with a stagger instead of a generic sheet. */
+.mobile-menu{transition:opacity .28s ease,visibility .28s ease,transform .48s var(--fx-spring)!important}
+.mobile-menu-top,.mobile-menu-whatsapp,.mobile-menu-foot{transition:opacity .45s ease,transform .55s var(--fx-spring)}
+.mobile-menu:not(.open) .mobile-menu-top,.mobile-menu:not(.open) .mobile-menu-whatsapp,.mobile-menu:not(.open) .mobile-menu-foot{opacity:0;transform:translateY(-8px)}
+.mobile-menu-links a{opacity:0;transform:translateY(16px);transition:opacity .38s ease,transform .52s var(--fx-spring),color .25s ease,padding-left .35s var(--fx-spring)}
+.mobile-menu.open .mobile-menu-links a{opacity:1;transform:none}
+.mobile-menu.open .mobile-menu-links a:nth-child(1){transition-delay:.04s}.mobile-menu.open .mobile-menu-links a:nth-child(2){transition-delay:.08s}.mobile-menu.open .mobile-menu-links a:nth-child(3){transition-delay:.12s}.mobile-menu.open .mobile-menu-links a:nth-child(4){transition-delay:.16s}.mobile-menu.open .mobile-menu-links a:nth-child(5){transition-delay:.20s}
+.mobile-menu-links a:hover,.mobile-menu-links a:focus-visible{color:var(--fx-gold-soft);padding-left:7px}
+
+/* Mobile dock feels like hardware, not a floating div. */
+.mobile-contact-dock{backdrop-filter:blur(18px) saturate(125%);-webkit-backdrop-filter:blur(18px) saturate(125%);transition:transform .42s var(--fx-spring),box-shadow .35s ease!important}
+.mobile-contact-dock .dock-link{transition:transform .25s var(--fx-spring),background .3s ease,color .3s ease!important}
+.mobile-contact-dock .dock-link span{transition:transform .4s var(--fx-spring)}
+.mobile-contact-dock .dock-link:active span{transform:translateY(-2px) scale(1.08)}
+.mobile-contact-dock .dock-whatsapp:active{box-shadow:0 0 0 7px rgba(31,143,95,.11)!important}
+
+/* Admin gets the same obsession without distracting from work. */
+.admin-page .admin-panel,.admin-page .metric-card{transition:border-color .35s ease,box-shadow .45s ease,transform .45s var(--fx-spring)}
+.admin-page .admin-panel:hover{border-color:rgba(159,121,72,.18);box-shadow:0 16px 48px rgba(6,29,20,.055)}
+.admin-page .metric-card:hover{transform:translateY(-2px);border-color:rgba(159,121,72,.20);box-shadow:0 14px 36px rgba(6,29,20,.05)}
+.admin-page .admin-nav button,.admin-page .admin-mobile-bar button{position:relative;overflow:hidden;transition:background .3s ease,color .3s ease,transform .35s var(--fx-spring)}
+.admin-page .admin-nav button::after{content:"";position:absolute;right:8px;top:50%;width:4px;height:4px;border-radius:50%;background:var(--fx-gold);opacity:0;transform:translateY(-50%) scale(.2);transition:opacity .3s ease,transform .45s var(--fx-spring)}
+.admin-page .admin-nav button.active::after{opacity:1;transform:translateY(-50%) scale(1)}
+.admin-page .admin-table tbody tr{transition:background .25s ease,transform .35s var(--fx-spring)}
+.admin-page .admin-table tbody tr:hover{background:rgba(201,166,107,.045)}
+.admin-page .media-preview img{transition:transform .55s var(--fx-spring),filter .4s ease}
+.admin-page .media-preview:hover img{transform:scale(1.02);filter:contrast(1.02)}
+
+@media(pointer:coarse){
+  html.fx-enabled body::after{display:none}
+  .fx-magnetic{transform:none!important}
+  .btn:hover::after,.icon-btn:hover::after,.dock-link:hover::after{transform:skewX(-18deg) translateX(-240%)}
+  .action-choice:hover h3,.action-choice:hover p{transform:none}
+}
+
+@media(max-width:760px){
+  .page-hero::after{width:150px;right:-44px;opacity:.038}
+  .brand::after{left:40px;bottom:-4px}
+  .v2-home .hero::before{left:18px;bottom:18px;width:100px}
+  .action-arrow{width:32px;height:32px}
+  .flow-panel::after{width:135px;height:135px;right:-88px;top:-88px}
+  .page-copy h2::before{left:-10px}
+  .fx-curtain{transition-duration:.29s}
+}
+
+@media(prefers-reduced-motion:reduce){
+  html.fx-enabled body::after,.fx-curtain{display:none!important}
+  .fx-intro,.fx-reveal,.hero-brand-seal,.empty-state::before,.v2-home .hero::before,.page-hero .eyebrow::after,.v2-home .eyebrow::after{animation:none!important;transition:none!important;transform:none!important;filter:none!important;opacity:1!important}
+  .btn::after,.icon-btn::after,.dock-link::after,.fx-ripple{display:none!important}
+  .brand-mark,.action-choice h3,.action-choice p,.action-arrow,.property-card,.property-image img,.field input,.field select,.field textarea,.mobile-menu-links a,.admin-panel,.metric-card{transition:none!important;transform:none!important}
+}
