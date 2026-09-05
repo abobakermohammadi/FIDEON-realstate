@@ -46,11 +46,10 @@ for required in ("--gold-500:#c9a66b", "--forest-950:#061d14", ".reveal{opacity:
     if required not in minimal_css:
         errors.append(f"minimal brand system missing: {required}")
 
-mark = (ROOT / "assets/fideon-mark.svg").read_text(encoding="utf-8")
-logo = (ROOT / "assets/fideon-logo.svg").read_text(encoding="utf-8")
-for name, text in (("mark", mark), ("logo", logo)):
+for rel in ("assets/fideon-mark.svg", "assets/fideon-logo.svg", "assets/fideon-wordmark.svg"):
+    text = (ROOT / rel).read_text(encoding="utf-8")
     if "#C9A66B" not in text or "fill-rule=\"evenodd\"" not in text:
-        errors.append(f"traced FIDEON {name} vector is incomplete")
+        errors.append(f"traced FIDEON vector is incomplete: {rel}")
 
 admin_html = (ROOT / "admin/index.html").read_text(encoding="utf-8")
 admin_js = (ROOT / "assets/admin.js").read_text(encoding="utf-8")
@@ -70,8 +69,10 @@ if "Array.isArray(stored)" not in whatsapp:
 data = (ROOT / "assets/data.js").read_text(encoding="utf-8")
 if "window.FIDEON.sampleProperties = [];" not in data:
     errors.append("seeded inventory is not empty")
-if "Aşiyan" in data or "FIDEON-AK-001" in data:
-    errors.append("retired listing data returned")
+if 'retired = new Set(["asiyan-konaklari-adnan-kahveci-3-1"])' not in data:
+    errors.append("retired listing is not purged from existing localhost storage")
+if "FIDEON-AK-001" in data or "Aşiyan Konakları'nda" in data:
+    errors.append("retired listing content returned to seeded data")
 
 if errors:
     for error in errors:
