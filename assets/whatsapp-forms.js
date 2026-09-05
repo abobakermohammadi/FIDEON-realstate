@@ -13,7 +13,7 @@
     propertyType: "Gayrimenkul tipi",
     goal: "İşlem",
     value: "Beklenen fiyat",
-    message: "Mesaj / Not",
+    message: "Not",
     property: "İlan"
   };
 
@@ -51,7 +51,7 @@
     const rows = Object.entries(data)
       .filter(([key, value]) => key !== "consent" && String(value || "").trim())
       .map(([key, value]) => `• ${LABELS[key] || key}: ${String(value).trim()}`);
-    return [introFor(form), "", ...rows, "", "Bu mesaj FIDEON web sitesinden hazırlandı."].join("\n");
+    return [introFor(form), ...(rows.length ? ["", ...rows] : [])].join("\n");
   }
 
   function setStatus(form, text, kind = "success") {
@@ -83,10 +83,4 @@
     const opened = window.open(url, "_blank", "noopener,noreferrer");
     if (!opened) location.href = url;
   }, true);
-
-  document.addEventListener("DOMContentLoaded", () => {
-    document.querySelectorAll(".preview-strip").forEach(node => {
-      node.innerHTML = '<span class="preview-dot"></span> Localhost geliştirme sürümü';
-    });
-  });
 })();
