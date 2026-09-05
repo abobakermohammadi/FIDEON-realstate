@@ -40,6 +40,15 @@ for rel in ("index.html", "properties/index.html"):
     if "/assets/public-polish.js" in text:
         errors.append(f"obsolete public polish shim still loaded: {rel}")
 
+admin_html = (ROOT / "admin/index.html").read_text(encoding="utf-8")
+admin_js = (ROOT / "assets/admin.js").read_text(encoding="utf-8")
+if 'type="reset">Temizle' in admin_html:
+    errors.append("native reset button can leave the admin editing target stale")
+if "data-clear-property" not in admin_html or "[data-clear-property]" not in admin_js:
+    errors.append("explicit admin editor clear action missing")
+if "addEventListener(\"reset\"" in admin_js:
+    errors.append("admin editor should not depend on recursive reset-event handling")
+
 whatsapp = (ROOT / "assets/whatsapp-forms.js").read_text(encoding="utf-8")
 if "Bu mesaj FIDEON web sitesinden hazırlandı" in whatsapp:
     errors.append("robotic WhatsApp footer returned")
