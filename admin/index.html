@@ -2,161 +2,104 @@
 <html lang="tr">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#061c16">
-<title>FIDEON Yönetim Paneli · Localhost</title>
-<meta name="robots" content="noindex,nofollow">
+<meta name="theme-color" content="#061c16"><title>FIDEON Yönetim Paneli · Localhost</title><meta name="robots" content="noindex,nofollow">
 <link rel="icon" href="/assets/fideon-mark.svg" type="image/svg+xml">
 <link rel="stylesheet" href="/assets/styles-base.css"><link rel="stylesheet" href="/assets/styles-components-a.css"><link rel="stylesheet" href="/assets/styles-components-b.css"><link rel="stylesheet" href="/assets/styles-admin-responsive.css">
 </head>
 <body class="admin-page">
 <a class="skip-link" href="#admin-title">Yönetim içeriğine geç</a>
-
 <div class="admin-page" data-admin-app hidden>
   <div class="admin-shell">
     <aside class="admin-sidebar">
-      <div class="admin-brand">
-        <a class="brand" href="/" aria-label="FIDEON web sitesine dön"><img class="brand-mark" src="/assets/fideon-mark.svg" alt=""><span class="brand-word">FIDEON / ADMIN</span></a>
-      </div>
+      <div class="admin-brand"><a class="brand" href="/" aria-label="FIDEON web sitesine dön"><img class="brand-mark" src="/assets/fideon-mark.svg" alt=""><span class="brand-word">FIDEON / ADMIN</span></a></div>
       <nav class="admin-nav" aria-label="Yönetim">
-        <button type="button" data-admin-nav="dashboard" class="active">Yönetim merkezi</button>
+        <button type="button" data-admin-nav="dashboard" class="active">Ana</button>
         <button type="button" data-admin-nav="properties">İlanlar</button>
-        <button type="button" data-admin-nav="leads">Müşteri talepleri</button>
+        <button type="button" data-admin-nav="leads">Talepler</button>
         <button type="button" data-admin-nav="viewings">Randevular</button>
-        <button type="button" data-admin-nav="journal">İçerik</button>
         <button type="button" data-admin-nav="settings">Ayarlar</button>
       </nav>
-      <div class="admin-sidebar-status" data-admin-sidebar-status>
-        Localhost yönetim paneli.<br>Veriler bu tarayıcıda kalır.
-      </div>
+      <div class="admin-sidebar-status" data-admin-sidebar-status>Localhost.<br>Veriler bu tarayıcıda kalır.</div>
     </aside>
 
     <section class="admin-main">
       <div class="admin-topbar">
-        <div>
-          <div class="section-kicker" style="margin-bottom:5px">FIDEON · Sahip paneli</div>
-          <h1 id="admin-title">Yönetim merkezi</h1>
-        </div>
-        <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
-          <span class="admin-badge" data-admin-mode-badge>Localhost · tarayıcı verisi</span>
-          <button class="btn btn-dark" type="button" data-add-property>+ Yeni ilan</button>
-        </div>
+        <div><div class="section-kicker" style="margin-bottom:5px">FIDEON</div><h1 id="admin-title">Yönetim merkezi</h1></div>
+        <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap"><span class="admin-badge" data-admin-mode-badge>Localhost</span><button class="btn btn-dark" type="button" data-add-property>+ İlan ekle</button></div>
       </div>
 
       <section class="admin-view active" data-view="dashboard">
         <div class="metric-grid">
-          <div class="metric-card"><div class="metric-label">Toplam ilan</div><div class="metric-value" data-metric="inventory">0</div></div>
+          <div class="metric-card"><div class="metric-label">İlan</div><div class="metric-value" data-metric="inventory">0</div></div>
           <div class="metric-card"><div class="metric-label">Yayında</div><div class="metric-value" data-metric="public">0</div></div>
-          <div class="metric-card"><div class="metric-label">Özel</div><div class="metric-value" data-metric="private">0</div></div>
           <div class="metric-card"><div class="metric-label">Yeni talep</div><div class="metric-value" data-metric="leads">0</div></div>
+          <div class="metric-card" hidden><div data-metric="private">0</div></div>
         </div>
         <div class="admin-grid-2">
-          <div class="admin-panel">
-            <div class="panel-head"><h2>İlan özeti</h2><button class="btn-link" type="button" data-admin-nav="properties">İlanları aç</button></div>
-            <div class="admin-table-wrap">
-              <table class="admin-table"><thead><tr><th>İlan</th><th>Tip</th><th>Görünürlük</th><th>Fiyat</th></tr></thead><tbody data-dashboard-properties></tbody></table>
-            </div>
-          </div>
-          <div class="admin-panel">
-            <div class="panel-head"><h2>Yeni müşteri talepleri</h2><button class="btn-link" type="button" data-admin-nav="leads">CRM'i aç</button></div>
-            <div data-dashboard-leads></div>
-          </div>
+          <div class="admin-panel"><div class="panel-head"><h2>İlanlar</h2><button class="btn-link" type="button" data-admin-nav="properties">Aç</button></div><div class="admin-table-wrap"><table class="admin-table"><thead><tr><th>İlan</th><th>Tip</th><th>Görünürlük</th><th>Fiyat</th></tr></thead><tbody data-dashboard-properties></tbody></table></div></div>
+          <div class="admin-panel"><div class="panel-head"><h2>Yeni talepler</h2><button class="btn-link" type="button" data-admin-nav="leads">Aç</button></div><div data-dashboard-leads></div></div>
         </div>
-        <div class="admin-panel" style="margin-top:14px;background:#fff8e8;border-color:#ead9ae">
-          <div class="panel-head"><h2>Localhost modu</h2><span class="status-pill">Şimdilik yerel</span></div>
-          <p data-production-gate-copy style="font-size:12px;color:var(--ink-700);line-height:1.65;margin:0">İlanlar, müşteri talepleri ve yüklediğiniz görseller bu tarayıcıda tutulur. Şu anda Supabase, bulut veritabanı veya deployment yok. Bu admin adresini bu modda internete açmayın.</p>
-        </div>
+        <p style="margin:16px 2px 0;color:var(--ink-500);font-size:11px;line-height:1.6">Localhost modu. Harici veritabanı veya deployment yok.</p>
       </section>
 
       <section class="admin-view" data-view="properties">
-        <div class="admin-panel">
-          <div class="panel-head"><h2>İlanlar</h2><span class="status-pill">Düzenle veya yeni ilan ekle</span></div>
-          <div class="admin-table-wrap">
-            <table class="admin-table">
-              <thead><tr><th>İlan</th><th>Tip</th><th>İşlem</th><th>Görünürlük</th><th>Fiyat</th><th></th></tr></thead>
-              <tbody data-admin-properties></tbody>
-            </table>
-          </div>
-        </div>
+        <div class="admin-panel"><div class="panel-head"><h2>İlanlar</h2><span class="status-pill">Düzenle</span></div><div class="admin-table-wrap"><table class="admin-table"><thead><tr><th>İlan</th><th>Tip</th><th>İşlem</th><th>Görünürlük</th><th>Fiyat</th><th></th></tr></thead><tbody data-admin-properties></tbody></table></div></div>
 
         <div class="admin-panel" style="margin-top:14px" id="property-editor">
-          <div class="panel-head"><h2 data-editor-title>Yeni ilan</h2><span class="status-pill">Bu tarayıcıya kaydedilir</span></div>
+          <div class="panel-head"><h2 data-editor-title>Yeni ilan</h2><span class="status-pill">Yerel kayıt</span></div>
           <form class="admin-form-grid" onsubmit="return false">
             <input type="hidden" name="id">
-            <div class="field"><label>İlan kodu</label><input name="referenceCode" placeholder="Boş bırakırsanız otomatik oluşur"></div>
-            <div class="field"><label>İlan başlığı</label><input name="title" required placeholder="Örn. Aşiyan Konakları'nda 3+1 Daire"></div>
-            <div class="field"><label>URL kısa adı</label><input name="slug" placeholder="Boş bırakırsanız başlıktan oluşur"></div>
-            <div class="field"><label>Gayrimenkul tipi</label><select name="type"><option value="Daire">Daire</option><option value="Villa">Villa</option><option value="Arsa">Arsa</option><option value="Ticari">Ticari</option><option value="Penthouse">Penthouse</option><option value="Müstakil Ev">Müstakil Ev</option></select></div>
+            <div class="field full"><label>İlan başlığı</label><input name="title" required placeholder="Örn. Aşiyan Konakları'nda 3+1 Daire"></div>
+            <div class="field"><label>Konum</label><input name="district" required placeholder="Adnan Kahveci, Beylikdüzü"></div>
+            <div class="field"><label>Tip</label><select name="type"><option value="Daire">Daire</option><option value="Villa">Villa</option><option value="Arsa">Arsa</option><option value="Ticari">Ticari</option><option value="Penthouse">Penthouse</option><option value="Müstakil Ev">Müstakil Ev</option></select></div>
             <div class="field"><label>İşlem</label><select name="intent"><option value="Buy">Satılık</option><option value="Rent">Kiralık</option></select></div>
             <div class="field"><label>Durum</label><select name="status"><option value="Satılık">Satılık</option><option value="Kiralık">Kiralık</option><option value="Rezerve">Rezerve</option><option value="Satıldı">Satıldı</option><option value="Kiralandı">Kiralandı</option><option value="Taslak">Taslak</option><option value="Arşiv">Arşiv</option></select></div>
-            <div class="field"><label>Görünürlük</label><select name="visibility"><option value="Public">Herkese açık</option><option value="Private">Özel ilan</option><option value="Teaser">Sınırlı ön izleme</option><option value="Hidden">Gizli</option></select></div>
-            <div class="field"><label>Konum gizliliği</label><select name="locationPrivacy"><option value="district">Semt / mahalle</option><option value="approximate">Yaklaşık konum</option><option value="exact">Tam adres</option></select></div>
-            <div class="field"><label>Ülke</label><input name="country" value="Türkiye" placeholder="Türkiye"></div>
-            <div class="field"><label>Şehir</label><input name="city" value="İstanbul" placeholder="İstanbul"></div>
-            <div class="field"><label>İlçe / mahalle / bölge</label><input name="district" placeholder="Örn. Adnan Kahveci, Beylikdüzü"></div>
-            <div class="field full"><label>Tam adres · yalnızca gerekiyorsa</label><input name="address" placeholder="Doğrulanmadan herkese açık göstermeyin"></div>
-            <div class="field"><label>Para birimi</label><select name="currency"><option value="TRY">TRY · ₺</option><option value="USD">USD · $</option><option value="EUR">EUR · €</option><option value="GBP">GBP · £</option><option value="AED">AED</option></select></div>
-            <div class="field"><label>Fiyat</label><input name="price" inputmode="decimal" type="number" min="0" step="1" placeholder="Boş = iletişime geçin"></div>
-            <div class="field"><label><input name="priceOnRequest" type="checkbox" style="width:auto;min-height:auto;margin-right:8px">Fiyatı sitede gösterme</label></div>
-            <div class="field"><label>Oda / yatak sayısı</label><input name="beds" inputmode="numeric" type="number" min="0"></div>
-            <div class="field"><label>Banyo</label><input name="baths" inputmode="numeric" type="number" min="0"></div>
-            <div class="field"><label>Net / iç alan · m²</label><input name="interiorArea" inputmode="decimal" type="number" min="0" step="0.01"></div>
-            <div class="field"><label>Arsa alanı · m²</label><input name="plotArea" inputmode="decimal" type="number" min="0" step="0.01"></div>
-            <div class="field full"><label>Kısa açıklama</label><textarea name="summary" placeholder="Kartta ve ilan başında görünen kısa, doğrulanmış açıklama"></textarea></div>
-            <div class="field full"><label>Detaylı açıklama</label><textarea name="description" placeholder="Yalnızca bildiğiniz ve doğruladığınız ilan bilgileri"></textarea></div>
-            <div class="field full"><label>Öne çıkanlar · her satıra bir tane</label><textarea name="highlights" placeholder="Otopark&#10;Asansör&#10;Spor salonu"></textarea></div>
-            <div class="field full"><label>Site / daire özellikleri · her satıra bir tane</label><textarea name="amenities" placeholder="Sauna&#10;Çocuk parkı&#10;Sosyal alan"></textarea></div>
-            <div class="field"><label>SEO başlığı</label><input name="metaTitle" maxlength="70"></div>
-            <div class="field"><label>SEO açıklaması</label><input name="metaDescription" maxlength="170"></div>
-            <div class="field full"><label><input name="indexable" type="checkbox" style="width:auto;min-height:auto;margin-right:8px">İleride yayına alınırken arama motorlarında gösterilebilir</label></div>
+            <div class="field"><label>Fiyat</label><input name="price" inputmode="decimal" type="number" min="0" step="1" placeholder="Boş = WhatsApp'tan sorun"></div>
+            <div class="field"><label>Oda</label><input name="beds" inputmode="numeric" type="number" min="0" placeholder="3 = 3+1"></div>
+            <div class="field full"><label><input name="priceOnRequest" type="checkbox" style="width:auto;min-height:auto;margin-right:8px">Fiyatı sitede gösterme</label></div>
+            <div class="field full"><label>Kısa açıklama</label><textarea name="summary" placeholder="Müşterinin ilk bakışta bilmesi gerekenler"></textarea></div>
             <div class="field full">
               <label>Fotoğraflar</label>
-              <div class="media-drop">
-                <input id="media-input" type="file" accept="image/*" capture="environment" multiple style="max-width:100%">
-                <p style="font-size:11px;color:var(--ink-500);line-height:1.5;margin:10px 0 0">Telefondan kamera veya fotoğraf arşiviyle yükleyebilirsiniz. İlk fotoğraf kapak olur. Oklarla sıralayın, × ile kaldırın. Localhost modunda görseller bu tarayıcıda kalır.</p>
-              </div>
+              <div class="media-drop"><input id="media-input" type="file" accept="image/*" capture="environment" multiple style="max-width:100%"><p style="font-size:11px;color:var(--ink-500);line-height:1.5;margin:10px 0 0">İlk fotoğraf kapak olur. Telefondan kamera veya galeriyi kullanabilirsiniz.</p></div>
               <div class="media-previews" data-media-previews></div>
             </div>
-            <div class="full" style="display:flex;gap:9px;justify-content:space-between;flex-wrap:wrap;padding-top:4px">
-              <button class="btn btn-outline" type="button" data-delete-property hidden>İlanı sil</button>
-              <div style="display:flex;gap:8px;margin-left:auto"><button class="btn btn-outline" type="reset">Temizle</button><button class="btn btn-dark" type="button" data-save-property>İlanı kaydet</button></div>
-            </div>
+
+            <details class="full" style="border-top:1px solid rgba(6,28,22,.10);padding-top:14px">
+              <summary style="cursor:pointer;font-weight:700;font-size:13px">Diğer detaylar</summary>
+              <div class="admin-form-grid" style="margin-top:16px">
+                <div class="field"><label>İlan kodu</label><input name="referenceCode" placeholder="Otomatik oluşabilir"></div>
+                <div class="field"><label>URL kısa adı</label><input name="slug" placeholder="Otomatik oluşabilir"></div>
+                <div class="field"><label>Görünürlük</label><select name="visibility"><option value="Public">Herkese açık</option><option value="Private">Özel ilan</option><option value="Teaser">Sınırlı ön izleme</option><option value="Hidden">Gizli</option></select></div>
+                <div class="field"><label>Konum gizliliği</label><select name="locationPrivacy"><option value="district">Semt / mahalle</option><option value="approximate">Yaklaşık konum</option><option value="exact">Tam adres</option></select></div>
+                <div class="field"><label>Ülke</label><input name="country" value="Türkiye"></div>
+                <div class="field"><label>Şehir</label><input name="city" value="İstanbul"></div>
+                <div class="field full"><label>Tam adres</label><input name="address" placeholder="Yalnızca gerekiyorsa"></div>
+                <div class="field"><label>Para birimi</label><select name="currency"><option value="TRY">TRY · ₺</option><option value="USD">USD · $</option><option value="EUR">EUR · €</option><option value="GBP">GBP · £</option><option value="AED">AED</option></select></div>
+                <div class="field"><label>Banyo</label><input name="baths" inputmode="numeric" type="number" min="0"></div>
+                <div class="field"><label>İç alan · m²</label><input name="interiorArea" inputmode="decimal" type="number" min="0" step="0.01"></div>
+                <div class="field"><label>Arsa · m²</label><input name="plotArea" inputmode="decimal" type="number" min="0" step="0.01"></div>
+                <div class="field full"><label>Detaylı açıklama</label><textarea name="description"></textarea></div>
+                <div class="field full"><label>Öne çıkanlar · satır satır</label><textarea name="highlights"></textarea></div>
+                <div class="field full"><label>Özellikler · satır satır</label><textarea name="amenities"></textarea></div>
+                <div class="field"><label>SEO başlığı</label><input name="metaTitle" maxlength="70"></div>
+                <div class="field"><label>SEO açıklaması</label><input name="metaDescription" maxlength="170"></div>
+                <div class="field full"><label><input name="indexable" type="checkbox" style="width:auto;min-height:auto;margin-right:8px">İleride arama motorlarında gösterilebilir</label></div>
+              </div>
+            </details>
+
+            <div class="full" style="display:flex;gap:9px;justify-content:space-between;flex-wrap:wrap;padding-top:4px"><button class="btn btn-outline" type="button" data-delete-property hidden>İlanı sil</button><div style="display:flex;gap:8px;margin-left:auto"><button class="btn btn-outline" type="reset">Temizle</button><button class="btn btn-dark" type="button" data-save-property>Kaydet</button></div></div>
           </form>
         </div>
       </section>
 
-      <section class="admin-view" data-view="leads">
-        <div class="admin-grid-2">
-          <div class="admin-panel">
-            <div class="panel-head"><h2>Müşteri talepleri</h2><span class="status-pill">Localhost kayıtları</span></div>
-            <div class="admin-table-wrap">
-              <table class="admin-table">
-                <thead><tr><th>Müşteri</th><th>Kaynak</th><th>İlan</th><th>Durum</th><th>Tarih</th><th></th></tr></thead>
-                <tbody data-admin-leads></tbody>
-              </table>
-            </div>
-          </div>
-          <div class="admin-panel" data-lead-detail>
-            <div style="padding:36px 12px;text-align:center;color:var(--ink-500);font-size:12px">Detayları görmek için bir müşteri talebini açın.</div>
-          </div>
-        </div>
-      </section>
-
+      <section class="admin-view" data-view="leads"><div class="admin-grid-2"><div class="admin-panel"><div class="panel-head"><h2>Müşteri talepleri</h2></div><div class="admin-table-wrap"><table class="admin-table"><thead><tr><th>Müşteri</th><th>Kaynak</th><th>İlan</th><th>Durum</th><th>Tarih</th><th></th></tr></thead><tbody data-admin-leads></tbody></table></div></div><div class="admin-panel" data-lead-detail><div style="padding:36px 12px;text-align:center;color:var(--ink-500);font-size:12px">Bir talebi açın.</div></div></div></section>
       <section class="admin-view" data-view="viewings"><div class="admin-panel" data-viewings></div></section>
       <section class="admin-view" data-view="journal"><div class="admin-panel" data-journal></div></section>
-      <section class="admin-view" data-view="settings">
-        <div class="admin-panel"><div class="panel-head"><h2>İşletme ayarları</h2><button class="btn btn-outline" type="button" data-reset-preview>Yerel veriyi sıfırla</button></div><div data-settings></div></div>
-      </section>
+      <section class="admin-view" data-view="settings"><div class="admin-panel"><div class="panel-head"><h2>Ayarlar</h2><button class="btn btn-outline" type="button" data-reset-preview>Yerel veriyi sıfırla</button></div><div data-settings></div></div></section>
     </section>
   </div>
-  <nav class="admin-mobile-bar" aria-label="Mobil yönetim">
-    <button type="button" data-admin-nav="dashboard" class="active">Ana</button>
-    <button type="button" data-admin-nav="properties">İlanlar</button>
-    <button type="button" data-admin-nav="leads">Talepler</button>
-    <button type="button" data-admin-nav="viewings">Randevu</button>
-    <button type="button" data-admin-nav="settings">Ayarlar</button>
-  </nav>
+  <nav class="admin-mobile-bar" aria-label="Mobil yönetim"><button type="button" data-admin-nav="dashboard" class="active">Ana</button><button type="button" data-admin-nav="properties">İlanlar</button><button type="button" data-admin-nav="leads">Talepler</button><button type="button" data-admin-nav="viewings">Randevu</button><button type="button" data-admin-nav="settings">Ayarlar</button></nav>
 </div>
-
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 <script src="/assets/data.js"></script><script src="/assets/app.js"></script><script src="/assets/admin.js"></script>
 </body></html>
