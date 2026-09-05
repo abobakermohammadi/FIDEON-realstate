@@ -12,6 +12,27 @@
     '.real-listing-media-main'
   ].join(',');
 
+  function installHeadPolish() {
+    if (!$('link[rel="manifest"]')) {
+      const manifest = document.createElement('link');
+      manifest.rel = 'manifest';
+      manifest.href = '/manifest.webmanifest';
+      document.head.appendChild(manifest);
+    }
+    if (!$('meta[name="color-scheme"]')) {
+      const colorScheme = document.createElement('meta');
+      colorScheme.name = 'color-scheme';
+      colorScheme.content = 'light';
+      document.head.appendChild(colorScheme);
+    }
+    if (!$('meta[name="apple-mobile-web-app-title"]')) {
+      const title = document.createElement('meta');
+      title.name = 'apple-mobile-web-app-title';
+      title.content = 'FIDEON';
+      document.head.appendChild(title);
+    }
+  }
+
   function decorateNode(node) {
     if (!node || node.dataset.neoLive === '1') return;
     node.dataset.neoLive = '1';
@@ -96,6 +117,7 @@
 
   function boot() {
     document.documentElement.classList.add('neo-live-ready');
+    installHeadPolish();
     decorate();
     document.addEventListener('pointermove', onPointerMove, {passive:true});
     document.addEventListener('pointerdown', onPointerDown, {passive:true});
