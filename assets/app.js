@@ -88,7 +88,7 @@
     const url = propertyURL(property);
     const message = whatsappMessage(property);
     const room = roomLabel(property);
-    const image = property.image || "/assets/property-palm.svg";
+    const image = property.image || "/assets/property-placeholder.svg";
     return `<article class="property-card" data-property-card>
       <div class="property-image">
         <a href="${url}" aria-label="${esc(property.title)} ilanını aç"><img src="${esc(image)}" alt="" loading="lazy"></a>
@@ -162,7 +162,7 @@
     if (count) count.textContent = items.length ? `${items.length} portföy ilanı` : "";
     grid.innerHTML = items.length
       ? items.map(propertyCard).join("")
-      : `<div class="empty-state"><h3>Şu anda yayında portföy yok.</h3><p>Aradığınız şeyi bize yazın. Uygun bir seçenek olduğunda direkt konuşalım.</p><a class="btn btn-whatsapp" href="#" data-whatsapp data-whatsapp-message="Merhaba FIDEON, İstanbul'da gayrimenkul arıyorum.">WhatsApp'tan Yaz</a></div>`;
+      : `<div class="empty-state"><h3>Portföy şu an sakin.</h3><p>Aradığınız yeri bize anlatın. Uygun bir seçenek olduğunda direkt konuşalım.</p><a class="btn btn-whatsapp" href="#" data-whatsapp data-whatsapp-message="Merhaba FIDEON, İstanbul'da gayrimenkul arıyorum.">WhatsApp'tan Yaz</a></div>`;
   }
 
   function renderPropertyDetail(root, property) {
@@ -170,7 +170,7 @@
     const phoneRaw = String(F.config?.phone || "+90 501 357 56 35").replace(/\D/g,"");
     const room = roomLabel(property);
     const features = Array.isArray(property.amenities) && property.amenities.length ? property.amenities : (property.highlights || []);
-    const image = property.hero || property.image || "/assets/property-palm.svg";
+    const image = property.hero || property.image || "/assets/property-placeholder.svg";
     document.title = `${property.title} | FIDEON`;
     const meta = $('meta[name="description"]');
     if (meta && property.summary) meta.content = property.summary;
@@ -225,7 +225,7 @@
     const dock = document.createElement("div");
     dock.className = "mobile-contact-dock";
     dock.setAttribute("aria-label","Hızlı iletişim");
-    dock.innerHTML = `<a href="/find/" class="dock-link"><span>⌕</span><b>Ev Ara</b></a><a href="#" class="dock-link dock-whatsapp" data-whatsapp data-whatsapp-message="Merhaba FIDEON, web sitenizden yazıyorum."><span>◉</span><b>WhatsApp</b></a><a href="tel:+${phoneRaw}" class="dock-link"><span>☎</span><b>Ara</b></a>`;
+    dock.innerHTML = `<a href="/properties/" class="dock-link"><span>⌂</span><b>Portföy</b></a><a href="#" class="dock-link dock-whatsapp" data-whatsapp data-whatsapp-message="Merhaba FIDEON, web sitenizden yazıyorum."><span>◉</span><b>WhatsApp</b></a><a href="tel:+${phoneRaw}" class="dock-link"><span>☎</span><b>Ara</b></a>`;
     document.body.appendChild(dock);
   }
 
