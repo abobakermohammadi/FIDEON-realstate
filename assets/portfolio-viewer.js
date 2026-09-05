@@ -13,6 +13,7 @@
   let lastFocus = null;
   let previousOverflow = '';
   let pointerStartX = null;
+  let pointerLastX = null;
 
   function unique(values) {
     return [...new Set(values.map(v => String(v || '').trim()).filter(Boolean))];
@@ -22,6 +23,14 @@
     const thumbSources = $$('[data-listing-media]').map(node => node.dataset.listingMedia);
     const main = $('[data-listing-main-image]')?.getAttribute('src');
     return unique([...thumbSources, main]).map(src => src.endsWith('/property-palm.svg') ? PLACEHOLDER : src);
+  }
+
+  function resetDrag() {
+    pointerStartX = null;
+    pointerLastX = null;
+    if (!viewer) return;
+    viewer.classList.remove('is-dragging');
+    viewer.style.setProperty('--viewer-drag-x', '0px');
   }
 
   function viewerMarkup() {
@@ -65,20 +74,30 @@
     });
 
     viewer.addEventListener('pointerdown', event => {
-      if (event.pointerType === 'mouse') return;
+      if (event.pointerType === 'mouse' || media.length < 2) return;
       pointerStartX = event.clientX;
+      pointerLastX = event.clientX;
+      viewer.classList.add('is-dragging');
+    }, {passive:true});
+    viewer.addEventListener('pointermove', event => {
+      if (pointerStartX == null || event.pointerType === 'mouse' || reduceMotion) return;
+      pointerLastX = event.clientX;
+      const delta = Math.max(-44, Math.min(44, event.clientX - pointerStartX));
+      viewer.style.setProperty('--viewer-drag-x', `${delta.toFixed(1)}px`);
     }, {passive:true});
     viewer.addEventListener('pointerup', event => {
       if (pointerStartX == null || event.pointerType === 'mouse') return;
       const delta = event.clientX - pointerStartX;
-      pointerStartX = null;
+      resetDrag();
       if (Math.abs(delta) < 54 || media.length < 2) return;
       show(activeIndex + (delta < 0 ? 1 : -1));
     }, {passive:true});
+    viewer.addEventListener('pointercancel', resetDrag, {passive:true});
   }
 
   function show(index) {
     if (!media.length) return;
+    resetDrag();
     activeIndex = (index + media.length) % media.length;
     const src = media[activeIndex] || PLACEHOLDER;
     if (!reduceMotion) stageImage.classList.add('is-switching');
@@ -113,6 +132,7 @@
 
   function close() {
     if (!viewer || viewer.hidden) return;
+    resetDrag();
     viewer.classList.remove('is-open');
     const finish = () => {
       viewer.hidden = true;
