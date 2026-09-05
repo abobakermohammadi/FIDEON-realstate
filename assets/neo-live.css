@@ -1,34 +1,24 @@
-/* FIDEON Neo Live
+/* FIDEON Neo Live v1.1
    Frozen glass, optical depth and tiny live detail without adding decisions. */
 :root{
   --neo-live-edge:rgba(255,255,255,.78);
   --neo-live-line:rgba(15,17,16,.08);
   --neo-live-shadow:0 24px 70px rgba(28,31,29,.10);
-  --neo-live-x:50%;
-  --neo-live-y:50%;
   --neo-live-ease:cubic-bezier(.16,1,.3,1);
 }
 
 .neo-reactive{position:relative;isolation:isolate;--neo-x:50%;--neo-y:50%}
-.neo-reactive::after{
-  content:"";position:absolute;inset:0;z-index:8;pointer-events:none;border-radius:inherit;opacity:0;
+.neo-glint{
+  position:absolute;inset:0;z-index:9;pointer-events:none;border-radius:inherit;opacity:0;
   background:radial-gradient(420px circle at var(--neo-x) var(--neo-y),rgba(255,255,255,.48),rgba(255,255,255,.12) 24%,transparent 62%);
   mix-blend-mode:soft-light;transition:opacity .28s ease;
 }
-.neo-reactive:hover::after,.neo-reactive:focus-within::after{opacity:.72}
+.neo-reactive:hover>.neo-glint,.neo-reactive:focus-within>.neo-glint{opacity:.68}
 
-/* Refraction edge: reads as glass even when the blur is subtle. */
+/* Refraction edge: glass reads from light, blur and edge response rather than fake chrome. */
 .site-header,.action-choice,.flow-panel,.property-card,.empty-state,.mobile-menu,.mobile-contact-dock,.admin-panel,.metric-card,.admin-topbar,.real-listing-media-main{
   box-shadow:inset 0 1px 0 rgba(255,255,255,.68),inset 0 -1px 0 rgba(15,17,16,.035),var(--neo-live-shadow)!important;
 }
-.site-header::before,.action-choice::after,.flow-panel::after,.property-card::before,.empty-state::before,.admin-panel::before,.metric-card::before{
-  content:"";position:absolute;pointer-events:none;border-radius:inherit;
-  background:linear-gradient(125deg,rgba(255,255,255,.74),transparent 25%,transparent 72%,rgba(255,255,255,.28));
-  opacity:.45;
-}
-.site-header::before{inset:0;z-index:-1}
-.action-choice::after,.flow-panel::after,.property-card::before,.empty-state::before,.admin-panel::before,.metric-card::before{inset:1px;z-index:0}
-.action-choice>* ,.flow-panel>* ,.property-card>* ,.empty-state>* ,.admin-panel>* ,.metric-card>*{position:relative;z-index:1}
 
 /* Homepage: layered glass without becoming a dashboard. */
 .v2-home .hero{overflow:hidden!important}
@@ -68,6 +58,7 @@
 .action-choice:nth-child(3)::before{background:radial-gradient(circle at 50% 50%,rgba(255,155,113,.42),transparent 58%)!important}
 .action-choice:hover::before{opacity:.32!important;transform:translate3d(4%,2%,0) scale(1.04)!important}
 .action-choice:hover{border-color:rgba(15,17,16,.12)!important;box-shadow:0 24px 76px rgba(28,31,29,.12)!important}
+.action-choice>*:not(.neo-glint){position:relative;z-index:1}
 .action-arrow{width:34px;height:34px;border:1px solid rgba(15,17,16,.09);border-radius:11px;background:rgba(255,255,255,.46);backdrop-filter:blur(10px)}
 .action-choice:hover .action-arrow{transform:translateX(2px)!important;background:rgba(255,255,255,.74)!important}
 
@@ -85,21 +76,21 @@
   background:linear-gradient(90deg,transparent,rgba(255,155,113,.72),rgba(159,140,255,.70),rgba(104,215,230,.62),transparent)!important;
   opacity:.8!important;
 }
-.field input,.field select,.field textarea{
-  transition:border-color .22s ease,background .22s ease,box-shadow .28s ease!important;
-}
+.flow-panel>*:not(.neo-glint){position:relative;z-index:1}
+.field input,.field select,.field textarea{transition:border-color .22s ease,background .22s ease,box-shadow .28s ease!important}
 .field:focus-within input,.field:focus-within select,.field:focus-within textarea{
   border-color:rgba(15,17,16,.18)!important;background:rgba(255,255,255,.76)!important;
   box-shadow:0 0 0 4px rgba(159,140,255,.07),inset 0 1px 0 rgba(255,255,255,.8)!important;
 }
 
 /* Portfolio and detail: product-grade surfaces even before inventory exists. */
-.properties-grid .empty-state{min-height:280px;display:grid;place-items:center;align-content:center;border:1px solid rgba(255,255,255,.72)!important;background:rgba(255,255,255,.50)!important;backdrop-filter:blur(24px)!important}
+.properties-grid .empty-state{min-height:280px;display:grid;place-items:center;align-content:center;border:1px solid rgba(255,255,255,.72)!important;background:rgba(255,255,255,.50)!important;backdrop-filter:blur(24px)!important;overflow:hidden}
 .properties-grid .empty-state::after{
   content:"";position:absolute;width:160px;height:160px;right:8%;top:50%;transform:translateY(-50%);border-radius:36px;
   border:1px solid rgba(255,255,255,.8);background:linear-gradient(145deg,rgba(255,255,255,.52),rgba(255,255,255,.14));
-  box-shadow:0 22px 58px rgba(28,31,29,.08);opacity:.58;pointer-events:none;
+  box-shadow:0 22px 58px rgba(28,31,29,.08);opacity:.58;pointer-events:none;z-index:0;
 }
+.properties-grid .empty-state>*:not(.neo-glint){position:relative;z-index:1}
 .property-card{background:rgba(255,255,255,.62)!important;backdrop-filter:blur(18px)!important}
 .property-image{overflow:hidden}.property-image img{transition:transform .9s var(--neo-live-ease),filter .5s ease!important}
 .property-card:hover .property-image img{transform:scale(1.018)!important}
@@ -118,9 +109,9 @@
 .admin-panel,.metric-card,.admin-topbar{position:relative;overflow:hidden;backdrop-filter:blur(22px) saturate(1.12)!important;-webkit-backdrop-filter:blur(22px) saturate(1.12)!important}
 .metric-card::after{
   content:"";position:absolute;right:-18px;bottom:-28px;width:88px;height:88px;border-radius:50%;
-  background:radial-gradient(circle,rgba(159,140,255,.13),transparent 68%);pointer-events:none
+  background:radial-gradient(circle,rgba(159,140,255,.13),transparent 68%);pointer-events:none;z-index:0
 }
-.admin-panel:nth-of-type(even)::after{background:radial-gradient(circle,rgba(104,215,230,.10),transparent 68%)}
+.metric-card>*:not(.neo-glint),.admin-panel>*:not(.neo-glint),.admin-topbar>*:not(.neo-glint){position:relative;z-index:1}
 
 .neo-pressed{animation:neo-live-press .34s var(--neo-live-ease)}
 @keyframes neo-live-press{0%{filter:brightness(1)}35%{filter:brightness(.985)}100%{filter:brightness(1)}}
@@ -132,11 +123,11 @@
   .v2-home .hero-v2-copy::after{width:82px;margin-top:24px}
   .page-hero::after{right:-180px;top:-160px;opacity:.42}
   .properties-grid .empty-state::after{width:110px;height:110px;right:-28px;opacity:.34}
-  .neo-reactive::after{display:none}
+  .neo-glint{display:none}
 }
 
 @media(prefers-reduced-motion:reduce){
   .v2-home .hero::after,.page-hero::after,.v2-home .hero-v2-copy::after{animation:none!important}
   .neo-pressed{animation:none!important}
-  .neo-reactive::after{display:none!important}
+  .neo-glint{display:none!important}
 }
