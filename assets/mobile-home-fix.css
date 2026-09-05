@@ -1,0 +1,129 @@
+/* FIDEON mobile homepage repair
+   Real-phone target: useful content begins immediately, no blank first-screen desert. */
+@media (max-width:760px){
+  .v2-home .hero{
+    min-height:540px!important;
+    height:auto!important;
+    max-height:none!important;
+    overflow:hidden!important;
+    position:relative!important;
+  }
+  .v2-home .hero-v2-content,
+  .v2-home .hero-content{
+    min-height:0!important;
+    height:auto!important;
+    display:block!important;
+    width:auto!important;
+    margin:0!important;
+    padding:82px 18px 148px!important;
+    align-items:initial!important;
+    justify-content:initial!important;
+    position:relative!important;
+    z-index:4!important;
+  }
+  .v2-home .hero-v2-copy{
+    position:relative!important;
+    inset:auto!important;
+    margin:0!important;
+    padding:0!important;
+    transform:none!important;
+    max-width:100%!important;
+    z-index:6!important;
+  }
+  .v2-home .eyebrow{
+    margin:0!important;
+    font-size:9px!important;
+  }
+  .v2-home .hero h1{
+    margin:13px 0 15px!important;
+    font-size:clamp(46px,14vw,60px)!important;
+    line-height:.9!important;
+    letter-spacing:-.064em!important;
+    max-width:350px!important;
+    text-wrap:balance!important;
+  }
+  .v2-home .hero-copy{
+    margin:0!important;
+    max-width:335px!important;
+    font-size:14px!important;
+    line-height:1.46!important;
+  }
+  .v2-home .hero-actions{
+    margin-top:17px!important;
+    display:flex!important;
+    gap:8px!important;
+    width:auto!important;
+    max-width:none!important;
+  }
+  .v2-home .hero-actions .btn{
+    width:auto!important;
+    min-height:42px!important;
+    padding-inline:14px!important;
+    white-space:nowrap!important;
+  }
+  .v2-home .hero-brand-seal{display:none!important}
+  .v2-home .fx-depth-scene{
+    inset:auto 0 0 0!important;
+    height:132px!important;
+    opacity:.48!important;
+    overflow:hidden!important;
+    pointer-events:none!important;
+  }
+  .v2-home .fx-orbit-stage{
+    width:176px!important;
+    right:-20px!important;
+    top:54%!important;
+    opacity:.50!important;
+  }
+  .v2-home .fx-orbit-b{width:74px!important;height:54px!important;right:-8px!important}
+  .v2-home .fx-orbit-c{width:86px!important;height:58px!important;left:-12px!important}
+  .v2-home .fx-core{width:56px!important;border-radius:14px!important}
+  .v2-home .fx-live-meta{display:none!important}
+  .v2-home .hero::after{
+    right:-32vw!important;
+    top:27%!important;
+    width:108vw!important;
+    opacity:.34!important;
+  }
+  .home-action-section{
+    padding:8px 0 38px!important;
+    margin:0!important;
+  }
+  .home-action-section .container{padding-inline:10px!important}
+  .action-choice{
+    margin-bottom:8px!important;
+    padding:18px!important;
+    border-radius:18px!important;
+  }
+  .action-choice h3{font-size:23px!important}
+  .action-choice p{font-size:12.5px!important;line-height:1.42!important}
+  .site-footer{margin-top:0!important}
+}
+
+@media (max-width:420px){
+  .v2-home .hero{min-height:490px!important}
+  .v2-home .hero-v2-content,
+  .v2-home .hero-content{padding:78px 15px 84px!important}
+  .v2-home .hero h1{font-size:clamp(44px,14.8vw,56px)!important;max-width:330px!important}
+  .v2-home .hero-copy{max-width:315px!important;font-size:13.5px!important}
+  .v2-home .hero-actions{display:grid!important;grid-template-columns:1fr 1fr!important;width:100%!important;max-width:286px!important}
+  .v2-home .hero-actions .btn{width:100%!important;padding-inline:10px!important}
+  .v2-home .fx-depth-scene{display:none!important}
+  .v2-home .hero::after{top:38%!important;opacity:.28!important}
+}
+
+@media (max-width:340px){
+  .v2-home .hero{min-height:480px!important}
+  .v2-home .hero-v2-content,
+  .v2-home .hero-content{padding:76px 13px 78px!important}
+  .v2-home .hero h1{font-size:43px!important}
+  .v2-home .hero-copy{font-size:13px!important}
+  .v2-home .hero-actions{max-width:100%!important}
+}
+
+@media (max-width:760px) and (orientation:landscape){
+  .v2-home .hero{min-height:450px!important}
+  .v2-home .hero-v2-content,
+  .v2-home .hero-content{padding-top:74px!important;padding-bottom:82px!important}
+  .v2-home .fx-depth-scene{display:none!important}
+}
