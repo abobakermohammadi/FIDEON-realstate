@@ -16,7 +16,6 @@
         <button type="button" data-admin-nav="dashboard" class="active">Ana</button>
         <button type="button" data-admin-nav="properties">İlanlar</button>
         <button type="button" data-admin-nav="leads">Talepler</button>
-        <button type="button" data-admin-nav="viewings">Randevular</button>
         <button type="button" data-admin-nav="settings">Ayarlar</button>
       </nav>
       <div class="admin-sidebar-status" data-admin-sidebar-status>Localhost.<br>Veriler bu tarayıcıda kalır.</div>
@@ -93,13 +92,35 @@
       </section>
 
       <section class="admin-view" data-view="leads"><div class="admin-grid-2"><div class="admin-panel"><div class="panel-head"><h2>Müşteri talepleri</h2></div><div class="admin-table-wrap"><table class="admin-table"><thead><tr><th>Müşteri</th><th>Kaynak</th><th>İlan</th><th>Durum</th><th>Tarih</th><th></th></tr></thead><tbody data-admin-leads></tbody></table></div></div><div class="admin-panel" data-lead-detail><div style="padding:36px 12px;text-align:center;color:var(--ink-500);font-size:12px">Bir talebi açın.</div></div></div></section>
-      <section class="admin-view" data-view="viewings"><div class="admin-panel" data-viewings></div></section>
-      <section class="admin-view" data-view="journal"><div class="admin-panel" data-journal></div></section>
       <section class="admin-view" data-view="settings"><div class="admin-panel"><div class="panel-head"><h2>Ayarlar</h2><button class="btn btn-outline" type="button" data-reset-preview>Yerel veriyi sıfırla</button></div><div data-settings></div></div></section>
     </section>
   </div>
-  <nav class="admin-mobile-bar" aria-label="Mobil yönetim"><button type="button" data-admin-nav="dashboard" class="active">Ana</button><button type="button" data-admin-nav="properties">İlanlar</button><button type="button" data-admin-nav="leads">Talepler</button><button type="button" data-admin-nav="viewings">Randevu</button><button type="button" data-admin-nav="settings">Ayarlar</button></nav>
+  <nav class="admin-mobile-bar" aria-label="Mobil yönetim"><button type="button" data-admin-nav="dashboard" class="active">Ana</button><button type="button" data-admin-nav="properties">İlanlar</button><button type="button" data-admin-nav="leads">Talepler</button><button type="button" data-admin-nav="settings">Ayarlar</button></nav>
 </div>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
-<script src="/assets/data.js"></script><script src="/assets/app.js"></script><script src="/assets/admin.js"></script>
+<script src="/assets/data.js"></script>
+<script>
+(() => {
+  try {
+    const key = "fideon.properties.v2";
+    const legacy = "fideon.properties.v1";
+    const raw = localStorage.getItem(key);
+    if (raw !== null) {
+      localStorage.removeItem(legacy);
+      const saved = JSON.parse(raw);
+      if (Array.isArray(saved) && saved.length === 0) window.FIDEON.sampleProperties = [];
+    }
+  } catch {}
+  window.FIDEON.ui = window.FIDEON.ui || {};
+  window.FIDEON.ui.toast = message => {
+    const node = document.getElementById("toast");
+    if (!node) return;
+    node.textContent = message;
+    node.classList.add("show");
+    clearTimeout(window.__fideonAdminToast);
+    window.__fideonAdminToast = setTimeout(() => node.classList.remove("show"), 2400);
+  };
+})();
+</script>
+<script src="/assets/admin.js"></script>
 </body></html>
