@@ -3,6 +3,7 @@
   const finePointer = matchMedia('(pointer:fine)').matches;
   const $ = (s, r=document) => r.querySelector(s);
   const $$ = (s, r=document) => [...r.querySelectorAll(s)];
+  const PLACEHOLDER = '/assets/property-placeholder.svg';
   let frame = 0;
   let pending = null;
 
@@ -55,6 +56,21 @@
     });
   }
 
+  function guardImage(node) {
+    if (!(node instanceof HTMLImageElement) || node.dataset.neoImageGuard === '1') return;
+    if (!node.closest('.property-card,.real-listing-shell,.admin-page')) return;
+    node.dataset.neoImageGuard = '1';
+    if ((node.getAttribute('src') || '').endsWith('/property-palm.svg')) node.src = PLACEHOLDER;
+    node.addEventListener('error', () => {
+      if (!node.src.endsWith('/property-placeholder.svg')) node.src = PLACEHOLDER;
+    });
+  }
+
+  function guardImages(scope=document) {
+    if (scope instanceof HTMLImageElement) guardImage(scope);
+    $$('img', scope).forEach(guardImage);
+  }
+
   function decorateNode(node) {
     if (!node || node.dataset.neoLive === '1') return;
     node.dataset.neoLive = '1';
@@ -89,6 +105,7 @@
     else $('.page-hero', scope)?.classList.add('neo-alive');
     if (scope instanceof HTMLTextAreaElement) bindTextarea(scope);
     $$('textarea', scope).forEach(bindTextarea);
+    guardImages(scope);
   }
 
   function flushPointer() {
@@ -147,11 +164,15 @@
     document.addEventListener('keydown', trapMobileMenuFocus);
 
     const observer = new MutationObserver(records => {
+      let navigationChanged = false;
       for (const record of records) {
         for (const node of record.addedNodes) {
-          if (node.nodeType === 1 && !node.classList.contains('neo-glint')) decorate(node);
+          if (node.nodeType !== 1 || node.classList.contains('neo-glint')) continue;
+          decorate(node);
+          if (node.matches?.('.mobile-contact-dock,.desktop-nav,.mobile-menu-links') || node.querySelector?.('.mobile-contact-dock,.desktop-nav,.mobile-menu-links')) navigationChanged = true;
         }
       }
+      if (navigationChanged) markActiveNavigation();
     });
     observer.observe(document.body,{childList:true,subtree:true});
   }
