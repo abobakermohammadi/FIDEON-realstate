@@ -57,17 +57,26 @@ else:
     if index_html.find('/assets/mobile-home-fix.css') < index_html.find('/assets/neo-live.css'):
         errors.append("mobile homepage repair must load after neo layers")
 for required in (
-    "min-height:560px!important",
-    "padding:84px 18px 174px!important",
-    "height:170px!important",
+    "min-height:540px!important",
+    "padding:82px 18px 148px!important",
+    "height:132px!important",
+    ".v2-home .hero-brand-seal{display:none!important}",
+    "@media (max-width:420px)",
+    ".v2-home .fx-depth-scene{display:none!important}",
     "@media (max-width:340px)",
     "orientation:landscape",
     ".home-action-section .container",
 ):
     if required not in mobile_home_css:
         errors.append(f"real-phone homepage repair missing: {required}")
-if "padding:92px 18px 230px!important" in mobile_home_css or "min-height:640px!important" in mobile_home_css:
-    errors.append("mobile homepage reverted to oversized dead-zone geometry")
+for forbidden in (
+    "padding:92px 18px 230px!important",
+    "min-height:640px!important",
+    "padding:84px 18px 174px!important",
+    "height:170px!important",
+):
+    if forbidden in mobile_home_css:
+        errors.append(f"mobile homepage reverted to oversized dead-zone geometry: {forbidden}")
 
 for required in ('name="roomPlanManual"', "/assets/admin-hygiene.js", "/assets/admin-polish.css"):
     if required not in admin_html:
@@ -141,4 +150,4 @@ if errors:
         print("ERROR:", error)
     sys.exit(1)
 
-print("PASS: obsessive portfolio, admin, browser, legal, retired-route, real-phone mobile and WhatsApp detail checks")
+print("PASS: obsessive portfolio, admin, browser, legal, retired-route, final real-phone mobile and WhatsApp detail checks")
