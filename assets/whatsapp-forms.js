@@ -22,21 +22,26 @@
   }
 
   function saveLocalLead(form, data) {
-    const current = read(STORE_KEY, []);
-    const lead = {
-      id: window.crypto?.randomUUID?.() || `lead-${Date.now()}`,
-      createdAt: new Date().toISOString(),
-      name: data.name || "Web ziyaretçisi",
-      phone: data.phone || "",
-      email: data.email || "",
-      source: form.dataset.source || location.pathname,
-      property: data.property || "",
-      stage: "New",
-      channel: "WhatsApp",
-      note: data.message || data.criteria || "",
-      payload: data
-    };
-    localStorage.setItem(STORE_KEY, JSON.stringify([lead, ...current]));
+    try {
+      const stored = read(STORE_KEY, []);
+      const current = Array.isArray(stored) ? stored : [];
+      const lead = {
+        id: window.crypto?.randomUUID?.() || `lead-${Date.now()}`,
+        createdAt: new Date().toISOString(),
+        name: data.name || "Web ziyaretçisi",
+        phone: data.phone || "",
+        email: data.email || "",
+        source: form.dataset.source || location.pathname,
+        property: data.property || "",
+        stage: "New",
+        channel: "WhatsApp",
+        note: data.message || data.criteria || "",
+        payload: data
+      };
+      localStorage.setItem(STORE_KEY, JSON.stringify([lead, ...current]));
+    } catch {
+      // Local preview storage must never stand between a visitor and FIDEON.
+    }
   }
 
   function introFor(form) {
