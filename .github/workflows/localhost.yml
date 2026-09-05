@@ -20,3 +20,11 @@ jobs:
           node-version: 22
       - name: Run localhost validation and build
         run: npm run check
+      - name: Retain localhost bundle for visual QA
+        if: success()
+        uses: actions/upload-artifact@v4
+        with:
+          name: fideon-localhost-dist
+          path: dist/
+          if-no-files-found: error
+          retention-days: 1
