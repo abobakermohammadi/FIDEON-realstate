@@ -14,4 +14,8 @@ await rm(out, { recursive:true, force:true });
 await mkdir(out, { recursive:true });
 for (const dir of dirs) if (existsSync(path.join(root, dir))) await cp(path.join(root, dir), path.join(out, dir), { recursive:true });
 for (const file of files) if (existsSync(path.join(root, file))) await cp(path.join(root, file), path.join(out, file));
+if (existsSync(path.join(root, '.openai', 'hosting.json'))) {
+  await mkdir(path.join(out, '.openai'), { recursive: true });
+  await cp(path.join(root, '.openai', 'hosting.json'), path.join(out, '.openai', 'hosting.json'));
+}
 console.log('FIDEON localhost bundle complete -> dist/');
