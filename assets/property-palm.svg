@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000" role="img" aria-labelledby="title desc">
+  <title id="title">FIDEON portföy görseli</title>
+  <desc id="desc">Fotoğraf bulunmadığında kullanılan sade FIDEON mimari yer tutucusu.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#f7f4ee"/>
+      <stop offset="1" stop-color="#ece6dc"/>
+    </linearGradient>
+    <linearGradient id="gold" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#9b7445"/>
+      <stop offset="1" stop-color="#d8bc8d"/>
+    </linearGradient>
+    <pattern id="grid" width="80" height="80" patternUnits="userSpaceOnUse">
+      <path d="M80 0H0V80" fill="none" stroke="#071b15" stroke-opacity=".035"/>
+    </pattern>
+  </defs>
+  <rect width="1600" height="1000" fill="url(#bg)"/>
+  <rect width="1600" height="1000" fill="url(#grid)"/>
+  <g fill="none" stroke="#071b15" stroke-opacity=".18" stroke-width="2">
+    <path d="M290 720V430l205-120 205 120v290"/>
+    <path d="M700 720V340h255v380"/>
+    <path d="M955 720V470l155-86 155 86v250"/>
+    <path d="M240 720h1120"/>
+    <path d="M338 720V520h118v200M518 720V492h118v228M754 720V430h72v290M862 720V430h40v290M1002 720V548h88v172M1130 720V548h88v172"/>
+  </g>
+  <rect x="290" y="718" width="1075" height="3" rx="1.5" fill="url(#gold)" opacity=".72"/>
+  <g transform="translate(800 210)">
+    <circle r="46" fill="#071b15"/>
+    <path d="M-14-22h33M-14-22v44M-14 0h26" fill="none" stroke="#d8bc8d" stroke-width="5" stroke-linecap="round"/>
+  </g>
+</svg>
