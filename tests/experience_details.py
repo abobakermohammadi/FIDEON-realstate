@@ -95,6 +95,13 @@ for rel, text in (("privacy.html", privacy), ("terms.html", terms)):
 if 'href="/">Ana sayfa</a>' not in not_found:
     errors.append("404 primary recovery no longer returns to useful homepage")
 
+for rel in ("saved/index.html", "journal/index.html", "referrals/index.html"):
+    text = (ROOT / rel).read_text(encoding="utf-8")
+    if '<meta name="theme-color" content="#f4f3ef">' not in text or 'background:#f4f3ef' not in text:
+        errors.append(f"retired route can flash the old dark theme: {rel}")
+    if 'class="glass"' not in text or '#9f8cff' not in text or '#68d7e6' not in text:
+        errors.append(f"retired route no longer matches neo glass handoff language: {rel}")
+
 if (ROOT / "assets/property-palm.svg").exists():
     errors.append("retired property-palm artwork must stay deleted")
 
@@ -103,4 +110,4 @@ if errors:
         print("ERROR:", error)
     sys.exit(1)
 
-print("PASS: obsessive portfolio, admin, browser, legal, mobile and WhatsApp detail checks")
+print("PASS: obsessive portfolio, admin, browser, legal, retired-route, mobile and WhatsApp detail checks")
