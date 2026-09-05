@@ -9,6 +9,32 @@
 
   root.classList.add(reduceMotion ? 'fx-reduced' : 'fx-enabled');
 
+  function installRuntimeStyles() {
+    if ($('#fideon-delight-runtime')) return;
+    const style = document.createElement('style');
+    style.id = 'fideon-delight-runtime';
+    style.textContent = `
+      .fx-progress{position:fixed;left:0;top:0;z-index:10001;width:100%;height:1px;pointer-events:none;transform:scaleX(var(--fx-progress,0));transform-origin:left;background:linear-gradient(90deg,#9f7948,#dfc79d,#c9a66b);box-shadow:0 0 10px rgba(201,166,107,.30);opacity:0;transition:opacity .25s ease;will-change:transform}
+      .fx-progress.fx-progress-active{opacity:.82}
+      .mobile-menu{color:var(--forest-950)!important}
+      .mobile-menu .icon-btn{color:var(--forest-950)!important;border-color:rgba(6,29,20,.16)!important}
+      .mobile-menu-links a{color:var(--forest-950)!important;border-bottom-color:rgba(6,29,20,.10)!important}
+      .mobile-menu-links a:hover,.mobile-menu-links a:focus-visible,.mobile-menu-links a[aria-current="page"]{color:var(--gold-700)!important}
+      .mobile-menu-foot{color:var(--ink-500)!important}
+      .v2-home .mobile-contact-dock.fx-smart-dock{transition:transform .45s cubic-bezier(.16,1,.3,1),opacity .28s ease,box-shadow .35s ease!important}
+      .v2-home .mobile-contact-dock.fx-smart-dock:not(.fx-dock-visible){transform:translate3d(0,calc(100% + 28px),0)!important;opacity:0;pointer-events:none}
+      .section .container:has(> .story-block){counter-reset:fideon-story}
+      .story-block{position:relative;counter-increment:fideon-story;transition:padding-left .45s cubic-bezier(.16,1,.3,1),border-color .3s ease}
+      .story-block::before{content:"0" counter(fideon-story);position:absolute;right:0;top:34px;font-size:10px;line-height:1;letter-spacing:.14em;color:var(--gold-700);opacity:.58;transition:transform .45s cubic-bezier(.16,1,.3,1),opacity .3s ease}
+      .story-block:first-child::before{top:0}
+      .story-block:hover{border-color:rgba(159,121,72,.24)}
+      .story-block:hover::before{transform:translateX(-5px);opacity:1}
+      @media(max-width:760px){.story-block::before{right:2px}.fx-progress{height:1px}}
+      @media(prefers-reduced-motion:reduce){.fx-progress{display:none!important}.v2-home .mobile-contact-dock.fx-smart-dock{transition:none!important}.story-block,.story-block::before{transition:none!important}}
+    `;
+    document.head.appendChild(style);
+  }
+
   function addIntroSequence() {
     if (reduceMotion) return;
     const heroItems = [
@@ -106,6 +132,24 @@
     });
   }
 
+  function bindSmartDock() {
+    const dock = $('.v2-home .mobile-contact-dock');
+    const heroActions = $('.v2-home .hero-actions');
+    if (!dock || !heroActions || dock.dataset.fxSmartDock === '1') return;
+    dock.dataset.fxSmartDock = '1';
+    if (!matchMedia('(max-width:760px)').matches) return;
+    dock.classList.add('fx-smart-dock');
+    const sync = visible => dock.classList.toggle('fx-dock-visible', visible);
+    if ('IntersectionObserver' in window) {
+      const observer = new IntersectionObserver(entries => sync(!entries[0].isIntersecting), { threshold:.18 });
+      observer.observe(heroActions);
+    } else {
+      const fallback = () => sync(heroActions.getBoundingClientRect().bottom < 0);
+      fallback();
+      addEventListener('scroll', fallback, { passive:true });
+    }
+  }
+
   function pointerLight(event) {
     if (!finePointer || reduceMotion) return;
     root.style.setProperty('--fx-x', `${event.clientX}px`);
@@ -152,6 +196,7 @@
     revealNodes(scope);
     bindMagnetic(scope);
     bindCardGlow(scope);
+    bindSmartDock();
   }
 
   function installPageChrome() {
@@ -182,6 +227,7 @@
   }
 
   function boot() {
+    installRuntimeStyles();
     installPageChrome();
     if (!reduceMotion && 'IntersectionObserver' in window) {
       revealObserver = new IntersectionObserver(entries => {
