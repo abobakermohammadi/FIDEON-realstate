@@ -1,9 +1,18 @@
 {
-  "name":"FIDEON Real Estate",
+  "name":"FIDEON Gayrimenkul",
   "short_name":"FIDEON",
+  "lang":"tr",
   "start_url":"/",
+  "scope":"/",
   "display":"standalone",
-  "background_color":"#061c16",
-  "theme_color":"#061c16",
-  "icons":[]
+  "background_color":"#f4f3ef",
+  "theme_color":"#f4f3ef",
+  "icons":[
+    {
+      "src":"/assets/fideon-mark.svg",
+      "sizes":"any",
+      "type":"image/svg+xml",
+      "purpose":"any"
+    }
+  ]
 }
