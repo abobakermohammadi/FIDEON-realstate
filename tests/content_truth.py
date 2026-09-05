@@ -25,10 +25,20 @@ for rel in ("find/index.html", "sell/index.html", "private/index.html"):
     if 'name="name"' in text or 'name="phone"' in text:
         errors.append(f"redundant identity fields returned to WhatsApp-first flow: {rel}")
 
+app = (ROOT / "assets/app.js").read_text(encoding="utf-8")
+if "property.whatsappMessage" not in app:
+    errors.append("property-specific WhatsApp message is not used by public runtime")
+if "İlanı Gör" not in app:
+    errors.append("direct property detail CTA missing from public runtime")
+if "data-save" in app or "fideon.saved" in app:
+    errors.append("saved-list detour returned to minimal public runtime")
+if "sample-note" in app:
+    errors.append("sample-listing UI returned to public runtime")
+
 for rel in ("index.html", "properties/index.html"):
     text = (ROOT / rel).read_text(encoding="utf-8")
-    if "/assets/public-polish.js" not in text:
-        errors.append(f"direct property-card polish missing: {rel}")
+    if "/assets/public-polish.js" in text:
+        errors.append(f"obsolete public polish shim still loaded: {rel}")
 
 whatsapp = (ROOT / "assets/whatsapp-forms.js").read_text(encoding="utf-8")
 if "Bu mesaj FIDEON web sitesinden hazırlandı" in whatsapp:
