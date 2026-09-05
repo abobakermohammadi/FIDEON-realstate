@@ -18,22 +18,18 @@
     if (slug !== TARGET) return;
 
     const F = window.FIDEON || {};
-    const inventory = F.store?.getProperties?.() || F.sampleProperties || [];
-    const p = inventory.find(item => String(item.slug || item.id) === TARGET);
-    if (!p || (F.store?.isPublicProperty && !F.store.isPublicProperty(p))) return;
+    const p = (F.sampleProperties || []).find(item => item.slug === TARGET);
+    if (!p) return;
 
-    const whatsappRaw = String(F.config?.whatsapp || "905013575635").replace(/\D/g, "");
-    const phoneRaw = String(F.config?.phone || "+90 501 357 56 35").replace(/\D/g, "");
+    const phoneRaw = String(F.config?.whatsapp || "905013575635").replace(/\D/g, "");
     const waMessage = p.whatsappMessage || `Merhaba FIDEON, ${p.title} ilanı hakkında bilgi almak istiyorum.`;
-    const waHref = whatsappRaw ? `https://wa.me/${whatsappRaw}?text=${encodeURIComponent(waMessage)}` : "#";
-    const callHref = phoneRaw ? `tel:+${phoneRaw}` : "#";
-    const room = p.roomPlan || (p.beds != null ? `${p.beds}+1` : "");
-    const reference = p.reference || p.referenceCode || "";
+    const waHref = `https://wa.me/${phoneRaw}?text=${encodeURIComponent(waMessage)}`;
+    const callHref = `tel:+${phoneRaw}`;
 
     document.documentElement.lang = "tr";
     document.title = `${p.title} | FIDEON`;
     const meta = document.querySelector('meta[name="description"]');
-    if (meta && p.summary) meta.content = p.summary;
+    if (meta) meta.content = p.summary;
     document.body.classList.add("real-listing-detail-active");
     root.closest("main")?.classList.add("real-listing-page");
 
@@ -44,24 +40,38 @@
           <button class="real-listing-share" type="button" data-share-listing>Paylaş</button>
         </div>
 
-        <div class="real-listing-media-main"><img src="${esc(p.hero || p.image || "/assets/property-palm.svg")}" alt="${esc(p.title)}" fetchpriority="high"></div>
+        <div class="real-listing-media-main"><img src="${esc(p.hero || p.image)}" alt="Aşiyan Konakları bina görünümü" fetchpriority="high"></div>
 
         <div class="real-listing-head">
-          <div class="real-listing-kicker">${p.status ? `<span>${esc(p.status)}</span>` : ""}${room ? `<span>${esc(room)}</span>` : ""}</div>
+          <div class="real-listing-kicker"><span>${esc(p.status)}</span><span>${esc(p.roomPlan || "3+1")}</span></div>
           <h1>${esc(p.title)}</h1>
-          <p class="real-listing-location">${esc(p.location || "İstanbul")}</p>
-          <div class="real-listing-price-row"><strong>${esc(p.priceLabel || "Fiyat için WhatsApp'tan sorun")}</strong>${reference ? `<span>${esc(reference)}</span>` : ""}</div>
-          ${p.summary ? `<p class="real-listing-summary">${esc(p.summary)}</p>` : ""}
+          <p class="real-listing-location">${esc(p.location)}</p>
+          <div class="real-listing-price-row"><strong>${esc(p.priceLabel)}</strong><span>${esc(p.reference)}</span></div>
+          <p class="real-listing-summary">${esc(p.summary)}</p>
           <div class="real-listing-actions"><a class="btn btn-whatsapp" href="${waHref}" target="_blank" rel="noreferrer">WhatsApp</a><a class="btn btn-outline" href="${callHref}">Ara</a></div>
         </div>
 
-        ${p.description ? `<div class="real-listing-divider"></div><section class="real-listing-section"><h2>Daire hakkında</h2><p>${esc(p.description)}</p></section>` : ""}
+        <div class="real-listing-divider"></div>
 
-        ${Array.isArray(p.siteFeatures) && p.siteFeatures.length ? `<section class="real-listing-section"><h2>Site özellikleri</h2><div class="real-listing-feature-grid">${list(p.siteFeatures, "real-listing-feature")}</div></section>` : ""}
+        <section class="real-listing-section">
+          <h2>Daire hakkında</h2>
+          <p>${esc(p.description)}</p>
+        </section>
 
-        ${Array.isArray(p.locationAdvantages) && p.locationAdvantages.length ? `<section class="real-listing-section"><h2>Konum avantajları</h2><div class="real-listing-location-list">${list(p.locationAdvantages, "real-listing-location-item")}</div></section>` : ""}
+        <section class="real-listing-section">
+          <h2>Site özellikleri</h2>
+          <div class="real-listing-feature-grid">${list(p.siteFeatures, "real-listing-feature")}</div>
+        </section>
 
-        ${p.reelPreview ? `<section class="real-listing-reel-section"><div><div class="section-kicker">Videodan</div><h2>İç ve dış mekan görüntüleri</h2></div><img src="${esc(p.reelPreview)}" alt="${esc(p.title)} ilan videosundan seçilmiş görüntüler"></section>` : ""}
+        <section class="real-listing-section">
+          <h2>Konum avantajları</h2>
+          <div class="real-listing-location-list">${list(p.locationAdvantages, "real-listing-location-item")}</div>
+        </section>
+
+        <section class="real-listing-reel-section">
+          <div><div class="section-kicker">İç mekandan</div><h2>Salon görüntüsü</h2></div>
+          <img src="${esc(p.reelPreview || p.image)}" alt="Aşiyan Konakları salon görüntüsü">
+        </section>
       </article>
       <div class="real-listing-mobile-cta"><a class="wa" href="${waHref}" target="_blank" rel="noreferrer">WhatsApp</a><a class="call" href="${callHref}">Ara</a></div>`;
 
