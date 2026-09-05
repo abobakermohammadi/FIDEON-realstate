@@ -1,101 +1,106 @@
-/* FIDEON Minimal v3
-   Goal: calm, local, useful. Property first. Contact always close. */
+/* FIDEON Minimal v4
+   Quiet, local, property-first. Fewer boxes. More breathing room. */
 
 :root{
-  --content:1180px;
-  --radius-lg:18px;
-  --shadow-soft:0 12px 34px rgba(6,28,22,.07);
+  --content:1160px;
+  --radius-lg:16px;
+  --shadow-soft:0 10px 28px rgba(6,28,22,.06);
 }
 
-/* Development chrome should not visually compete with the product. */
 .preview-strip{display:none}
 .site-header.header-over-hero{top:0}
 
-/* Calmer header and brand. */
-.nav-wrap{min-height:66px;padding:0 clamp(16px,3vw,36px);gap:18px}
+/* Brand + navigation */
+.nav-wrap{min-height:64px;padding:0 clamp(16px,3vw,34px);gap:18px}
 .brand{gap:9px}
 .brand-mark{width:34px;height:34px}
-.brand-word{font-size:14px;letter-spacing:.19em}
-.desktop-nav{gap:20px}
+.brand-word{font-size:14px;letter-spacing:.21em}
+.desktop-nav{gap:21px}
 .desktop-nav a{font-size:12px;font-weight:620}
-.nav-actions .btn{min-height:42px;padding:0 15px;border-radius:11px}
+.desktop-nav a[href="/find/"]{display:none}
+.nav-actions .btn{min-height:41px;padding:0 15px;border-radius:999px}
+.mobile-menu-links a[href="/private/"],.mobile-menu-links a[href="/journal/"]{display:none}
 
-/* Keep off-market as a secondary service, not main navigation. */
-.mobile-menu-links a[href="/private/"]{display:none}
-
-/* Homepage: fewer objects, more air. */
-.v2-home .hero{min-height:78svh;max-height:820px}
-.v2-home .hero-content{padding-top:150px;padding-bottom:70px}
+/* Homepage */
+.v2-home .hero{min-height:76svh;max-height:800px}
+.v2-home .hero-content{padding-top:145px;padding-bottom:66px}
 .v2-home .hero-v2-content{display:block}
-.v2-home .hero-v2-copy{max-width:690px}
-.v2-home .hero h1{font-size:clamp(44px,6.5vw,82px);max-width:760px;margin:15px 0 18px;line-height:.96}
-.v2-home .hero-copy{max-width:560px;font-size:clamp(16px,1.45vw,19px);line-height:1.58}
-.v2-home .hero-actions{margin-top:26px}
+.v2-home .hero-v2-copy{max-width:680px}
+.v2-home .hero h1{font-size:clamp(44px,6.3vw,80px);max-width:750px;margin:14px 0 17px;line-height:.96}
+.v2-home .hero-copy{max-width:520px;font-size:clamp(16px,1.4vw,18px);line-height:1.58}
+.v2-home .hero-actions{margin-top:24px}
 .v2-home .hero-quick-card{display:none!important}
 
-/* Let imagery breathe instead of layering cards everywhere. */
-.section{padding-block:clamp(68px,8vw,108px)}
-.section-tight{padding-block:clamp(48px,6vw,78px)}
+.section{padding-block:clamp(64px,7vw,96px)}
+.section-tight{padding-block:clamp(44px,5vw,70px)}
 .section-stone{background:#f3f0e9}
-.section-title{font-size:clamp(34px,4.4vw,56px);line-height:1.02;letter-spacing:-.035em}
-.section-lede{max-width:650px;font-size:15px;line-height:1.7}
+.section-title{font-size:clamp(32px,4vw,52px);line-height:1.02;letter-spacing:-.035em}
+.section-lede{max-width:610px;font-size:15px;line-height:1.65}
 .section-kicker{font-size:10px;letter-spacing:.15em}
 
-.home-listings{padding-top:84px;padding-bottom:92px}
-.home-listings .section-title-row{margin-bottom:22px}
+.home-listings{padding-top:76px;padding-bottom:82px}
+.home-listings .section-title-row{margin-bottom:20px}
 .home-listings .listings-intro{display:none}
 
-.property-card{border-radius:16px;border:1px solid rgba(6,28,22,.09);box-shadow:none;background:#fff}
-.property-card:hover{box-shadow:0 12px 28px rgba(6,28,22,.07);transform:translateY(-2px)}
+.property-card{border-radius:14px;border:1px solid rgba(6,28,22,.08);box-shadow:none;background:#fff}
+.property-card:hover{box-shadow:0 10px 25px rgba(6,28,22,.06);transform:translateY(-1px)}
 .property-body{padding:18px}
-.property-title{font-size:24px}
-.property-location{margin-bottom:13px}
-.property-foot{margin-top:14px;padding-top:13px}
-.save-btn{width:36px;height:36px;right:11px;top:11px}
-.property-badges{left:11px;top:11px}
-.badge{min-height:25px;padding:0 9px;font-size:9px}
+.property-title{font-size:23px}
+.property-location{margin-bottom:12px}
+.property-foot{margin-top:13px;padding-top:12px}
+.save-btn{width:34px;height:34px;right:10px;top:10px}
+.property-badges{left:10px;top:10px}
+.badge{min-height:24px;padding:0 8px;font-size:9px}
 
-/* Simple homepage decision strip instead of a wall of cards. */
 .home-action-section{padding-block:0;background:#f3f0e9}
 .action-choice-grid{display:grid;grid-template-columns:1fr 1fr;gap:0;border-top:1px solid rgba(6,28,22,.10);border-bottom:1px solid rgba(6,28,22,.10)}
-.action-choice{min-height:170px;padding:32px 6px;display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:20px;border:0!important;border-radius:0!important;background:transparent!important;box-shadow:none!important}
-.action-choice:first-child{padding-right:36px;border-right:1px solid rgba(6,28,22,.10)!important}
-.action-choice:last-child{padding-left:36px}
-.action-choice h3{margin:0 0 8px;font-size:23px;font-family:var(--sans);font-weight:680;letter-spacing:-.02em}
-.action-choice p{margin:0;font-size:14px;line-height:1.6;color:var(--ink-700)}
+.action-choice{min-height:154px;padding:28px 6px;display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:18px;border:0!important;border-radius:0!important;background:transparent!important;box-shadow:none!important}
+.action-choice:first-child{padding-right:34px;border-right:1px solid rgba(6,28,22,.10)!important}
+.action-choice:last-child{padding-left:34px}
+.action-choice h3{margin:0 0 7px;font-size:22px;font-family:var(--sans);font-weight:680;letter-spacing:-.02em}
+.action-choice p{margin:0;font-size:14px;line-height:1.55;color:var(--ink-700)}
 .action-choice-num{font-size:10px;color:var(--gold-700);letter-spacing:.12em}
-.action-arrow{font-size:22px}
+.action-arrow{font-size:21px}
 
-.home-human-section{padding-block:86px}
-.human-contact-card{padding:0;border:0;background:transparent;box-shadow:none;display:grid;grid-template-columns:1fr auto;gap:40px;align-items:end}
-.human-contact-card h2{font-size:clamp(32px,4vw,48px);margin:10px 0 12px;max-width:680px}
-.human-contact-card p{max-width:620px;color:var(--ink-700)}
-.human-contact-actions{display:flex;gap:9px;flex-wrap:wrap;justify-content:flex-end}
+.home-human-section{padding-block:76px}
+.human-contact-card{padding:0!important;border:0!important;background:transparent!important;box-shadow:none!important;display:grid;grid-template-columns:1fr auto;gap:38px;align-items:end}
+.human-contact-card h2{font-size:clamp(30px,3.7vw,46px);margin:9px 0 10px;max-width:660px}
+.human-contact-card p{max-width:590px;color:var(--ink-700)}
+.human-contact-actions{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}
 
-/* Interior pages: strip decorative bulk, keep one clear job per page. */
-.page-hero{padding-block:clamp(70px,8vw,105px);background:#f7f4ee}
-.page-hero .container{max-width:900px;margin-inline:auto}
-.page-hero h1{font-size:clamp(38px,5.5vw,66px);line-height:.99;margin-top:14px}
-.page-hero p{max-width:650px;font-size:16px;line-height:1.7}
-.breadcrumbs{font-size:11px;opacity:.6}
-.story-grid{gap:64px}
-.story-block{padding:0 0 30px;border-bottom:1px solid rgba(6,28,22,.10)}
-.story-block h3{font-size:22px;margin:0 0 10px}
-.story-block p{font-size:15px;line-height:1.7}
+/* Interior pages */
+.page-hero{padding-block:clamp(62px,7vw,90px);background:#f7f4ee}
+.page-hero .container{max-width:860px;margin-inline:auto}
+.page-hero h1{font-size:clamp(36px,5vw,60px);line-height:.99;margin-top:12px}
+.page-hero p{max-width:610px;font-size:15px;line-height:1.65}
+.breadcrumbs{display:none}
+.story-grid{gap:56px}
+.story-block{padding:0 0 26px;border-bottom:1px solid rgba(6,28,22,.09)}
+.story-block h3{font-size:21px;margin:0 0 9px}
+.story-block p{font-size:15px;line-height:1.65}
 
-.flow-panel{max-width:850px!important;border-radius:18px!important;border:1px solid rgba(6,28,22,.10)!important;box-shadow:none!important;padding:clamp(24px,4vw,42px)!important;background:#fff!important}
-.flow-panel h2{font-size:clamp(30px,4vw,46px)!important;margin-bottom:24px!important}
-.flow-grid{gap:18px!important}
-.field input,.field select,.field textarea{border-radius:10px!important;background:#fbfaf7!important}
+.flow-panel{max-width:820px!important;border-radius:14px!important;border:1px solid rgba(6,28,22,.09)!important;box-shadow:none!important;padding:clamp(22px,3.5vw,38px)!important;background:#fff!important}
+.flow-panel h2{font-size:clamp(28px,3.7vw,42px)!important;margin-bottom:22px!important}
+.flow-grid{gap:16px!important}
+.field input,.field select,.field textarea{border-radius:9px!important;background:#fbfaf7!important}
 
-/* Footer is support, not another homepage. */
-.site-footer{padding-top:52px!important}
-.footer-grid{grid-template-columns:1.3fr repeat(2,1fr)!important;gap:36px!important}
+/* Listing index: one simple toolbar, no dashboard feeling */
+.filter-shell{background:transparent!important;border:0!important;padding:0!important}
+.filter-shell .container{max-width:860px}
+.filters{padding:0!important;gap:8px!important;justify-content:flex-start!important}
+.filter-chip{border-radius:999px!important;min-height:40px!important;padding:0 14px!important;background:#fff!important;border:1px solid rgba(6,28,22,.10)!important}
+.results-head{margin-bottom:24px!important}
+.sort-select{display:none!important}
+.results-head .section-kicker{display:none}
+.results-head .section-title{font-size:30px!important}
+
+/* Footer */
+.site-footer{padding-top:48px!important}
+.footer-grid{grid-template-columns:1.35fr repeat(2,1fr)!important;gap:34px!important}
 .footer-col:nth-of-type(4){display:none}
-.footer-brand p{max-width:360px}
-.footer-bottom{margin-top:38px!important;padding-block:20px!important}
+.footer-brand p{max-width:340px}
+.footer-bottom{margin-top:34px!important;padding-block:18px!important}
 
-/* Mobile: one glance, one thumb, one action. */
 @media(max-width:760px){
   .nav-wrap{min-height:58px;padding-inline:14px}
   .brand-mark{width:30px;height:30px}
@@ -103,39 +108,44 @@
   .nav-actions>.btn{display:none}
   .menu-btn{display:inline-grid}
 
-  .v2-home .hero{min-height:70svh;max-height:none}
-  .v2-home .hero-content{padding:120px 18px 48px}
-  .v2-home .hero h1{font-size:46px;max-width:500px}
-  .v2-home .hero-copy{font-size:16px;max-width:440px}
-  .v2-home .hero-actions{display:grid;grid-template-columns:1fr;max-width:320px}
+  .v2-home .hero{min-height:68svh;max-height:none}
+  .v2-home .hero-content{padding:112px 18px 42px}
+  .v2-home .hero h1{font-size:44px;max-width:490px}
+  .v2-home .hero-copy{font-size:15px;max-width:420px}
+  .v2-home .hero-actions{display:grid;grid-template-columns:1fr;max-width:300px}
   .v2-home .hero-actions .btn{width:100%}
 
-  .section{padding-block:58px}
-  .home-listings{padding-block:58px}
-  .section-title-row{align-items:end}
-  .section-title{font-size:35px}
+  .section{padding-block:54px}
+  .home-listings{padding-block:54px}
+  .section-title{font-size:33px}
 
   .home-property-grid .property-card:only-child{display:block!important;min-height:0}
   .home-property-grid .property-card:only-child .property-image{height:auto;min-height:0;aspect-ratio:4/3}
-  .home-property-grid .property-card:only-child .property-body{padding:17px!important}
-  .home-property-grid .property-card:only-child .property-title{font-size:22px!important}
+  .home-property-grid .property-card:only-child .property-body{padding:16px!important}
+  .home-property-grid .property-card:only-child .property-title{font-size:21px!important}
 
   .action-choice-grid{display:block}
-  .action-choice{min-height:0;padding:28px 0!important;grid-template-columns:24px 1fr auto}
+  .action-choice{min-height:0;padding:25px 0!important;grid-template-columns:22px 1fr auto}
   .action-choice:first-child{border-right:0!important;border-bottom:1px solid rgba(6,28,22,.10)!important}
-  .action-choice h3{font-size:20px}
+  .action-choice h3{font-size:19px}
+  .action-choice p{font-size:13px}
 
-  .home-human-section{padding-block:58px}
+  .home-human-section{padding-block:54px}
   .human-contact-card{display:block}
-  .human-contact-actions{justify-content:flex-start;margin-top:24px}
-  .human-contact-actions .btn{flex:1 1 150px}
+  .human-contact-actions{justify-content:flex-start;margin-top:22px}
+  .human-contact-actions .btn{flex:1 1 140px}
 
-  .page-hero{padding:54px 0 46px}
-  .page-hero h1{font-size:39px}
+  .page-hero{padding:48px 0 40px}
+  .page-hero h1{font-size:37px}
   .story-grid{display:block}
-  .story-sticky{position:static!important;margin-bottom:34px}
-  .flow-panel{padding:22px!important}
+  .story-sticky{position:static!important;margin-bottom:30px}
+  .flow-panel{padding:20px!important}
   .flow-grid{grid-template-columns:1fr!important}
+
+  .filter-shell{padding:0!important}
+  .filters{overflow-x:auto;flex-wrap:nowrap!important;padding:0 14px 8px!important;scrollbar-width:none}
+  .filters::-webkit-scrollbar{display:none}
+  .filter-chip{flex:0 0 auto}
 
   .footer-grid{display:block!important}
   .footer-col{display:none!important}
@@ -143,7 +153,7 @@
   .footer-bottom{font-size:11px}
 
   .mobile-contact-dock{left:8px!important;right:8px!important;bottom:max(8px,env(safe-area-inset-bottom))!important;border-radius:16px!important}
-  .mobile-contact-dock .dock-link{min-height:52px!important}
+  .mobile-contact-dock .dock-link{min-height:50px!important}
 }
 
 @media(prefers-reduced-motion:reduce){
