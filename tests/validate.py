@@ -12,9 +12,9 @@ EXPECTED = [
     "about/index.html", "journal/index.html", "contact/index.html", "saved/index.html",
     "admin/index.html", "privacy.html", "terms.html", "404.html",
     "assets/styles-base.css", "assets/styles-components-a.css", "assets/styles-components-b.css",
-    "assets/styles-admin-responsive.css", "assets/v2.css", "assets/minimal.css", "assets/delight.css",
+    "assets/styles-admin-responsive.css", "assets/v2.css", "assets/minimal.css", "assets/delight.css", "assets/immersive.css",
     "assets/portfolio-polish.css", "assets/real-listing.css", "assets/app.js",
-    "assets/admin.js", "assets/data.js", "assets/whatsapp-forms.js", "assets/delight.js",
+    "assets/admin.js", "assets/data.js", "assets/whatsapp-forms.js", "assets/delight.js", "assets/immersive.js",
     "assets/fideon-mark.svg", "assets/fideon-logo.svg", "assets/fideon-wordmark.svg", "assets/property-palm.svg",
 ]
 for rel in EXPECTED:
@@ -88,15 +88,16 @@ for rel in ("index.html","properties/index.html"):
     if "/assets/public-polish.js" in text: errors.append(f"obsolete public patch runtime still loaded: {rel}")
 
 app=(ROOT/"assets/app.js").read_text(encoding="utf-8")
-if '"/assets/delight.css"' not in app or 'script.src = "/assets/delight.js"' not in app:
-    errors.append("public pages must receive the delight layer through the central runtime")
+for required in ('"/assets/delight.css"', '"/assets/immersive.css"', '"/assets/delight.js"', '"/assets/immersive.js"'):
+    if required not in app:
+        errors.append(f"public pages must receive experience asset through central runtime: {required}")
 
 admin=(ROOT/"admin/index.html").read_text(encoding="utf-8")
 admin_js=(ROOT/"assets/admin.js").read_text(encoding="utf-8")
 if "/assets/app.js" in admin: errors.append("admin must not load public app runtime")
 if "/assets/admin.js" not in admin: errors.append("admin runtime missing")
-if "/assets/delight.css" not in admin or "/assets/delight.js" not in admin:
-    errors.append("admin must share the FIDEON delight layer")
+for required in ("/assets/delight.css", "/assets/delight.js", "/assets/immersive.css", "/assets/immersive.js"):
+    if required not in admin: errors.append(f"admin must share experience asset: {required}")
 if 'if (Array.isArray(currentProps)) propertyState = currentProps;' not in admin_js:
     errors.append("admin must preserve an explicitly empty current inventory")
 
@@ -115,10 +116,10 @@ for rel in ("assets/fideon-mark.svg","assets/fideon-logo.svg","assets/fideon-wor
     if "#C9A66B" not in text or "fill-rule=\"evenodd\"" not in text:
         errors.append(f"uploaded FIDEON vector identity incomplete: {rel}")
 
-css="\n".join((ROOT/f"assets/{name}").read_text() for name in ["styles-base.css","styles-components-a.css","styles-components-b.css","styles-admin-responsive.css","v2.css","minimal.css","delight.css","real-listing.css","portfolio-polish.css"])
+css="\n".join((ROOT/f"assets/{name}").read_text() for name in ["styles-base.css","styles-components-a.css","styles-components-b.css","styles-admin-responsive.css","v2.css","minimal.css","delight.css","immersive.css","real-listing.css","portfolio-polish.css"])
 if "prefers-reduced-motion" not in css: errors.append("reduced-motion handling missing")
-if ".fx-curtain" not in css or ".fx-ripple" not in css or ".fx-reveal" not in css:
-    errors.append("premium interaction primitives missing")
+for required in (".fx-curtain", ".fx-ripple", ".fx-reveal", ".fx-depth-scene", ".fx-orbit-stage", ".fx-form-meter"):
+    if required not in css: errors.append(f"premium interaction primitive missing: {required}")
 
 print(f"Validated {len(html_files)} HTML files.")
 for warning in warnings: print("WARN:", warning)
