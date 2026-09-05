@@ -33,6 +33,8 @@ if "data-save" in app or "fideon.saved" in app:
     errors.append("saved-list detour returned to public runtime")
 if "asiyan-konaklari-adnan-kahveci-3-1" not in app:
     errors.append("retired listing migration guard missing")
+if '"/assets/delight.css"' not in app or 'script.src = "/assets/delight.js"' not in app:
+    errors.append("public runtime does not load the delight layer")
 
 index = (ROOT / "index.html").read_text(encoding="utf-8")
 if "/assets/asiyan-" in index or "Aşiyan" in index:
@@ -45,6 +47,18 @@ minimal_css = (ROOT / "assets/minimal.css").read_text(encoding="utf-8")
 for required in ("--gold-500:#c9a66b", "--forest-950:#061d14", ".reveal{opacity:1!important", ".v2-home .hero", ".page-hero"):
     if required not in minimal_css:
         errors.append(f"minimal brand system missing: {required}")
+
+delight_css = (ROOT / "assets/delight.css").read_text(encoding="utf-8")
+for required in (".fx-curtain", ".fx-ripple", ".fx-reveal", ".fx-magnetic", ".action-choice::before", ".flow-panel::before", "prefers-reduced-motion"):
+    if required not in delight_css:
+        errors.append(f"crafted interaction detail missing: {required}")
+
+delight_js = (ROOT / "assets/delight.js").read_text(encoding="utf-8")
+for required in ("prefers-reduced-motion", "IntersectionObserver", "MutationObserver", "navigateWithCurtain", "bindMagnetic", "pulseForms"):
+    if required not in delight_js:
+        errors.append(f"progressive interaction runtime missing: {required}")
+if "fx-reveal" in index or "opacity:0" in index:
+    errors.append("homepage must not depend on JS-created reveal state for readable content")
 
 for rel in ("assets/fideon-mark.svg", "assets/fideon-logo.svg", "assets/fideon-wordmark.svg"):
     text = (ROOT / rel).read_text(encoding="utf-8")
@@ -59,6 +73,8 @@ if "data-clear-property" not in admin_html or "[data-clear-property]" not in adm
     errors.append("explicit admin editor clear action missing")
 if 'canvas.toDataURL("image/webp", .72)' not in admin_js or "maxEdge = 1280" not in admin_js:
     errors.append("admin phone-photo compaction missing")
+if "/assets/delight.css" not in admin_html or "/assets/delight.js" not in admin_html:
+    errors.append("admin is missing the crafted interaction layer")
 
 whatsapp = (ROOT / "assets/whatsapp-forms.js").read_text(encoding="utf-8")
 if "Bu mesaj FIDEON web sitesinden hazırlandı" in whatsapp:
@@ -79,4 +95,4 @@ if errors:
         print("ERROR:", error)
     sys.exit(1)
 
-print("PASS: minimal content truth checks")
+print("PASS: minimal surface + crafted interaction truth checks")
