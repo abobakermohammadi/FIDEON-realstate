@@ -82,6 +82,17 @@
     }, 1200);
   }
 
+  function openHandoff(url) {
+    // Keep the click synchronous so Safari/iOS treats it as user-initiated.
+    const popup = window.open(url, "_blank");
+    if (popup) {
+      try { popup.opener = null; } catch {}
+      return;
+    }
+    // Popup blocked: fall back to the same tab exactly once.
+    location.assign(url);
+  }
+
   document.addEventListener("submit", event => {
     const form = event.target.closest?.("form[data-whatsapp-form]");
     if (!form) return;
@@ -102,7 +113,6 @@
     const url = `https://wa.me/${raw}?text=${encodeURIComponent(buildMessage(form, data))}`;
     handoffState(form);
     setStatus(form, "WhatsApp açılıyor. Mesajı göndermeden önce kontrol edebilirsiniz.");
-    const opened = window.open(url, "_blank", "noopener,noreferrer");
-    if (!opened) location.href = url;
+    openHandoff(url);
   }, true);
 })();
