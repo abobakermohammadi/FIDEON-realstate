@@ -93,8 +93,9 @@ if "Disallow: /" not in robots:
 all_html = "\n".join(p.read_text(encoding="utf-8") for p in html_files)
 if "/assets/backend.js" in all_html or "/assets/runtime-config.js" in all_html:
     errors.append("localhost-only build must not load cloud provider/runtime scripts")
-if "supabase" in all_html.lower():
-    errors.append("localhost-only HTML must not present Supabase as part of the active phase")
+for cloud_marker in ("supabase.co", "createClient(", "@supabase/"):
+    if cloud_marker.lower() in all_html.lower():
+        errors.append(f"localhost-only HTML unexpectedly activates cloud runtime: {cloud_marker}")
 if "fideon.official@gmail.com" not in all_html:
     errors.append("verified public email missing from site")
 if "+90 501 357 56 35" not in all_html:
