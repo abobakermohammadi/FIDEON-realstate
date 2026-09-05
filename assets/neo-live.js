@@ -24,6 +24,19 @@
     }
   }
 
+  function autoGrowTextarea(node) {
+    if (!(node instanceof HTMLTextAreaElement) || !node.closest('.flow-panel')) return;
+    node.style.height = 'auto';
+    node.style.height = `${Math.min(220, Math.max(104, node.scrollHeight))}px`;
+  }
+
+  function bindTextarea(node) {
+    if (!(node instanceof HTMLTextAreaElement) || !node.closest('.flow-panel') || node.dataset.neoGrow === '1') return;
+    node.dataset.neoGrow = '1';
+    autoGrowTextarea(node);
+    node.addEventListener('input', () => autoGrowTextarea(node), {passive:true});
+  }
+
   function decorate(scope=document) {
     if (scope.matches?.(selectors)) decorateNode(scope);
     $$(selectors, scope).forEach(decorateNode);
@@ -31,6 +44,8 @@
     else $('.hero', scope)?.classList.add('neo-alive');
     if (scope.matches?.('.page-hero')) scope.classList.add('neo-alive');
     else $('.page-hero', scope)?.classList.add('neo-alive');
+    if (scope instanceof HTMLTextAreaElement) bindTextarea(scope);
+    $$('textarea', scope).forEach(bindTextarea);
   }
 
   function flushPointer() {
@@ -62,11 +77,29 @@
     setTimeout(() => target.classList.remove('neo-pressed'), 380);
   }
 
+  function trapMobileMenuFocus(event) {
+    if (event.key !== 'Tab') return;
+    const menu = $('#mobile-menu.open');
+    if (!menu) return;
+    const focusable = $$('a[href],button:not([disabled])', menu).filter(node => node.offsetParent !== null);
+    if (!focusable.length) return;
+    const first = focusable[0];
+    const last = focusable[focusable.length - 1];
+    if (event.shiftKey && document.activeElement === first) {
+      event.preventDefault();
+      last.focus();
+    } else if (!event.shiftKey && document.activeElement === last) {
+      event.preventDefault();
+      first.focus();
+    }
+  }
+
   function boot() {
     document.documentElement.classList.add('neo-live-ready');
     decorate();
     document.addEventListener('pointermove', onPointerMove, {passive:true});
     document.addEventListener('pointerdown', onPointerDown, {passive:true});
+    document.addEventListener('keydown', trapMobileMenuFocus);
 
     const observer = new MutationObserver(records => {
       for (const record of records) {
