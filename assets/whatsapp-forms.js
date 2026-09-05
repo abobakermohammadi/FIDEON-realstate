@@ -66,6 +66,22 @@
     node.textContent = text;
   }
 
+  function handoffState(form) {
+    const button = form.querySelector('button[type="submit"]');
+    if (!button || button.dataset.handoffBusy === "1") return;
+    const original = button.textContent;
+    button.dataset.handoffBusy = "1";
+    button.setAttribute("aria-busy", "true");
+    button.textContent = "WhatsApp açılıyor…";
+    form.classList.add("fx-handoff");
+    setTimeout(() => {
+      button.textContent = original;
+      button.removeAttribute("aria-busy");
+      delete button.dataset.handoffBusy;
+      form.classList.remove("fx-handoff");
+    }, 1200);
+  }
+
   document.addEventListener("submit", event => {
     const form = event.target.closest?.("form[data-whatsapp-form]");
     if (!form) return;
@@ -84,6 +100,7 @@
     const data = Object.fromEntries(new FormData(form).entries());
     saveLocalLead(form, data);
     const url = `https://wa.me/${raw}?text=${encodeURIComponent(buildMessage(form, data))}`;
+    handoffState(form);
     setStatus(form, "WhatsApp açılıyor. Mesajı göndermeden önce kontrol edebilirsiniz.");
     const opened = window.open(url, "_blank", "noopener,noreferrer");
     if (!opened) location.href = url;
