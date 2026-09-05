@@ -5,7 +5,7 @@
   "description": "FIDEON minimal Istanbul real-estate localhost website and owner admin preview",
   "scripts": {
     "dev": "python3 -m http.server 4173",
-    "test": "python3 tests/validate.py && python3 tests/content_truth.py && python3 tests/neo_first_paint.py && python3 tests/runtime_smoke.py && python3 tests/security.py && node tests/public_visibility.mjs && node --check assets/data.js && node --check assets/app.js && node --check assets/admin.js && node --check assets/whatsapp-forms.js && node --check assets/delight.js && node --check assets/immersive.js && node --check assets/neo-live.js",
+    "test": "python3 tests/validate.py && python3 tests/content_truth.py && python3 tests/neo_first_paint.py && python3 tests/experience_details.py && python3 tests/runtime_smoke.py && python3 tests/security.py && node tests/public_visibility.mjs && node --check assets/data.js && node --check assets/app.js && node --check assets/admin.js && node --check assets/admin-hygiene.js && node --check assets/whatsapp-forms.js && node --check assets/delight.js && node --check assets/immersive.js && node --check assets/neo-live.js && node --check assets/portfolio-viewer.js",
     "build": "node scripts/build.mjs",
     "check": "npm test && npm run build"
   }
