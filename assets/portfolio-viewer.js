@@ -163,6 +163,56 @@
     });
   }
 
+  async function shareProperty(button) {
+    const title = $('.real-listing-head h1')?.textContent?.trim() || document.title.replace(/\s*\|\s*FIDEON.*$/i, '') || 'FIDEON Portföy';
+    const shareData = {title:`${title} | FIDEON`, text:`FIDEON portföyü: ${title}`, url:location.href};
+    const original = button.dataset.originalLabel || button.querySelector('span')?.textContent || 'Paylaş';
+    button.dataset.originalLabel = original;
+    try {
+      if (navigator.share) {
+        await navigator.share(shareData);
+        return;
+      }
+      if (navigator.clipboard?.writeText) await navigator.clipboard.writeText(location.href);
+      else {
+        const input = document.createElement('textarea');
+        input.value = location.href;
+        input.setAttribute('readonly','');
+        input.style.position = 'fixed';
+        input.style.opacity = '0';
+        document.body.appendChild(input);
+        input.select();
+        document.execCommand('copy');
+        input.remove();
+      }
+      const label = button.querySelector('span');
+      if (label) label.textContent = 'Bağlantı kopyalandı ✓';
+      button.classList.add('is-copied');
+      setTimeout(() => {
+        if (label) label.textContent = original;
+        button.classList.remove('is-copied');
+      }, 1300);
+    } catch (error) {
+      if (error?.name !== 'AbortError') {
+        const label = button.querySelector('span');
+        if (label) label.textContent = original;
+      }
+    }
+  }
+
+  function installShareControl() {
+    const toolbar = $('.real-listing-toolbar');
+    if (!toolbar || toolbar.querySelector('[data-property-share]')) return;
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.className = 'real-listing-share';
+    button.dataset.propertyShare = '';
+    button.setAttribute('aria-label', 'İlan bağlantısını paylaş');
+    button.innerHTML = `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 15V4M8 8l4-4 4 4M5 12v7h14v-7"/></svg><span>Paylaş</span>`;
+    button.addEventListener('click', () => shareProperty(button));
+    toolbar.appendChild(button);
+  }
+
   function bindDetail() {
     const mainWrap = $('.real-listing-media-main');
     const mainImage = $('[data-listing-main-image]');
@@ -171,11 +221,12 @@
     guardImage(mainImage);
     $$('.real-listing-thumb img').forEach(guardImage);
 
+    const count = collectMedia().length;
     const button = document.createElement('button');
     button.type = 'button';
     button.className = 'real-listing-expand';
     button.setAttribute('aria-label', 'Fotoğrafları tam ekran aç');
-    button.innerHTML = `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 3H3v5M16 3h5v5M8 21H3v-5M16 21h5v-5"/></svg><span>Fotoğraflar</span>`;
+    button.innerHTML = `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 3H3v5M16 3h5v5M8 21H3v-5M16 21h5v-5"/></svg><span>${count > 1 ? `Fotoğraflar · ${count}` : 'Fotoğraf'}</span>`;
     button.addEventListener('click', () => open(button));
     mainWrap.appendChild(button);
     mainImage.addEventListener('click', () => open(button));
@@ -187,6 +238,7 @@
       event.preventDefault();
       open(mainImage);
     });
+    installShareControl();
     return true;
   }
 
