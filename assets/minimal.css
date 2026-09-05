@@ -41,6 +41,9 @@
 .home-listings{padding-top:76px;padding-bottom:82px}
 .home-listings .section-title-row{margin-bottom:20px}
 .home-listings .listings-intro{display:none}
+.home-property-grid .property-card:only-child{min-width:0}
+.home-property-grid .property-card:only-child .property-image{min-width:0;width:100%;aspect-ratio:auto}
+.home-property-grid .property-card:only-child .property-body{min-width:0}
 
 .property-card{border-radius:14px;border:1px solid rgba(6,28,22,.08);box-shadow:none;background:#fff}
 .property-card:hover{box-shadow:0 10px 25px rgba(6,28,22,.06);transform:translateY(-1px)}
@@ -69,10 +72,11 @@
 .human-contact-actions{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}
 
 /* Interior pages */
-.page-hero{padding-block:clamp(62px,7vw,90px);background:#f7f4ee}
+.page-hero{padding-block:clamp(62px,7vw,90px);background:#f7f4ee;color:var(--ink-950)}
 .page-hero .container{max-width:860px;margin-inline:auto}
 .page-hero h1{font-size:clamp(36px,5vw,60px);line-height:.99;margin-top:12px}
-.page-hero p{max-width:610px;font-size:15px;line-height:1.65}
+.page-hero p{max-width:610px;font-size:15px;line-height:1.65;color:var(--ink-700)}
+.page-hero .eyebrow{color:var(--gold-700)}
 .breadcrumbs{display:none}
 .story-grid{gap:56px}
 .story-block{padding:0 0 26px;border-bottom:1px solid rgba(6,28,22,.09)}
