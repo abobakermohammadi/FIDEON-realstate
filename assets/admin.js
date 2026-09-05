@@ -22,6 +22,12 @@
   function toast(message) { const node = $("#toast"); if (!node) return; node.textContent = message; node.classList.add("show"); clearTimeout(toastTimer); toastTimer = setTimeout(() => node.classList.remove("show"), 2300); }
   function slugify(value = "") { return String(value).toLocaleLowerCase("tr-TR").replace(/ğ/g,"g").replace(/ü/g,"u").replace(/ş/g,"s").replace(/ı/g,"i").replace(/ö/g,"o").replace(/ç/g,"c").replace(/[^a-z0-9]+/g,"-").replace(/^-+|-+$/g,""); }
   function formatPrice(currency, value) { if (value === "" || value == null || Number.isNaN(Number(value))) return "Fiyat için WhatsApp'tan sorun"; try { return new Intl.NumberFormat("tr-TR", {style:"currency", currency:currency || "TRY", maximumFractionDigits:0}).format(Number(value)); } catch { return `${currency || "TRY"} ${Number(value).toLocaleString("tr-TR")}`; } }
+  function isPublishedProperty(property = {}) {
+    const visibility = String(property.visibility || "Public").toLocaleLowerCase("tr-TR").trim();
+    if (visibility === "hidden" || visibility === "private") return false;
+    const status = String(property.status || "").toLocaleLowerCase("tr-TR").trim();
+    return !["taslak", "draft", "arşiv", "arsiv", "archived"].includes(status);
+  }
 
   function loadState() {
     const currentProps = read(PROP_KEY, null);
@@ -62,7 +68,7 @@
   function renderDashboard() {
     const values = {
       inventory:propertyState.length,
-      public:propertyState.filter(p => String(p.visibility || "Public").toLowerCase() === "public").length,
+      public:propertyState.filter(isPublishedProperty).length,
       leads:leadState.filter(l => String(l.stage || "New").toLowerCase() === "new").length,
       private:0
     };
@@ -149,7 +155,12 @@
       media, image:media[0] || existing.image || "/assets/property-palm.svg", hero:media[0] || existing.hero || "/assets/property-palm.svg", sample:false, updatedAt:new Date().toISOString()
     };
     record.priceLabel = record.priceOnRequest || record.price == null ? "Fiyat için WhatsApp'tan sorun" : formatPrice(record.currency, record.price);
-    record.whatsappMessage = existing.whatsappMessage || `Merhaba FIDEON, ${record.title} (${record.reference}) ilanı hakkında bilgi almak istiyorum.`;
+    const previousGeneratedMessage = existing.title && (existing.reference || existing.referenceCode)
+      ? `Merhaba FIDEON, ${existing.title} (${existing.reference || existing.referenceCode}) ilanı hakkında bilgi almak istiyorum.`
+      : "";
+    record.whatsappMessage = !existing.whatsappMessage || existing.whatsappMessage === previousGeneratedMessage
+      ? `Merhaba FIDEON, ${record.title} (${record.reference}) ilanı hakkında bilgi almak istiyorum.`
+      : existing.whatsappMessage;
 
     const previous = propertyState;
     propertyState = editing ? propertyState.map(p => p.id === editing ? record : p) : [record, ...propertyState];
@@ -196,14 +207,54 @@
     node.innerHTML = `<div class="admin-form-grid"><div class="field"><label>Telefon</label><input value="${esc(F.config?.phone || "+90 501 357 56 35")}" readonly></div><div class="field"><label>WhatsApp</label><input value="+${esc(F.config?.whatsapp || "905013575635")}" readonly></div><div class="field"><label>E-posta</label><input value="${esc(F.config?.email || "fideon.official@gmail.com")}" readonly></div><div class="field"><label>Instagram</label><input value="${esc(F.config?.instagram || "")}" readonly></div><div class="field full"><label>Veri modu</label><input value="Localhost · bu tarayıcı" readonly></div></div>`;
   }
 
+  function readAsDataURL(file) {
+    return new Promise(resolve => {
+      const reader = new FileReader();
+      reader.onload = () => resolve(reader.result);
+      reader.onerror = () => resolve(null);
+      reader.readAsDataURL(file);
+    });
+  }
+
+  async function compactImage(file) {
+    const original = await readAsDataURL(file);
+    if (!original) return null;
+    try {
+      const image = await new Promise((resolve, reject) => {
+        const node = new Image();
+        node.onload = () => resolve(node);
+        node.onerror = reject;
+        node.src = original;
+      });
+      const sourceWidth = image.naturalWidth || image.width;
+      const sourceHeight = image.naturalHeight || image.height;
+      if (!sourceWidth || !sourceHeight) return original;
+      const maxEdge = 1280;
+      const scale = Math.min(1, maxEdge / Math.max(sourceWidth, sourceHeight));
+      const width = Math.max(1, Math.round(sourceWidth * scale));
+      const height = Math.max(1, Math.round(sourceHeight * scale));
+      const canvas = document.createElement("canvas");
+      canvas.width = width;
+      canvas.height = height;
+      const context = canvas.getContext("2d", {alpha:true});
+      if (!context) return original;
+      context.drawImage(image, 0, 0, width, height);
+      return canvas.toDataURL("image/webp", .72) || original;
+    } catch {
+      return original;
+    }
+  }
+
   function readFiles(fileList) {
     const current = collectMedia();
     const files = [...fileList].filter(file => file.type.startsWith("image/")).slice(0, Math.max(0, 16 - current.length));
     if (!files.length) return;
-    Promise.all(files.map(file => new Promise(resolve => { const reader = new FileReader(); reader.onload = () => resolve(reader.result); reader.onerror = () => resolve(null); reader.readAsDataURL(file); }))).then(urls => {
-      renderMediaPreviews([...current, ...urls.filter(Boolean)]);
+    toast("Fotoğraflar hazırlanıyor…");
+    Promise.all(files.map(compactImage)).then(urls => {
+      const added = urls.filter(Boolean);
+      renderMediaPreviews([...current, ...added]);
       const input = $("#media-input"); if (input) input.value = "";
-      toast("Fotoğraflar hazır.");
+      toast(added.length ? `${added.length} fotoğraf hazır.` : "Fotoğraf eklenemedi.");
     });
   }
 
