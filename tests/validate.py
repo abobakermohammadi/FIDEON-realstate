@@ -15,7 +15,7 @@ EXPECTED = [
     "assets/styles-admin-responsive.css", "assets/v2.css", "assets/minimal.css",
     "assets/portfolio-polish.css", "assets/real-listing.css", "assets/app.js",
     "assets/admin.js", "assets/data.js", "assets/whatsapp-forms.js",
-    "assets/fideon-mark.svg", "assets/fideon-logo.svg", "assets/property-palm.svg",
+    "assets/fideon-mark.svg", "assets/fideon-logo.svg", "assets/fideon-wordmark.svg", "assets/property-palm.svg",
 ]
 for rel in EXPECTED:
     if not (ROOT / rel).exists():
@@ -97,16 +97,17 @@ if 'if (Array.isArray(currentProps)) propertyState = currentProps;' not in admin
 data=(ROOT/"assets/data.js").read_text(encoding="utf-8")
 if 'whatsapp: "905013575635"' not in data: errors.append("verified WhatsApp number missing from central config")
 if "window.FIDEON.sampleProperties = [];" not in data: errors.append("seeded inventory must be empty after listing removal")
-if "asiyan-konaklari-adnan-kahveci-3-1" in data: errors.append("retired Aşiyan listing returned to seeded inventory")
+if 'retired = new Set(["asiyan-konaklari-adnan-kahveci-3-1"])' not in data:
+    errors.append("existing localhost data must purge the retired listing")
 
 index=(ROOT/"index.html").read_text(encoding="utf-8")
-if "/assets/asiyan-" in index: errors.append("retired listing media returned to homepage")
+if "/assets/asiyan-" in index or "Aşiyan" in index: errors.append("retired listing returned to homepage")
 if "WhatsApp'tan Yaz" not in index or "tel:+905013575635" not in index: errors.append("homepage must expose immediate WhatsApp and call actions")
 
-mark=(ROOT/"assets/fideon-mark.svg").read_text(encoding="utf-8")
-logo=(ROOT/"assets/fideon-logo.svg").read_text(encoding="utf-8")
-if "#C9A66B" not in mark or "#C9A66B" not in logo: errors.append("uploaded FIDEON gold identity is not encoded in vector assets")
-if "fill-rule=\"evenodd\"" not in mark or "fill-rule=\"evenodd\"" not in logo: errors.append("FIDEON vector lockup tracing is incomplete")
+for rel in ("assets/fideon-mark.svg","assets/fideon-logo.svg","assets/fideon-wordmark.svg"):
+    text=(ROOT/rel).read_text(encoding="utf-8")
+    if "#C9A66B" not in text or "fill-rule=\"evenodd\"" not in text:
+        errors.append(f"uploaded FIDEON vector identity incomplete: {rel}")
 
 css="\n".join((ROOT/f"assets/{name}").read_text() for name in ["styles-base.css","styles-components-a.css","styles-components-b.css","styles-admin-responsive.css","v2.css","minimal.css","real-listing.css","portfolio-polish.css"])
 if "prefers-reduced-motion" not in css: errors.append("reduced-motion handling missing")
