@@ -95,6 +95,7 @@
         ${property.status ? `<div class="property-badges"><span class="badge">${esc(property.status)}</span></div>` : ""}
       </div>
       <div class="property-body">
+        <div class="property-origin">FIDEON PORTFÖYÜ</div>
         <h2 class="property-title"><a href="${url}">${esc(property.title)}</a></h2>
         <div class="property-location">${esc(property.location || "İstanbul")}</div>
         <div class="property-meta"><span class="property-price">${esc(property.priceLabel || "Fiyat için WhatsApp'tan sorun")}</span>${room ? `<span>${esc(room)}</span>` : ""}${property.area ? `<span>${esc(property.area)}</span>` : ""}</div>
@@ -158,10 +159,10 @@
     if (!grid) return;
     const items = getProperties().filter(isPublicProperty);
     const count = $("[data-result-count]");
-    if (count) count.textContent = items.length ? `${items.length} ilan` : "";
+    if (count) count.textContent = items.length ? `${items.length} portföy ilanı` : "";
     grid.innerHTML = items.length
       ? items.map(propertyCard).join("")
-      : `<div class="empty-state"><h3>Şu anda yayında ilan yok.</h3><p>Ne aradığınızı bize yazın. Portföyü sizin için daraltalım.</p><a class="btn btn-whatsapp" href="#" data-whatsapp data-whatsapp-message="Merhaba FIDEON, İstanbul'da gayrimenkul arıyorum.">WhatsApp'tan Yaz</a></div>`;
+      : `<div class="empty-state"><h3>Şu anda yayında portföy yok.</h3><p>Aradığınız şeyi bize yazın. Uygun bir seçenek olduğunda direkt konuşalım.</p><a class="btn btn-whatsapp" href="#" data-whatsapp data-whatsapp-message="Merhaba FIDEON, İstanbul'da gayrimenkul arıyorum.">WhatsApp'tan Yaz</a></div>`;
   }
 
   function renderPropertyDetail(root, property) {
@@ -175,10 +176,10 @@
     if (meta && property.summary) meta.content = property.summary;
     root.closest("main")?.classList.add("real-listing-page");
     root.innerHTML = `<article class="real-listing-shell">
-      <div class="real-listing-toolbar"><a class="real-listing-back" href="/properties/">← İlanlar</a></div>
+      <div class="real-listing-toolbar"><a class="real-listing-back" href="/properties/">← Portföy</a></div>
       <div class="real-listing-media-main"><img src="${esc(image)}" alt="${esc(property.title)}" fetchpriority="high"></div>
       <div class="real-listing-head">
-        <div class="real-listing-kicker">${property.status ? `<span>${esc(property.status)}</span>` : ""}${room ? `<span>${esc(room)}</span>` : ""}</div>
+        <div class="real-listing-kicker"><span>FIDEON PORTFÖYÜ</span>${property.status ? `<span>${esc(property.status)}</span>` : ""}${room ? `<span>${esc(room)}</span>` : ""}</div>
         <h1>${esc(property.title)}</h1>
         <p class="real-listing-location">${esc(property.location || "İstanbul")}</p>
         <div class="real-listing-price-row"><strong>${esc(property.priceLabel || "Fiyat için WhatsApp'tan sorun")}</strong>${property.reference || property.referenceCode ? `<span>${esc(property.reference || property.referenceCode)}</span>` : ""}</div>
@@ -196,7 +197,7 @@
     const slug = new URLSearchParams(location.search).get("slug");
     const property = getProperties().find(item => String(item.slug || item.id) === String(slug) && isPublicProperty(item));
     if (!property) {
-      root.innerHTML = `<div class="empty-state"><h3>Bu ilan artık yayında değil.</h3><p>Aradığınız evi bize direkt yazabilirsiniz.</p><a class="btn btn-whatsapp" href="#" data-whatsapp data-whatsapp-message="Merhaba FIDEON, İstanbul'da gayrimenkul arıyorum.">WhatsApp'tan Yaz</a></div>`;
+      root.innerHTML = `<div class="empty-state"><h3>Bu portföy ilanı artık yayında değil.</h3><p>Aradığınız evi bize direkt yazabilirsiniz.</p><a class="btn btn-whatsapp" href="#" data-whatsapp data-whatsapp-message="Merhaba FIDEON, İstanbul'da gayrimenkul arıyorum.">WhatsApp'tan Yaz</a></div>`;
       return;
     }
     renderPropertyDetail(root, property);
