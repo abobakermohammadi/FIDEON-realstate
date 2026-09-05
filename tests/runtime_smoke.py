@@ -6,13 +6,13 @@ import os
 
 ROOT = Path(__file__).resolve().parents[1]
 ROUTES = [
-    "/", "/properties/", "/properties/aurora-palm-villa/",
-    "/properties/desert-retreat/", "/properties/skyline-residence/",
-    "/properties/waterfront-house/", "/properties/view/", "/private/", "/sell/", "/find/",
+    "/", "/properties/", "/properties/view/", "/private/", "/sell/", "/find/",
     "/referrals/", "/about/", "/journal/", "/contact/", "/saved/",
     "/admin/", "/privacy.html", "/terms.html", "/404.html",
     "/assets/styles-base.css", "/assets/styles-components-a.css", "/assets/styles-components-b.css", "/assets/styles-admin-responsive.css",
-    "/assets/data.js", "/assets/app.js", "/assets/admin.js",
+    "/assets/v2.css", "/assets/portfolio-polish.css", "/assets/real-listing.css",
+    "/assets/data.js", "/assets/app.js", "/assets/admin.js", "/assets/real-listing-detail.js",
+    "/assets/asiyan-exterior.svg", "/assets/asiyan-reel-preview.svg",
 ]
 
 class Quiet(SimpleHTTPRequestHandler):
