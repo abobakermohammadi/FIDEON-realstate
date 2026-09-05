@@ -1,10 +1,11 @@
 /* FIDEON mobile homepage repair
-   Keeps the hero immediate and intentional on narrow screens. */
+   Real-phone target: useful content begins immediately, no blank first-screen desert. */
 @media (max-width:760px){
   .v2-home .hero{
-    min-height:640px!important;
+    min-height:560px!important;
     height:auto!important;
     max-height:none!important;
+    overflow:hidden!important;
   }
   .v2-home .hero-v2-content,
   .v2-home .hero-content{
@@ -13,7 +14,7 @@
     display:block!important;
     width:auto!important;
     margin:0!important;
-    padding:92px 18px 230px!important;
+    padding:84px 18px 174px!important;
     align-items:initial!important;
     justify-content:initial!important;
   }
@@ -26,20 +27,25 @@
     max-width:100%!important;
     z-index:6!important;
   }
+  .v2-home .eyebrow{
+    margin:0!important;
+    font-size:9px!important;
+  }
   .v2-home .hero h1{
-    margin:16px 0 18px!important;
-    font-size:clamp(48px,14.4vw,62px)!important;
+    margin:14px 0 16px!important;
+    font-size:clamp(46px,14vw,60px)!important;
     line-height:.9!important;
-    letter-spacing:-.065em!important;
-    max-width:360px!important;
+    letter-spacing:-.064em!important;
+    max-width:350px!important;
   }
   .v2-home .hero-copy{
-    max-width:340px!important;
+    margin:0!important;
+    max-width:335px!important;
     font-size:14px!important;
-    line-height:1.5!important;
+    line-height:1.46!important;
   }
   .v2-home .hero-actions{
-    margin-top:22px!important;
+    margin-top:18px!important;
     display:flex!important;
     gap:8px!important;
     width:auto!important;
@@ -47,33 +53,69 @@
   }
   .v2-home .hero-actions .btn{
     width:auto!important;
-    min-height:44px!important;
-    padding-inline:15px!important;
+    min-height:42px!important;
+    padding-inline:14px!important;
+    white-space:nowrap!important;
   }
   .v2-home .fx-depth-scene{
     inset:auto 0 0 0!important;
-    height:220px!important;
-    opacity:.72!important;
+    height:170px!important;
+    opacity:.62!important;
+    overflow:hidden!important;
   }
   .v2-home .fx-orbit-stage{
-    width:230px!important;
-    right:-30px!important;
+    width:195px!important;
+    right:-24px!important;
     top:52%!important;
-    opacity:.62!important;
+    opacity:.58!important;
   }
+  .v2-home .fx-orbit-b{width:84px!important;height:62px!important;right:-10px!important}
+  .v2-home .fx-orbit-c{width:98px!important;height:66px!important;left:-14px!important}
+  .v2-home .fx-core{width:64px!important;border-radius:16px!important}
+  .v2-home .fx-live-meta{display:none!important}
   .v2-home .hero::after{
-    right:-38vw!important;
-    top:34%!important;
-    width:120vw!important;
-    opacity:.48!important;
+    right:-34vw!important;
+    top:30%!important;
+    width:112vw!important;
+    opacity:.42!important;
   }
-  .home-action-section{padding-top:12px!important}
+  .home-action-section{
+    padding:10px 0 42px!important;
+    margin:0!important;
+  }
+  .home-action-section .container{padding-inline:10px!important}
+  .action-choice{
+    margin-bottom:8px!important;
+    padding:20px!important;
+    border-radius:18px!important;
+  }
+  .action-choice h3{font-size:24px!important}
+  .action-choice p{font-size:12.5px!important;line-height:1.45!important}
+  .site-footer{margin-top:0!important}
 }
 
 @media (max-width:420px){
-  .v2-home .hero{min-height:610px!important}
+  .v2-home .hero{min-height:540px!important}
   .v2-home .hero-v2-content,
-  .v2-home .hero-content{padding:88px 16px 218px!important}
-  .v2-home .hero-actions{display:grid!important;grid-template-columns:1fr 1fr!important;width:100%!important;max-width:300px!important}
-  .v2-home .hero-actions .btn{width:100%!important}
+  .v2-home .hero-content{padding:80px 15px 164px!important}
+  .v2-home .hero h1{font-size:clamp(44px,14.8vw,56px)!important;max-width:330px!important}
+  .v2-home .hero-copy{max-width:315px!important;font-size:13.5px!important}
+  .v2-home .hero-actions{display:grid!important;grid-template-columns:1fr 1fr!important;width:100%!important;max-width:286px!important}
+  .v2-home .hero-actions .btn{width:100%!important;padding-inline:10px!important}
+  .v2-home .fx-depth-scene{height:158px!important}
+}
+
+@media (max-width:340px){
+  .v2-home .hero-v2-content,
+  .v2-home .hero-content{padding-inline:13px!important}
+  .v2-home .hero h1{font-size:43px!important}
+  .v2-home .hero-copy{font-size:13px!important}
+  .v2-home .hero-actions{max-width:100%!important}
+}
+
+@media (max-width:760px) and (orientation:landscape){
+  .v2-home .hero{min-height:500px!important}
+  .v2-home .hero-v2-content,
+  .v2-home .hero-content{padding-top:78px!important;padding-bottom:130px!important}
+  .v2-home .fx-depth-scene{height:120px!important}
 }
