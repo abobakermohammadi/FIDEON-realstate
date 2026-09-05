@@ -74,6 +74,18 @@
 
   const propertyURL = property => `/properties/view/?slug=${encodeURIComponent(property.slug || property.id)}`;
   const roomLabel = property => property.roomPlan ? String(property.roomPlan) : (property.beds !== "" && property.beds != null ? `${property.beds}+1` : "");
+  function propertyMedia(property={}) {
+    const media = [];
+    const add = value => {
+      const url = String(value || "").trim();
+      if (url && !media.includes(url)) media.push(url);
+    };
+    add(property.hero);
+    add(property.image);
+    if (Array.isArray(property.media)) property.media.forEach(add);
+    if (!media.length) media.push("/assets/property-placeholder.svg");
+    return media;
+  }
   function whatsappMessage(property) {
     if (property.whatsappMessage) return property.whatsappMessage;
     const ref = property.reference || property.referenceCode;
@@ -88,7 +100,7 @@
     const url = propertyURL(property);
     const message = whatsappMessage(property);
     const room = roomLabel(property);
-    const image = property.image || "/assets/property-placeholder.svg";
+    const image = propertyMedia(property)[0];
     return `<article class="property-card" data-property-card>
       <div class="property-image">
         <a href="${url}" aria-label="${esc(property.title)} ilanını aç"><img src="${esc(image)}" alt="" loading="lazy"></a>
@@ -165,19 +177,53 @@
       : `<div class="empty-state"><h3>Portföy şu an sakin.</h3><p>Aradığınız yeri bize anlatın. Uygun bir seçenek olduğunda direkt konuşalım.</p><a class="btn btn-whatsapp" href="#" data-whatsapp data-whatsapp-message="Merhaba FIDEON, İstanbul'da gayrimenkul arıyorum.">WhatsApp'tan Yaz</a></div>`;
   }
 
+  function bindListingGallery(root) {
+    const main = $("[data-listing-main-image]", root);
+    const buttons = $$('[data-listing-media]', root);
+    if (!main || !buttons.length) return;
+    const select = button => {
+      const src = button.dataset.listingMedia;
+      if (!src || main.getAttribute("src") === src) return;
+      main.classList.add("is-changing");
+      const swap = () => {
+        main.setAttribute("src", src);
+        buttons.forEach(item => item.setAttribute("aria-pressed", item === button ? "true" : "false"));
+        requestAnimationFrame(() => main.classList.remove("is-changing"));
+      };
+      setTimeout(swap, matchMedia('(prefers-reduced-motion: reduce)').matches ? 0 : 90);
+    };
+    buttons.forEach(button => button.addEventListener("click", () => select(button)));
+    const rail = $("[data-listing-gallery]", root);
+    rail?.addEventListener("keydown", event => {
+      if (!["ArrowLeft","ArrowRight"].includes(event.key)) return;
+      const current = document.activeElement?.closest?.('[data-listing-media]');
+      const index = Math.max(0, buttons.indexOf(current));
+      const next = event.key === "ArrowRight" ? Math.min(buttons.length - 1,index + 1) : Math.max(0,index - 1);
+      if (next === index) return;
+      event.preventDefault();
+      buttons[next].focus();
+      select(buttons[next]);
+    });
+  }
+
   function renderPropertyDetail(root, property) {
     const message = whatsappMessage(property);
     const phoneRaw = String(F.config?.phone || "+90 501 357 56 35").replace(/\D/g,"");
     const room = roomLabel(property);
     const features = Array.isArray(property.amenities) && property.amenities.length ? property.amenities : (property.highlights || []);
-    const image = property.hero || property.image || "/assets/property-placeholder.svg";
+    const media = propertyMedia(property);
+    const image = media[0];
+    const gallery = media.length > 1
+      ? `<div class="real-listing-gallery" data-listing-gallery aria-label="İlan fotoğrafları">${media.map((src,index) => `<button type="button" class="real-listing-thumb" data-listing-media="${esc(src)}" aria-pressed="${index === 0 ? "true" : "false"}" aria-label="Fotoğraf ${index + 1}"><img src="${esc(src)}" alt="" loading="lazy"></button>`).join("")}</div>`
+      : "";
     document.title = `${property.title} | FIDEON`;
     const meta = $('meta[name="description"]');
     if (meta && property.summary) meta.content = property.summary;
     root.closest("main")?.classList.add("real-listing-page");
     root.innerHTML = `<article class="real-listing-shell">
       <div class="real-listing-toolbar"><a class="real-listing-back" href="/properties/">← Portföy</a></div>
-      <div class="real-listing-media-main"><img src="${esc(image)}" alt="${esc(property.title)}" fetchpriority="high"></div>
+      <div class="real-listing-media-main"><img data-listing-main-image src="${esc(image)}" alt="${esc(property.title)}" fetchpriority="high"></div>
+      ${gallery}
       <div class="real-listing-head">
         <div class="real-listing-kicker"><span>FIDEON PORTFÖYÜ</span>${property.status ? `<span>${esc(property.status)}</span>` : ""}${room ? `<span>${esc(room)}</span>` : ""}</div>
         <h1>${esc(property.title)}</h1>
@@ -189,6 +235,7 @@
       ${property.description ? `<section class="real-listing-section"><h2>İlan hakkında</h2><p>${esc(property.description)}</p></section>` : ""}
       ${features.length ? `<section class="real-listing-section"><h2>Özellikler</h2><div class="real-listing-feature-grid">${features.map(item => `<div class="real-listing-feature">${esc(item)}</div>`).join("")}</div></section>` : ""}
     </article>`;
+    bindListingGallery(root);
   }
 
   function initPropertyDetail() {
