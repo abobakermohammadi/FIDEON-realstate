@@ -14,26 +14,20 @@
     const style = document.createElement('style');
     style.id = 'fideon-delight-runtime';
     style.textContent = `
-      .fx-progress{position:fixed;left:0;top:0;z-index:10001;width:100%;height:1px;pointer-events:none;transform:scaleX(var(--fx-progress,0));transform-origin:left;background:linear-gradient(90deg,#9f7948,#dfc79d,#c9a66b);box-shadow:0 0 10px rgba(201,166,107,.30);opacity:0;transition:opacity .25s ease;will-change:transform}
-      .fx-progress.fx-progress-active{opacity:.82}
-      .fx-curtain::after{content:"";position:absolute;left:50%;top:50%;width:72px;height:72px;transform:translate(-50%,-50%) scale(.82) rotate(-3deg);background:url('/assets/fideon-mark.svg') center/contain no-repeat;opacity:0;filter:drop-shadow(0 12px 28px rgba(0,0,0,.18));transition:opacity .22s ease .08s,transform .46s cubic-bezier(.16,1,.3,1) .05s}
-      html.fx-leaving .fx-curtain::after{opacity:.9;transform:translate(-50%,-50%) scale(1) rotate(0)}
+      .fx-progress{position:fixed;left:0;top:0;z-index:10001;width:100%;height:1px;pointer-events:none;transform:scaleX(var(--fx-progress,0));transform-origin:left;background:linear-gradient(90deg,#9f7948,#dfc79d,#c9a66b);opacity:0;transition:opacity .2s ease;will-change:transform}
+      .fx-progress.fx-progress-active{opacity:.62}
       .mobile-menu{color:var(--forest-950)!important}
-      .mobile-menu::before{content:"";position:absolute;right:-54px;bottom:78px;width:220px;aspect-ratio:1;background:url('/assets/fideon-mark.svg') center/contain no-repeat;opacity:.035;pointer-events:none;transform:rotate(-7deg)}
       .mobile-menu .icon-btn{color:var(--forest-950)!important;border-color:rgba(6,29,20,.16)!important}
-      .mobile-menu-links a{color:var(--forest-950)!important;border-bottom-color:rgba(6,29,20,.10)!important}
-      .mobile-menu-links a:hover,.mobile-menu-links a:focus-visible,.mobile-menu-links a[aria-current="page"]{color:var(--gold-700)!important}
+      .mobile-menu-links a{color:var(--forest-950)!important}
       .mobile-menu-foot{color:var(--ink-500)!important}
-      .v2-home .mobile-contact-dock.fx-smart-dock{transition:transform .45s cubic-bezier(.16,1,.3,1),opacity .28s ease,box-shadow .35s ease!important}
+      .v2-home .mobile-contact-dock.fx-smart-dock{transition:transform .4s cubic-bezier(.16,1,.3,1),opacity .24s ease!important}
       .v2-home .mobile-contact-dock.fx-smart-dock:not(.fx-dock-visible){transform:translate3d(0,calc(100% + 28px),0)!important;opacity:0;pointer-events:none}
       .section .container:has(> .story-block){counter-reset:fideon-story}
-      .story-block{position:relative;counter-increment:fideon-story;transition:padding-left .45s cubic-bezier(.16,1,.3,1),border-color .3s ease}
-      .story-block::before{content:"0" counter(fideon-story);position:absolute;right:0;top:34px;font-size:10px;line-height:1;letter-spacing:.14em;color:var(--gold-700);opacity:.58;transition:transform .45s cubic-bezier(.16,1,.3,1),opacity .3s ease}
+      .story-block{counter-increment:fideon-story}
+      .story-block::before{content:"0" counter(fideon-story);position:absolute;right:0;top:30px;font-size:9px;line-height:1;letter-spacing:.14em;color:var(--gold-700);opacity:.45}
       .story-block:first-child::before{top:0}
-      .story-block:hover{border-color:rgba(159,121,72,.24)}
-      .story-block:hover::before{transform:translateX(-5px);opacity:1}
-      @media(max-width:760px){.story-block::before{right:2px}.fx-progress{height:1px}.fx-curtain::after{width:62px;height:62px}.mobile-menu::before{width:190px;right:-60px}}
-      @media(prefers-reduced-motion:reduce){.fx-progress,.fx-curtain::after{display:none!important}.v2-home .mobile-contact-dock.fx-smart-dock{transition:none!important}.story-block,.story-block::before{transition:none!important}}
+      @media(max-width:760px){.story-block::before{right:2px}}
+      @media(prefers-reduced-motion:reduce){.fx-progress,.v2-home .mobile-contact-dock.fx-smart-dock{transition:none!important}}
     `;
     document.head.appendChild(style);
   }
@@ -45,19 +39,18 @@
       '.v2-home .hero h1',
       '.v2-home .hero-copy',
       '.v2-home .hero-actions',
-      '.v2-home .hero-brand-seal',
       '.page-hero .eyebrow',
       '.page-hero h1',
       '.page-hero p',
       '.page-hero .cta-actions'
     ];
-    let delay = 35;
+    let delay = 20;
     heroItems.forEach(selector => {
       $$(selector).forEach(node => {
         if (node.classList.contains('fx-intro')) return;
         node.classList.add('fx-intro');
         node.style.setProperty('--fx-delay', `${delay}ms`);
-        delay += 85;
+        delay += 70;
       });
     });
   }
@@ -65,33 +58,24 @@
   function revealNodes(scope=document) {
     const selectors = [
       'main > section:not(.hero):not(.page-hero)',
-      '.flow-panel',
-      '.story-block',
-      '.page-copy > *',
-      '.empty-state',
-      '.property-card',
-      '.real-listing-section',
-      '.footer-grid > *',
-      '.footer-bottom',
-      '.admin-panel',
-      '.metric-card'
+      '.flow-panel','.story-block','.page-copy > *','.empty-state','.property-card',
+      '.real-listing-section','.footer-grid > *','.footer-bottom','.admin-panel','.metric-card'
     ];
-    const nodes = selectors.flatMap(selector => $$(selector, scope)).filter((node, index, all) => all.indexOf(node) === index);
+    const nodes = selectors.flatMap(selector => $$(selector, scope)).filter((node,index,all) => all.indexOf(node) === index);
     if (reduceMotion || !revealObserver) {
       nodes.forEach(node => node.classList.add('fx-in'));
       return;
     }
-    nodes.forEach((node, index) => {
+    nodes.forEach(node => {
       if (node.dataset.fxBound === '1') return;
       node.dataset.fxBound = '1';
       node.classList.add('fx-reveal');
-      if (node.matches('.footer-grid > *')) node.dataset.fxSide = index % 2 ? 'right' : 'left';
       revealObserver.observe(node);
     });
   }
 
   function ripple(event) {
-    const target = event.target.closest('.btn,.icon-btn,.dock-link,.action-choice');
+    const target = event.target.closest('.btn,.icon-btn,.dock-link');
     if (!target || reduceMotion) return;
     const rect = target.getBoundingClientRect();
     const span = document.createElement('span');
@@ -99,27 +83,7 @@
     span.style.left = `${event.clientX - rect.left}px`;
     span.style.top = `${event.clientY - rect.top}px`;
     target.appendChild(span);
-    setTimeout(() => span.remove(), 620);
-  }
-
-  function bindMagnetic(scope=document) {
-    if (!finePointer || reduceMotion) return;
-    $$('.btn,.icon-btn', scope).forEach(node => {
-      if (node.dataset.fxMagnetic === '1') return;
-      node.dataset.fxMagnetic = '1';
-      node.classList.add('fx-magnetic');
-      node.addEventListener('pointermove', event => {
-        const rect = node.getBoundingClientRect();
-        const x = ((event.clientX - rect.left) / rect.width - .5) * 7;
-        const y = ((event.clientY - rect.top) / rect.height - .5) * 6;
-        node.style.setProperty('--mag-x', `${x.toFixed(2)}px`);
-        node.style.setProperty('--mag-y', `${y.toFixed(2)}px`);
-      });
-      node.addEventListener('pointerleave', () => {
-        node.style.setProperty('--mag-x', '0px');
-        node.style.setProperty('--mag-y', '0px');
-      });
-    });
+    setTimeout(() => span.remove(), 480);
   }
 
   function bindCardGlow(scope=document) {
@@ -131,7 +95,7 @@
         const rect = node.getBoundingClientRect();
         node.style.setProperty('--card-x', `${event.clientX - rect.left}px`);
         node.style.setProperty('--card-y', `${event.clientY - rect.top}px`);
-      });
+      }, {passive:true});
     });
   }
 
@@ -144,8 +108,8 @@
     dock.classList.add('fx-smart-dock');
     const sync = () => dock.classList.toggle('fx-dock-visible', heroActions.getBoundingClientRect().bottom < Math.min(300, innerHeight * .36));
     sync();
-    addEventListener('scroll', sync, { passive:true });
-    addEventListener('resize', sync, { passive:true });
+    addEventListener('scroll', sync, {passive:true});
+    addEventListener('resize', sync, {passive:true});
   }
 
   function pointerLight(event) {
@@ -171,14 +135,14 @@
     return url.origin === location.origin && url.href !== location.href;
   }
 
-  function navigateWithCurtain(event) {
+  function navigateWithSignal(event) {
     if (reduceMotion || event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
     const anchor = event.target.closest('a[href]');
     if (!isInternalNavigation(anchor)) return;
     event.preventDefault();
     if (root.classList.contains('fx-leaving')) return;
     root.classList.add('fx-leaving');
-    setTimeout(() => { location.href = anchor.href; }, 245);
+    setTimeout(() => { location.href = anchor.href; }, 180);
   }
 
   function pulseForms(event) {
@@ -186,13 +150,12 @@
     if (!form) return;
     form.classList.remove('fx-submit-pulse');
     requestAnimationFrame(() => form.classList.add('fx-submit-pulse'));
-    setTimeout(() => form.classList.remove('fx-submit-pulse'), 650);
+    setTimeout(() => form.classList.remove('fx-submit-pulse'), 520);
   }
 
   function decorate(scope=document) {
     addIntroSequence();
     revealNodes(scope);
-    bindMagnetic(scope);
     bindCardGlow(scope);
     bindSmartDock();
   }
@@ -200,12 +163,12 @@
   function installPageChrome() {
     const curtain = document.createElement('div');
     curtain.className = 'fx-curtain';
-    curtain.setAttribute('aria-hidden', 'true');
+    curtain.setAttribute('aria-hidden','true');
     document.body.appendChild(curtain);
 
     const progress = document.createElement('div');
     progress.className = 'fx-progress';
-    progress.setAttribute('aria-hidden', 'true');
+    progress.setAttribute('aria-hidden','true');
     document.body.appendChild(progress);
 
     const syncProgress = () => {
@@ -220,8 +183,8 @@
       scrollFrame = requestAnimationFrame(syncProgress);
     };
     syncProgress();
-    addEventListener('scroll', scheduleProgress, { passive:true });
-    addEventListener('resize', scheduleProgress, { passive:true });
+    addEventListener('scroll', scheduleProgress, {passive:true});
+    addEventListener('resize', scheduleProgress, {passive:true});
   }
 
   function boot() {
@@ -234,25 +197,23 @@
           entry.target.classList.add('fx-in');
           revealObserver.unobserve(entry.target);
         });
-      }, { threshold:.08, rootMargin:'0px 0px -6% 0px' });
+      }, {threshold:.08,rootMargin:'0px 0px -5% 0px'});
     }
-
     requestAnimationFrame(() => root.classList.add('fx-loaded'));
     decorate();
-    document.addEventListener('pointerdown', ripple, { passive:true });
-    document.addEventListener('pointermove', pointerLight, { passive:true });
-    document.addEventListener('click', navigateWithCurtain);
+    document.addEventListener('pointerdown', ripple, {passive:true});
+    document.addEventListener('pointermove', pointerLight, {passive:true});
+    document.addEventListener('click', navigateWithSignal);
     document.addEventListener('submit', pulseForms, true);
 
     const observer = new MutationObserver(records => {
       const scopes = records.flatMap(record => [...record.addedNodes]).filter(node => node.nodeType === 1 && !node.classList.contains('fx-ripple'));
       scopes.forEach(node => decorate(node));
     });
-    observer.observe(document.body, { childList:true, subtree:true });
+    observer.observe(document.body,{childList:true,subtree:true});
   }
 
-  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot, { once:true });
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded',boot,{once:true});
   else boot();
-
   addEventListener('pageshow', () => root.classList.remove('fx-leaving'));
 })();
