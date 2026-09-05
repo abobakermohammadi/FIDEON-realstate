@@ -15,7 +15,7 @@ EXPECTED = [
     "assets/styles-admin-responsive.css", "assets/v2.css", "assets/minimal.css", "assets/delight.css", "assets/immersive.css",
     "assets/portfolio-polish.css", "assets/real-listing.css", "assets/app.js",
     "assets/admin.js", "assets/data.js", "assets/whatsapp-forms.js", "assets/delight.js", "assets/immersive.js",
-    "assets/fideon-mark.svg", "assets/fideon-logo.svg", "assets/fideon-wordmark.svg", "assets/property-palm.svg",
+    "assets/fideon-mark.svg", "assets/fideon-logo.svg", "assets/fideon-wordmark.svg", "assets/property-placeholder.svg",
 ]
 for rel in EXPECTED:
     if not (ROOT / rel).exists():
@@ -24,6 +24,7 @@ for rel in EXPECTED:
 RETIRED = [
     "assets/asiyan-exterior.svg", "assets/asiyan-reel-preview.svg", "assets/real-listing-detail.js",
     "assets/hero-villa.svg", "assets/property-desert.svg", "assets/property-skyline.svg", "assets/property-waterfront.svg",
+    "assets/property-palm.svg",
 ]
 for rel in RETIRED:
     if (ROOT / rel).exists():
@@ -81,6 +82,7 @@ for rel in ("find/index.html","sell/index.html","private/index.html"):
 contact=(ROOT/"contact/index.html").read_text(encoding="utf-8")
 if "data-whatsapp" not in contact: errors.append("direct WhatsApp action missing: contact/index.html")
 if "tel:+905013575635" not in contact: errors.append("direct phone action missing: contact/index.html")
+if "/properties/" not in contact: errors.append("portfolio path missing from contact navigation")
 
 for rel in ("index.html","properties/index.html"):
     text=(ROOT/rel).read_text(encoding="utf-8")
@@ -91,6 +93,10 @@ app=(ROOT/"assets/app.js").read_text(encoding="utf-8")
 for required in ('"/assets/delight.css"', '"/assets/immersive.css"', '"/assets/delight.js"', '"/assets/immersive.js"'):
     if required not in app:
         errors.append(f"public pages must receive experience asset through central runtime: {required}")
+if "/assets/property-placeholder.svg" not in app:
+    errors.append("truthful property placeholder missing from public runtime")
+if "/assets/property-palm.svg" in app:
+    errors.append("obsolete property placeholder returned to public runtime")
 
 admin=(ROOT/"admin/index.html").read_text(encoding="utf-8")
 admin_js=(ROOT/"assets/admin.js").read_text(encoding="utf-8")
@@ -109,7 +115,8 @@ if 'retired = new Set(["asiyan-konaklari-adnan-kahveci-3-1"])' not in data:
 
 index=(ROOT/"index.html").read_text(encoding="utf-8")
 if "/assets/asiyan-" in index or "Aşiyan" in index: errors.append("retired listing returned to homepage")
-if "WhatsApp'tan Yaz" not in index or "tel:+905013575635" not in index: errors.append("homepage must expose immediate WhatsApp and call actions")
+if "WhatsApp" not in index or "tel:+905013575635" not in index: errors.append("homepage must expose immediate WhatsApp and call actions")
+if "/properties/" not in index or "Portföy" not in index: errors.append("homepage must expose FIDEON portfolio as a first-class path")
 
 for rel in ("assets/fideon-mark.svg","assets/fideon-logo.svg","assets/fideon-wordmark.svg"):
     text=(ROOT/rel).read_text(encoding="utf-8")
