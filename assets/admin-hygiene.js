@@ -142,6 +142,17 @@
     if (publicEnough) link.href = `/properties/view/?slug=${encodeURIComponent(property.slug || property.id)}`;
   }
 
+  function polishAdminLanguage() {
+    const active = $('.admin-nav button.active')?.dataset.adminNav || $('.admin-mobile-bar button.active')?.dataset.adminNav;
+    const title = $('#admin-title');
+    if (title && active === 'properties' && title.textContent === 'İlanlar') title.textContent = 'Portföy';
+
+    const portfolioEmpty = $('[data-admin-properties] tr td[colspan="6"]');
+    if (portfolioEmpty && /Henüz ilan yok/i.test(portfolioEmpty.textContent)) portfolioEmpty.textContent = 'Portföy henüz boş. “Portföye ekle” ile başlayın.';
+    const dashboardEmpty = $('[data-dashboard-properties] tr td[colspan="4"]');
+    if (dashboardEmpty && /Henüz ilan yok/i.test(dashboardEmpty.textContent)) dashboardEmpty.textContent = 'Portföy henüz boş.';
+  }
+
   function celebrateSave() {
     const button = $('[data-save-property]');
     if (!button) return;
@@ -160,6 +171,7 @@
     guardImages();
     mediaCount();
     ensurePreviewLink();
+    polishAdminLanguage();
   }
 
   function boot() {
@@ -167,6 +179,7 @@
     guardImages();
     mediaCount();
     ensurePreviewLink();
+    polishAdminLanguage();
 
     document.addEventListener('click', event => {
       const save = event.target.closest('[data-save-property]');
@@ -177,6 +190,7 @@
           migrateStoredMedia();
           ensurePreviewLink();
           celebrateSave();
+          polishAdminLanguage();
         }, 0);
       }
       const edit = event.target.closest('[data-edit-prop]');
@@ -186,6 +200,7 @@
         if (form?.elements.roomPlanManual) form.elements.roomPlanManual.value = '';
         ensurePreviewLink();
       }, 0);
+      if (event.target.closest('[data-admin-nav]')) setTimeout(polishAdminLanguage, 0);
     }, true);
 
     const form = editorForm();
