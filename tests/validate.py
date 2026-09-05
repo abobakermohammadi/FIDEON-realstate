@@ -130,7 +130,6 @@ if "data-whatsapp" not in contact:
 if "tel:+905013575635" not in contact:
     errors.append("direct phone action missing: contact/index.html")
 
-# Public pages should use the single app runtime rather than a post-render patch layer.
 for rel in ("index.html", "properties/index.html"):
     text = (ROOT/rel).read_text(encoding="utf-8")
     if "/assets/app.js" not in text:
@@ -143,10 +142,15 @@ if "url=/properties/" not in saved:
     errors.append("saved route should return visitors to active listings in minimal mode")
 
 admin = (ROOT/"admin/index.html").read_text(encoding="utf-8")
+admin_js = (ROOT/"assets/admin.js").read_text(encoding="utf-8")
 if "/assets/app.js" in admin:
     errors.append("admin must not load public app runtime")
-if "fideon.properties.v2" not in admin or "saved.length === 0" not in admin:
-    errors.append("admin empty-inventory guard missing")
+if "/assets/admin.js" not in admin:
+    errors.append("admin runtime missing")
+if 'if (Array.isArray(currentProps)) propertyState = currentProps;' not in admin_js:
+    errors.append("admin must preserve an explicitly empty current inventory")
+if "localStorage.removeItem(LEGACY_PROP_KEY)" not in admin_js:
+    errors.append("admin legacy property migration cleanup missing")
 
 data = (ROOT/"assets/data.js").read_text(encoding="utf-8")
 if 'whatsapp: "905013575635"' not in data:
