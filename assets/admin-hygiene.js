@@ -193,6 +193,10 @@
     observer.observe(document.body, {childList:true, subtree:true});
   }
 
+  // This runs while the parser is still finishing, before admin.js handles DOMContentLoaded.
+  // It prevents a retired missing image path from ever reaching the first admin render.
+  migrateStoredMedia();
+
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot, {once:true});
   else boot();
 })();
