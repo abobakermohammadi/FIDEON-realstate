@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#071b15">
+<title>FIDEON | İstanbul Gayrimenkul</title>
+<meta name="description" content="FIDEON ile İstanbul'da satılık, kiralık ve özel gayrimenkul seçeneklerini kolayca inceleyin; doğrudan WhatsApp veya telefonla iletişime geçin.">
+<meta name="robots" content="noindex,nofollow">
+<link rel="icon" href="/assets/fideon-mark.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/assets/styles-base.css">
+<link rel="stylesheet" href="/assets/styles-components-a.css">
+<link rel="stylesheet" href="/assets/styles-components-b.css">
+<link rel="stylesheet" href="/assets/styles-admin-responsive.css">
+<link rel="stylesheet" href="/assets/v2.css">
+<link rel="stylesheet" href="/assets/portfolio-polish.css">
+</head>
+<body class="v2-home">
+<a class="skip-link" href="#main">İçeriğe geç</a>
+<div class="preview-strip"><span class="preview-dot"></span> Localhost geliştirme sürümü</div>
+<header class="site-header header-over-hero">
+  <div class="nav-wrap">
+    <a class="brand" href="/" aria-label="FIDEON ana sayfa"><img class="brand-mark" src="/assets/fideon-mark.svg" alt="FIDEON"><span class="brand-word">FIDEON</span></a>
+    <nav class="desktop-nav" aria-label="Ana menü"><a href="/properties/">İlanlar</a><a href="/sell/">Gayrimenkulünü Sat</a><a href="/find/">Evini Bulalım</a><a href="/about/">Hakkımızda</a></nav>
+    <div class="nav-actions"><a class="btn btn-whatsapp" href="#" data-whatsapp data-whatsapp-message="Merhaba FIDEON, web sitenizden yazıyorum.">WhatsApp</a><button class="icon-btn menu-btn" type="button" data-menu-open aria-label="Menüyü aç" aria-controls="mobile-menu" aria-expanded="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button></div>
+  </div>
+</header>
+<div class="mobile-menu" id="mobile-menu" aria-hidden="true">
+  <div class="mobile-menu-top"><a class="brand" href="/"><img class="brand-mark" src="/assets/fideon-mark.svg" alt=""><span class="brand-word">FIDEON</span></a><button class="icon-btn" type="button" data-menu-close aria-label="Menüyü kapat"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"/></svg></button></div>
+  <nav class="mobile-menu-links" aria-label="Mobil menü"><a href="/properties/">İlanlar</a><a href="/sell/">Gayrimenkulünü Sat</a><a href="/find/">Evini Bulalım</a><a href="/private/">Özel İlanlar</a><a href="/about/">Hakkımızda</a><a href="/contact/">İletişim</a></nav>
+  <a class="btn btn-whatsapp mobile-menu-whatsapp" href="#" data-whatsapp data-whatsapp-message="Merhaba FIDEON, web sitenizden yazıyorum.">WhatsApp'tan Yaz</a>
+  <div class="mobile-menu-foot">İstanbul · Gayrimenkul<br>+90 501 357 56 35<br>fideon.official@gmail.com</div>
+</div>
+<main id="main">
+  <section class="hero hero-v2">
+    <div class="hero-media"><img src="/assets/hero-villa.svg" alt="" fetchpriority="high"></div>
+    <div class="hero-content hero-v2-content">
+      <div class="hero-v2-copy">
+        <div class="eyebrow">İstanbul Gayrimenkul</div>
+        <h1>Doğru evi bulmak<br>daha kolay olmalı.</h1>
+        <p class="hero-copy">İlanları hızlıca inceleyin, detayları görün ve sorunuz olduğunda araya form sokmadan doğrudan FIDEON'a ulaşın.</p>
+        <div class="hero-actions"><a class="btn btn-gold" href="/properties/">İlanları Gör</a><a class="btn btn-whatsapp" href="#" data-whatsapp data-whatsapp-message="Merhaba FIDEON, İstanbul'da bir gayrimenkul arıyorum.">WhatsApp'tan Sor</a></div>
+      </div>
+      <div class="hero-quick-card" aria-label="Hızlı ilan arama">
+        <div class="quick-card-title">Ne arıyorsunuz?</div>
+        <div class="quick-search-grid">
+          <label><span>İşlem</span><select id="home-intent" name="intent"><option value="">Satılık / Kiralık</option><option value="Buy">Satılık</option><option value="Rent">Kiralık</option></select></label>
+          <label><span>Konum</span><select id="home-location" name="location"><option value="">Tüm İstanbul</option><option>Beylikdüzü</option><option>Büyükçekmece</option><option>Esenyurt</option><option>Avcılar</option><option>Başakşehir</option><option>Bakırköy</option><option>Kadıköy</option></select></label>
+          <label><span>Tip</span><select id="home-type" name="type"><option value="">Tümü</option><option value="Daire">Daire</option><option value="Villa">Villa</option><option value="Ticari">Ticari</option><option value="Arsa">Arsa</option></select></label>
+        </div>
+        <button class="btn btn-dark quick-search-submit" type="button" data-search-submit>İlanlarda Ara</button>
+      </div>
+    </div>
+  </section>
+  <section class="section home-listings">
+    <div class="container">
+      <div class="section-title-row reveal"><div><div class="section-kicker">Güncel portföy</div><h2 class="section-title">İlana direkt girin.</h2></div><a class="btn-link" href="/properties/">Tüm ilanlar</a></div>
+      <p class="section-lede listings-intro">Yalnızca elimizdeki gerçek ilan bilgilerini gösteriyoruz. Fiyat veya eksik bir detay için ilan kartından direkt WhatsApp'a geçebilirsiniz.</p>
+      <div class="properties-grid home-property-grid" data-home-properties></div>
+    </div>
+  </section>
+  <section class="section section-stone home-action-section"><div class="container"><div class="action-choice-grid">
+    <a class="action-choice reveal" href="/find/"><span class="action-choice-num">01</span><div><h3>Aradığınızı bulamadınız mı?</h3><p>Bütçe, bölge ve kriterlerinizi bırakın. FIDEON sizin için seçenekleri daraltsın.</p></div><span class="action-arrow">→</span></a>
+    <a class="action-choice reveal" href="/sell/"><span class="action-choice-num">02</span><div><h3>Gayrimenkulünüzü değerlendirelim.</h3><p>Satmak veya kiraya vermek istediğiniz gayrimenkulün temel bilgilerini paylaşın.</p></div><span class="action-arrow">→</span></a>
+  </div></div></section>
+  <section class="section home-human-section"><div class="container"><div class="human-contact-card reveal"><div><div class="section-kicker">Direkt iletişim</div><h2>Form doldurmak zorunda değilsiniz.</h2><p>Bir ilanı sorun, fiyatı konuşun, konumu öğrenin veya ne aradığınızı söyleyin. WhatsApp ya da telefonla direkt ulaşın.</p></div><div class="human-contact-actions"><a class="btn btn-whatsapp btn-lg" href="#" data-whatsapp data-whatsapp-message="Merhaba FIDEON, web sitenizden yazıyorum.">WhatsApp'tan Yaz</a><a class="btn btn-outline btn-lg" href="tel:+905013575635">Hemen Ara</a></div></div></div></section>
+</main>
+<footer class="site-footer site-footer-v2"><div class="container"><div class="footer-grid">
+  <div class="footer-brand"><a class="brand" href="/"><img class="brand-mark" src="/assets/fideon-mark.svg" alt=""><span class="brand-word">FIDEON</span></a><p>İstanbul'da gayrimenkul arayan, satan ve kiraya verenler için doğrudan, sade ve güvenilir iletişim.</p></div>
+  <div class="footer-col"><h3>Gayrimenkul</h3><a href="/properties/">İlanlar</a><a href="/find/">Evini Bulalım</a><a href="/sell/">Gayrimenkulünü Sat</a><a href="/private/">Özel İlanlar</a></div>
+  <div class="footer-col"><h3>FIDEON</h3><a href="/about/">Hakkımızda</a><a href="/contact/">İletişim</a><a href="https://www.instagram.com/fideon.official/" rel="noreferrer">Instagram</a><a href="/privacy.html">Gizlilik</a></div>
+  <div class="footer-col"><h3>Hızlı İletişim</h3><a href="#" data-whatsapp data-whatsapp-message="Merhaba FIDEON, web sitenizden yazıyorum.">WhatsApp</a><a href="tel:+905013575635">+90 501 357 56 35</a><a href="mailto:fideon.official@gmail.com">E-posta</a></div>
+</div><div class="footer-bottom"><span>© <span data-year></span> FIDEON.</span><span>İstanbul</span></div></div></footer>
+<div class="mobile-contact-dock" aria-label="Hızlı iletişim"><a href="/properties/" class="dock-link"><span>⌂</span><b>İlanlar</b></a><a href="#" class="dock-link dock-whatsapp" data-whatsapp data-whatsapp-message="Merhaba FIDEON, web sitenizden yazıyorum."><span>◉</span><b>WhatsApp</b></a><a href="tel:+905013575635" class="dock-link"><span>☎</span><b>Ara</b></a></div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<script src="/assets/data.js"></script><script src="/assets/app.js"></script>
+</body>
+</html>

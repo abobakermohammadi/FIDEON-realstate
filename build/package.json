@@ -1,0 +1,12 @@
+{
+  "name": "fideon-real-estate",
+  "private": true,
+  "version": "1.0.0-local",
+  "description": "FIDEON premium real-estate localhost website and owner admin preview",
+  "scripts": {
+    "dev": "python3 -m http.server 4173",
+    "test": "python3 tests/validate.py && python3 tests/runtime_smoke.py && python3 tests/security.py && node --check assets/data.js && node --check assets/app.js && node --check assets/admin.js && node --check assets/real-listing-detail.js && node --check assets/whatsapp-forms.js",
+    "build": "node scripts/build.mjs",
+    "check": "npm test && npm run build"
+  }
+}
