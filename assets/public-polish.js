@@ -1,5 +1,8 @@
 (() => {
   const F = window.FIDEON || {};
+  const style = document.createElement("style");
+  style.textContent = ".property-card .save-btn{display:none!important}";
+  document.head.appendChild(style);
 
   function propertySlug(card) {
     const href = card.querySelector(".property-title a,.property-image a")?.getAttribute("href");
