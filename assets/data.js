@@ -12,3 +12,14 @@ window.FIDEON.config = {
 
 window.FIDEON.sampleProperties = [];
 window.FIDEON.seedLeads = [];
+
+(() => {
+  const key = "fideon.properties.v2";
+  const retired = new Set(["asiyan-konaklari-adnan-kahveci-3-1"]);
+  try {
+    const current = JSON.parse(localStorage.getItem(key));
+    if (!Array.isArray(current)) return;
+    const cleaned = current.filter(item => !retired.has(String(item?.slug || item?.id || "")));
+    if (cleaned.length !== current.length) localStorage.setItem(key, JSON.stringify(cleaned));
+  } catch {}
+})();
