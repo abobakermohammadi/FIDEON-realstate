@@ -33,8 +33,9 @@ if "data-save" in app or "fideon.saved" in app:
     errors.append("saved-list detour returned to public runtime")
 if "asiyan-konaklari-adnan-kahveci-3-1" not in app:
     errors.append("retired listing migration guard missing")
-if '"/assets/delight.css"' not in app or 'script.src = "/assets/delight.js"' not in app:
-    errors.append("public runtime does not load the delight layer")
+for required in ('"/assets/delight.css"', '"/assets/immersive.css"', '"/assets/delight.js"', '"/assets/immersive.js"'):
+    if required not in app:
+        errors.append(f"public runtime does not load experience asset: {required}")
 
 index = (ROOT / "index.html").read_text(encoding="utf-8")
 if "/assets/asiyan-" in index or "Aşiyan" in index:
@@ -57,6 +58,17 @@ delight_js = (ROOT / "assets/delight.js").read_text(encoding="utf-8")
 for required in ("prefers-reduced-motion", "IntersectionObserver", "MutationObserver", "navigateWithCurtain", "bindMagnetic", "pulseForms"):
     if required not in delight_js:
         errors.append(f"progressive interaction runtime missing: {required}")
+
+immersive_css = (ROOT / "assets/immersive.css").read_text(encoding="utf-8")
+for required in (".fx-depth-scene", ".fx-orbit-stage", ".fx-live-meta", ".fx-form-meter", ".fx-depth-card", "prefers-reduced-motion"):
+    if required not in immersive_css:
+        errors.append(f"immersive visual layer missing: {required}")
+
+immersive_js = (ROOT / "assets/immersive.js").read_text(encoding="utf-8")
+for required in ("installScenes", "Europe/Istanbul", "bindDepthCards", "installFormMeters", "MutationObserver", "prefers-reduced-motion"):
+    if required not in immersive_js:
+        errors.append(f"immersive runtime missing: {required}")
+
 if "fx-reveal" in index or "opacity:0" in index:
     errors.append("homepage must not depend on JS-created reveal state for readable content")
 
@@ -73,8 +85,9 @@ if "data-clear-property" not in admin_html or "[data-clear-property]" not in adm
     errors.append("explicit admin editor clear action missing")
 if 'canvas.toDataURL("image/webp", .72)' not in admin_js or "maxEdge = 1280" not in admin_js:
     errors.append("admin phone-photo compaction missing")
-if "/assets/delight.css" not in admin_html or "/assets/delight.js" not in admin_html:
-    errors.append("admin is missing the crafted interaction layer")
+for required in ("/assets/delight.css", "/assets/delight.js", "/assets/immersive.css", "/assets/immersive.js"):
+    if required not in admin_html:
+        errors.append(f"admin is missing experience asset: {required}")
 
 whatsapp = (ROOT / "assets/whatsapp-forms.js").read_text(encoding="utf-8")
 if "Bu mesaj FIDEON web sitesinden hazırlandı" in whatsapp:
@@ -95,4 +108,4 @@ if errors:
         print("ERROR:", error)
     sys.exit(1)
 
-print("PASS: minimal surface + crafted interaction truth checks")
+print("PASS: minimal surface + crafted layered experience truth checks")
