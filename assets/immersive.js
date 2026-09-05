@@ -11,10 +11,8 @@
     const style = document.createElement('style');
     style.id = 'fideon-immersive-runtime';
     style.textContent = `
-      .fx-depth-grid{-webkit-mask-image:radial-gradient(circle at 72% 42%,#000 0 22%,transparent 69%)}
-      .page-hero>.fx-depth-scene .fx-depth-grid{-webkit-mask-image:radial-gradient(circle at 82% 48%,#000 0 16%,transparent 68%)}
+      .fx-depth-grid{-webkit-mask-image:linear-gradient(90deg,transparent 0,#000 30%,#000 100%)}
       .page-hero>.fx-live-meta{display:none!important}
-      .fx-orbit-b{animation-name:imm-orbit-a!important}
       @media(max-width:760px){.v2-home .hero-brand-seal{display:none!important}}
     `;
     document.head.appendChild(style);
@@ -28,7 +26,6 @@
     $$('.hero,.page-hero', scope).forEach(hero => {
       if (hero.dataset.immScene === '1') return;
       hero.dataset.immScene = '1';
-      if (location.pathname.startsWith('/contact')) hero.classList.add('contact-orbit');
       const scene = document.createElement('div');
       scene.className = 'fx-depth-scene';
       scene.setAttribute('aria-hidden','true');
@@ -48,10 +45,10 @@
           const rect = hero.getBoundingClientRect();
           const nx = ((event.clientX - rect.left) / rect.width - .5);
           const ny = ((event.clientY - rect.top) / rect.height - .5);
-          hero.style.setProperty('--scene-x', `${(nx * 18).toFixed(2)}px`);
-          hero.style.setProperty('--scene-y', `${(ny * 14).toFixed(2)}px`);
-          hero.style.setProperty('--scene-rx', `${(-ny * 4).toFixed(2)}deg`);
-          hero.style.setProperty('--scene-ry', `${(nx * 5).toFixed(2)}deg`);
+          hero.style.setProperty('--scene-x', `${(nx * 8).toFixed(2)}px`);
+          hero.style.setProperty('--scene-y', `${(ny * 6).toFixed(2)}px`);
+          hero.style.setProperty('--scene-rx', `${(-ny * 1.1).toFixed(2)}deg`);
+          hero.style.setProperty('--scene-ry', `${(nx * 1.4).toFixed(2)}deg`);
         }, {passive:true});
         hero.addEventListener('pointerleave', () => {
           hero.style.setProperty('--scene-x','0px');
@@ -85,26 +82,6 @@
     });
   }
 
-  function bindDepthCards(scope=document) {
-    if (!finePointer || reduceMotion) return;
-    $$('.action-choice', scope).forEach(card => {
-      if (card.dataset.immTilt === '1') return;
-      card.dataset.immTilt = '1';
-      card.classList.add('fx-depth-card');
-      card.addEventListener('pointermove', event => {
-        const rect = card.getBoundingClientRect();
-        const nx = ((event.clientX - rect.left) / rect.width - .5);
-        const ny = ((event.clientY - rect.top) / rect.height - .5);
-        card.style.setProperty('--tilt-x', `${(-ny * 2.4).toFixed(2)}deg`);
-        card.style.setProperty('--tilt-y', `${(nx * 3.1).toFixed(2)}deg`);
-      }, {passive:true});
-      card.addEventListener('pointerleave', () => {
-        card.style.setProperty('--tilt-x','0deg');
-        card.style.setProperty('--tilt-y','0deg');
-      });
-    });
-  }
-
   function valueFilled(control) {
     if (control.type === 'checkbox' || control.type === 'radio') return control.checked;
     return String(control.value || '').trim().length > 0;
@@ -116,14 +93,12 @@
       form.dataset.immMeter = '1';
       const fields = $$('input:not([type="hidden"]),select,textarea', form).filter(node => !node.disabled);
       if (!fields.length) return;
-
       const meter = document.createElement('div');
       meter.className = 'fx-form-meter';
       meter.setAttribute('aria-hidden','true');
       meter.innerHTML = fields.map(() => '<span></span>').join('');
       form.prepend(meter);
       const bars = $$('span', meter);
-
       const sync = () => {
         fields.forEach((field, index) => {
           const filled = valueFilled(field);
@@ -141,7 +116,7 @@
 
   function syncScrollDepth() {
     scrollFrame = 0;
-    const y = Math.max(-120, Math.min(120, scrollY * -.06));
+    const y = Math.max(-30, Math.min(30, scrollY * -.018));
     $$('.hero,.page-hero').forEach(hero => hero.style.setProperty('--hero-scroll', `${y.toFixed(2)}px`));
   }
 
@@ -153,7 +128,6 @@
   function decorate(scope=document) {
     installScenes(scope);
     installSectionThreads(scope);
-    bindDepthCards(scope);
     installFormMeters(scope);
   }
 
