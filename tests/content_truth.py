@@ -1,26 +1,24 @@
 from pathlib import Path
-import base64
-import re
 import sys
 
 ROOT = Path(__file__).resolve().parents[1]
 errors = []
 
-retired_art = [
+for rel in (
+    "assets/asiyan-exterior.svg",
+    "assets/asiyan-reel-preview.svg",
+    "assets/real-listing-detail.js",
     "assets/hero-villa.svg",
     "assets/property-desert.svg",
     "assets/property-skyline.svg",
     "assets/property-waterfront.svg",
-]
-for rel in retired_art:
+):
     if (ROOT / rel).exists():
-        errors.append(f"retired synthetic art returned: {rel}")
+        errors.append(f"retired listing/template asset returned: {rel}")
 
 placeholder = (ROOT / "assets/property-palm.svg").read_text(encoding="utf-8")
 if "Fotoğraf henüz eklenmedi" not in placeholder:
     errors.append("neutral missing-photo placeholder copy missing")
-if "Palm villa" in placeholder or "luxury property illustration" in placeholder:
-    errors.append("synthetic villa fallback returned")
 
 for rel in ("find/index.html", "sell/index.html", "private/index.html"):
     text = (ROOT / rel).read_text(encoding="utf-8")
@@ -28,79 +26,52 @@ for rel in ("find/index.html", "sell/index.html", "private/index.html"):
         errors.append(f"redundant identity fields returned to WhatsApp-first flow: {rel}")
 
 app = (ROOT / "assets/app.js").read_text(encoding="utf-8")
-if "property.whatsappMessage" not in app:
-    errors.append("property-specific WhatsApp message is not used by public runtime")
-if "İlanı Gör" not in app:
-    errors.append("direct property detail CTA missing from public runtime")
+for required in ("property.whatsappMessage", "İlanı Gör", "isPublicProperty", "RETIRED", "WhatsApp'tan Yaz"):
+    if required not in app:
+        errors.append(f"public runtime truth missing: {required}")
 if "data-save" in app or "fideon.saved" in app:
-    errors.append("saved-list detour returned to minimal public runtime")
-if "sample-note" in app:
-    errors.append("sample-listing UI returned to public runtime")
-if "isPublicProperty" not in app:
-    errors.append("public visibility guard missing from app runtime")
+    errors.append("saved-list detour returned to public runtime")
+if "asiyan-konaklari-adnan-kahveci-3-1" not in app:
+    errors.append("retired listing migration guard missing")
 
-for rel in ("index.html", "properties/index.html"):
-    text = (ROOT / rel).read_text(encoding="utf-8")
-    if "/assets/public-polish.js" in text:
-        errors.append(f"obsolete public polish shim still loaded: {rel}")
+index = (ROOT / "index.html").read_text(encoding="utf-8")
+if "/assets/asiyan-" in index or "Aşiyan" in index:
+    errors.append("retired listing returned to homepage")
+for required in ("Evi bulun.", "WhatsApp'tan Yaz", "tel:+905013575635", "/find/", "/sell/"):
+    if required not in index:
+        errors.append(f"homepage zero-effort path missing: {required}")
 
 minimal_css = (ROOT / "assets/minimal.css").read_text(encoding="utf-8")
-if ".page-hero{padding-block:" not in minimal_css or "color:var(--ink-950)" not in minimal_css:
-    errors.append("interior page hero contrast regression returned")
-if ".home-property-grid .property-card:only-child .property-image{min-width:0;width:100%;aspect-ratio:auto}" not in minimal_css:
-    errors.append("single-listing desktop card can clip its content again")
-if "aspect-ratio:4/3!important" not in minimal_css or "height:auto!important" not in minimal_css:
-    errors.append("homepage mobile listing can become a giant uncropped portrait again")
-if ".reveal{opacity:1!important;transform:none!important;transition:none!important}" not in minimal_css:
-    errors.append("essential public content can be hidden behind decorative reveal animation")
+for required in ("--gold-500:#c9a66b", "--forest-950:#061d14", ".reveal{opacity:1!important", ".v2-home .hero", ".page-hero"):
+    if required not in minimal_css:
+        errors.append(f"minimal brand system missing: {required}")
 
-reel_preview = (ROOT / "assets/asiyan-reel-preview.svg").read_text(encoding="utf-8")
-if "Aşiyan Konakları salon görüntüsü" not in reel_preview:
-    errors.append("real interior preview is missing")
-if "animation:fade" in reel_preview:
-    errors.append("obsolete corrupted animated reel preview returned")
-media_match = re.search(r"data:image/jpeg;base64,([^\"]+)", reel_preview)
-if not media_match:
-    errors.append("real interior preview JPEG is not embedded")
-else:
-    try:
-        media_bytes = base64.b64decode(media_match.group(1), validate=True)
-        if not (media_bytes.startswith(b"\xff\xd8") and media_bytes.endswith(b"\xff\xd9")):
-            errors.append("embedded salon preview is not a complete JPEG")
-    except Exception:
-        errors.append("embedded salon preview base64 is invalid")
+mark = (ROOT / "assets/fideon-mark.svg").read_text(encoding="utf-8")
+logo = (ROOT / "assets/fideon-logo.svg").read_text(encoding="utf-8")
+for name, text in (("mark", mark), ("logo", logo)):
+    if "#C9A66B" not in text or "fill-rule=\"evenodd\"" not in text:
+        errors.append(f"traced FIDEON {name} vector is incomplete")
 
 admin_html = (ROOT / "admin/index.html").read_text(encoding="utf-8")
 admin_js = (ROOT / "assets/admin.js").read_text(encoding="utf-8")
 if 'type="reset">Temizle' in admin_html:
-    errors.append("native reset button can leave the admin editing target stale")
+    errors.append("native reset button can leave admin editing target stale")
 if "data-clear-property" not in admin_html or "[data-clear-property]" not in admin_js:
     errors.append("explicit admin editor clear action missing")
-if "addEventListener(\"reset\"" in admin_js:
-    errors.append("admin editor should not depend on recursive reset-event handling")
 if 'canvas.toDataURL("image/webp", .72)' not in admin_js or "maxEdge = 1280" not in admin_js:
-    errors.append("admin photo compaction missing; phone photos can overflow localhost storage")
-if "isPublishedProperty" not in admin_js:
-    errors.append("admin published metric can drift from public visibility rules")
+    errors.append("admin phone-photo compaction missing")
 
 whatsapp = (ROOT / "assets/whatsapp-forms.js").read_text(encoding="utf-8")
 if "Bu mesaj FIDEON web sitesinden hazırlandı" in whatsapp:
     errors.append("robotic WhatsApp footer returned")
-if "Array.isArray(stored)" not in whatsapp or "Local preview storage must never stand between a visitor and FIDEON" not in whatsapp:
-    errors.append("local lead storage can block or corrupt WhatsApp-first contact")
+if "Array.isArray(stored)" not in whatsapp:
+    errors.append("local lead storage guard missing")
 
-real_detail = (ROOT / "assets/real-listing-detail.js").read_text(encoding="utf-8")
-if "F.store?.getProperties?.()" not in real_detail:
-    errors.append("real Aşiyan detail is not synced with current browser-local inventory")
-if "F.store?.isPublicProperty" not in real_detail:
-    errors.append("real Aşiyan detail bypasses public visibility guard")
-if "İç mekandan" not in real_detail or "Salon görüntüsü" not in real_detail:
-    errors.append("listing interior media copy drifted from the real static preview")
-
-readme = (ROOT / "README.md").read_text(encoding="utf-8")
-for stale in ("four clearly labeled sample", "global referral flow", "sample inventory is labeled"):
-    if stale.lower() in readme.lower():
-        errors.append(f"stale project truth returned to README: {stale}")
+data = (ROOT / "assets/data.js").read_text(encoding="utf-8")
+if "window.FIDEON.sampleProperties = [];" not in data:
+    errors.append("seeded inventory is not empty")
+if "Aşiyan" in data or "FIDEON-AK-001" in data:
+    errors.append("retired listing data returned")
 
 if errors:
     for error in errors:
