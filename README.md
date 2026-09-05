@@ -4,9 +4,9 @@ Minimal, mobile-first localhost website and owner admin for FIDEON in Istanbul.
 
 ## Current product rule
 
-**See the property → understand the essentials → WhatsApp or call FIDEON.**
+**Understand FIDEON → choose what you need → WhatsApp or call.**
 
-The public site is Turkish-first, Istanbul-wide and intentionally quiet. Private/off-market requests exist only as a secondary path.
+The public site is Turkish-first, Istanbul-wide and intentionally quiet. No seeded property is currently published. Private/off-market requests remain a secondary path.
 
 ## Mode locked by owner
 
@@ -14,26 +14,29 @@ The public site is Turkish-first, Istanbul-wide and intentionally quiet. Private
 
 The browser is the preview data layer. Owner-created properties, uploaded preview media and leads use `localStorage`, so the site can run without external services or credentials.
 
-## Real inventory
+## Current inventory truth
 
-The included public listing is the real FIDEON Aşiyan Konakları property:
+The previously seeded Aşiyan Konakları listing and its media have been retired from the repository and from the public runtime.
 
-- Adnan Kahveci · Beylikdüzü · İstanbul
-- 3+1
-- reference `FIDEON-AK-001`
-- real supplied media
-- direct WhatsApp and phone actions
+Fresh localhost sessions start with an empty public inventory. The owner can add future listings from `/admin/`. If a listing has no photo, the UI shows a neutral FIDEON placeholder rather than synthetic property art.
 
-No fake property inventory is used. If an owner-created listing has no photo, the UI shows a neutral FIDEON placeholder rather than synthetic property art.
+## Brand
+
+The FIDEON favicon/monogram and full logo lockup are code-based SVG vectors traced from the owner-supplied reference artwork:
+
+- `assets/fideon-mark.svg`
+- `assets/fideon-logo.svg`
+
+Core identity colors are deep green and warm antique gold.
 
 ## Public experience
 
-- minimal homepage
-- current listings
-- real listing detail with real media
-- direct WhatsApp and call actions
-- short buyer brief
-- short seller brief
+- minimal brand-first homepage
+- direct buyer path
+- direct seller/landlord path
+- WhatsApp and call always easy to reach
+- listings surface that stays empty until the owner adds inventory
+- generic listing detail route for future owner-created listings
 - secondary private/off-market request
 - minimal About, Contact and Turkish legal drafts
 - retired Journal, Saved and Referrals routes redirect to active paths
@@ -52,7 +55,7 @@ The common listing fields stay visible. Advanced fields are collapsed under **Di
 
 ## Important local-only truth
 
-This is a complete localhost product, not a production backend. There is intentionally no remote authentication, multi-device database, hosted media storage, automated outbound messaging or deployment.
+This is a localhost product, not a production backend. There is intentionally no remote authentication, multi-device database, hosted media storage, automated outbound messaging or deployment.
 
 The admin route must not be published publicly in this mode.
 
@@ -65,7 +68,8 @@ python3 -m http.server 4173
 Open:
 
 - `http://localhost:4173/`
-- `http://localhost:4173/properties/`
+- `http://localhost:4173/find/`
+- `http://localhost:4173/sell/`
 - `http://localhost:4173/admin/`
 
 ## Validate
