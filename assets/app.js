@@ -30,8 +30,8 @@
   function getSaved() { return read(STORE.saved, []); }
   function setSaved(ids) { const clean = [...new Set(ids)]; write(STORE.saved, clean); document.dispatchEvent(new CustomEvent("fideon:saved")); }
   function toggleSaved(id) { const ids = getSaved(); const next = ids.includes(id) ? ids.filter(x => x !== id) : [...ids, id]; setSaved(next); return next.includes(id); }
-  function getProperties() { const local = read(STORE.properties, null); return Array.isArray(local) && local.length ? local : (F.sampleProperties || []); }
-  function getLeads() { const local = read(STORE.leads, null); return Array.isArray(local) && local.length ? local : (F.seedLeads || []); }
+  function getProperties() { const local = read(STORE.properties, null); return Array.isArray(local) ? local : (F.sampleProperties || []); }
+  function getLeads() { const local = read(STORE.leads, null); return Array.isArray(local) ? local : (F.seedLeads || []); }
   function addLead(lead) { const current = read(STORE.leads, []); const next = [{...lead,id:window.crypto?.randomUUID?.() || `lead-${Date.now()}`,createdAt:new Date().toISOString()},...current]; write(STORE.leads,next); return next; }
 
   function propertyURL(p) {
