@@ -12,13 +12,14 @@ for rel in (
     "assets/property-desert.svg",
     "assets/property-skyline.svg",
     "assets/property-waterfront.svg",
+    "assets/property-palm.svg",
 ):
     if (ROOT / rel).exists():
         errors.append(f"retired listing/template asset returned: {rel}")
 
-placeholder = (ROOT / "assets/property-palm.svg").read_text(encoding="utf-8")
-if "Fotoğraf henüz eklenmedi" not in placeholder:
-    errors.append("neutral missing-photo placeholder copy missing")
+placeholder = (ROOT / "assets/property-placeholder.svg").read_text(encoding="utf-8")
+if "FIDEON portföy görseli" not in placeholder or "Fotoğraf bulunmadığında" not in placeholder:
+    errors.append("truthful architectural missing-photo placeholder is incomplete")
 
 for rel in ("find/index.html", "sell/index.html", "private/index.html"):
     text = (ROOT / rel).read_text(encoding="utf-8")
@@ -26,7 +27,7 @@ for rel in ("find/index.html", "sell/index.html", "private/index.html"):
         errors.append(f"redundant identity fields returned to WhatsApp-first flow: {rel}")
 
 app = (ROOT / "assets/app.js").read_text(encoding="utf-8")
-for required in ("property.whatsappMessage", "İlanı Gör", "isPublicProperty", "RETIRED", "WhatsApp'tan Yaz"):
+for required in ("property.whatsappMessage", "İlanı Gör", "isPublicProperty", "RETIRED", "FIDEON PORTFÖYÜ", "property-placeholder.svg"):
     if required not in app:
         errors.append(f"public runtime truth missing: {required}")
 if "data-save" in app or "fideon.saved" in app:
@@ -40,9 +41,13 @@ for required in ('"/assets/delight.css"', '"/assets/immersive.css"', '"/assets/d
 index = (ROOT / "index.html").read_text(encoding="utf-8")
 if "/assets/asiyan-" in index or "Aşiyan" in index:
     errors.append("retired listing returned to homepage")
-for required in ("Evi bulun.", "WhatsApp'tan Yaz", "tel:+905013575635", "/find/", "/sell/"):
+for required in ("Gayrimenkul.", "Daha net.", "/properties/", "WhatsApp", "tel:+905013575635", "/find/", "/sell/"):
     if required not in index:
         errors.append(f"homepage zero-effort path missing: {required}")
+
+properties = (ROOT / "properties/index.html").read_text(encoding="utf-8")
+if "Portföyümüz" not in properties or "FIDEON" not in properties:
+    errors.append("FIDEON-owned portfolio positioning missing")
 
 minimal_css = (ROOT / "assets/minimal.css").read_text(encoding="utf-8")
 for required in ("--gold-500:#c9a66b", "--forest-950:#061d14", ".reveal{opacity:1!important", ".v2-home .hero", ".page-hero"):
@@ -50,24 +55,32 @@ for required in ("--gold-500:#c9a66b", "--forest-950:#061d14", ".reveal{opacity:
         errors.append(f"minimal brand system missing: {required}")
 
 delight_css = (ROOT / "assets/delight.css").read_text(encoding="utf-8")
-for required in (".fx-curtain", ".fx-ripple", ".fx-reveal", ".fx-magnetic", ".action-choice::before", ".flow-panel::before", "prefers-reduced-motion"):
+for required in (".fx-curtain", ".fx-ripple", ".fx-reveal", ".action-choice::before", ".flow-panel::before", "prefers-reduced-motion"):
     if required not in delight_css:
         errors.append(f"crafted interaction detail missing: {required}")
+if ".fx-magnetic" in delight_css:
+    errors.append("gimmicky magnetic-button layer returned")
 
 delight_js = (ROOT / "assets/delight.js").read_text(encoding="utf-8")
-for required in ("prefers-reduced-motion", "IntersectionObserver", "MutationObserver", "navigateWithCurtain", "bindMagnetic", "pulseForms"):
+for required in ("prefers-reduced-motion", "IntersectionObserver", "MutationObserver", "navigateWithSignal", "pulseForms", "bindCardGlow"):
     if required not in delight_js:
         errors.append(f"progressive interaction runtime missing: {required}")
+if "bindMagnetic" in delight_js:
+    errors.append("magnetic pointer gimmick returned to interaction runtime")
 
 immersive_css = (ROOT / "assets/immersive.css").read_text(encoding="utf-8")
-for required in (".fx-depth-scene", ".fx-orbit-stage", ".fx-live-meta", ".fx-form-meter", ".fx-depth-card", "prefers-reduced-motion"):
+for required in (".fx-depth-scene", ".fx-orbit-stage", ".fx-live-meta", ".fx-form-meter", "FIDEON / ISTANBUL", "PORTFÖY · DOĞRUDAN İLETİŞİM", "prefers-reduced-motion"):
     if required not in immersive_css:
-        errors.append(f"immersive visual layer missing: {required}")
+        errors.append(f"precision visual layer missing: {required}")
+if ".fx-depth-card" in immersive_css:
+    errors.append("tilting action-card gimmick returned")
 
 immersive_js = (ROOT / "assets/immersive.js").read_text(encoding="utf-8")
-for required in ("installScenes", "Europe/Istanbul", "bindDepthCards", "installFormMeters", "MutationObserver", "prefers-reduced-motion"):
+for required in ("installScenes", "Europe/Istanbul", "installFormMeters", "MutationObserver", "prefers-reduced-motion"):
     if required not in immersive_js:
-        errors.append(f"immersive runtime missing: {required}")
+        errors.append(f"precision runtime missing: {required}")
+if "bindDepthCards" in immersive_js:
+    errors.append("3D card-tilt gimmick returned")
 
 if "fx-reveal" in index or "opacity:0" in index:
     errors.append("homepage must not depend on JS-created reveal state for readable content")
@@ -108,4 +121,4 @@ if errors:
         print("ERROR:", error)
     sys.exit(1)
 
-print("PASS: minimal surface + crafted layered experience truth checks")
+print("PASS: simple surface + calm layered precision truth checks")
