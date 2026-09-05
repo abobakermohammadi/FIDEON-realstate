@@ -1,13 +1,23 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" role="img" aria-labelledby="title">
-<title>FIDEON crest</title>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" role="img" aria-labelledby="title desc">
+<title id="title">FIDEON crest</title>
+<desc id="desc">Deep green circular FIDEON crest with a fine gold shield and monogram.</desc>
 <defs>
-  <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
-    <stop offset="0" stop-color="#0a2b21"/>
+  <radialGradient id="bg" cx="42%" cy="34%" r="78%">
+    <stop offset="0" stop-color="#12372b"/>
+    <stop offset=".58" stop-color="#0a2a21"/>
     <stop offset="1" stop-color="#061c16"/>
+  </radialGradient>
+  <linearGradient id="gold" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0" stop-color="#e0c797"/>
+    <stop offset=".5" stop-color="#b99155"/>
+    <stop offset="1" stop-color="#8e6837"/>
   </linearGradient>
 </defs>
-<circle cx="60" cy="60" r="56" fill="url(#bg)" stroke="#b99155" stroke-width="1.5"/>
-<path d="M60 17 88 28v27c0 22-11 36-28 48C43 91 32 77 32 55V28z" fill="none" stroke="#b99155" stroke-width="2"/>
-<path d="M47 38h26M47 38v42M47 58h21M60 38v41M60 79h21" fill="none" stroke="#b99155" stroke-width="2.5" stroke-linecap="round"/>
-<path d="M72 38c7 2 11 7 11 14 0 8-5 13-13 14" fill="none" stroke="#b99155" stroke-width="2"/>
+<circle cx="80" cy="80" r="74" fill="url(#bg)"/>
+<circle cx="80" cy="80" r="70.5" fill="none" stroke="url(#gold)" stroke-width="1.4"/>
+<circle cx="80" cy="80" r="64.5" fill="none" stroke="#d6bb8b" stroke-opacity=".34" stroke-width=".8"/>
+<path d="M80 34 111 46v31.5c0 24.8-12.5 40.6-31 51.8-18.5-11.2-31-27-31-51.8V46z" fill="none" stroke="url(#gold)" stroke-width="1.8"/>
+<path d="M61 56h38M61 56v50M61 80h27" fill="none" stroke="url(#gold)" stroke-width="3" stroke-linecap="round"/>
+<path d="M82 56v50h12.5c11.6 0 20-9.6 20-24.8S106.1 56 94.5 56H82Z" fill="none" stroke="url(#gold)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M55 119c8.5 6.9 16.8 10.4 25 10.4s16.5-3.5 25-10.4" fill="none" stroke="#d6bb8b" stroke-opacity=".46" stroke-width="1"/>
 </svg>
