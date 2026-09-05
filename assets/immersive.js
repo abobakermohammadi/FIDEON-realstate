@@ -6,6 +6,20 @@
   const $$ = (s, r=document) => [...r.querySelectorAll(s)];
   let scrollFrame = 0;
 
+  function installCompatibilityStyles() {
+    if ($('#fideon-immersive-runtime')) return;
+    const style = document.createElement('style');
+    style.id = 'fideon-immersive-runtime';
+    style.textContent = `
+      .fx-depth-grid{-webkit-mask-image:radial-gradient(circle at 72% 42%,#000 0 22%,transparent 69%)}
+      .page-hero>.fx-depth-scene .fx-depth-grid{-webkit-mask-image:radial-gradient(circle at 82% 48%,#000 0 16%,transparent 68%)}
+      .page-hero>.fx-live-meta{display:none!important}
+      .fx-orbit-b{animation-name:imm-orbit-a!important}
+      @media(max-width:760px){.v2-home .hero-brand-seal{display:none!important}}
+    `;
+    document.head.appendChild(style);
+  }
+
   function sceneMarkup() {
     return `<div class="fx-depth-grid"></div><div class="fx-depth-glow"></div><div class="fx-orbit-stage"><div class="fx-orbit fx-orbit-a"></div><div class="fx-orbit fx-orbit-b"></div><div class="fx-orbit fx-orbit-c"></div><div class="fx-arc fx-arc-a"></div><div class="fx-arc fx-arc-b"></div><div class="fx-core"><img src="/assets/fideon-mark.svg" alt=""></div><i class="fx-spark"></i><i class="fx-spark"></i><i class="fx-spark"></i><i class="fx-spark"></i><i class="fx-beam"></i><i class="fx-beam"></i></div>`;
   }
@@ -14,13 +28,14 @@
     $$('.hero,.page-hero', scope).forEach(hero => {
       if (hero.dataset.immScene === '1') return;
       hero.dataset.immScene = '1';
+      if (location.pathname.startsWith('/contact')) hero.classList.add('contact-orbit');
       const scene = document.createElement('div');
       scene.className = 'fx-depth-scene';
       scene.setAttribute('aria-hidden','true');
       scene.innerHTML = sceneMarkup();
       hero.prepend(scene);
 
-      if (!hero.querySelector('.fx-live-meta')) {
+      if (!hero.classList.contains('page-hero') && !hero.querySelector('.fx-live-meta')) {
         const meta = document.createElement('div');
         meta.className = 'fx-live-meta';
         meta.setAttribute('aria-hidden','true');
@@ -144,6 +159,7 @@
 
   function boot() {
     root.classList.add('immersion-ready');
+    installCompatibilityStyles();
     decorate();
     updateClock();
     setInterval(updateClock, 30000);
