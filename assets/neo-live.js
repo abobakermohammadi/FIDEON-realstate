@@ -33,6 +33,28 @@
     }
   }
 
+  function normalizePath(value) {
+    try {
+      const url = new URL(value, location.href);
+      let path = url.pathname.replace(/\/index\.html$/i,'/');
+      if (path !== '/' && !path.endsWith('/')) path += '/';
+      return path;
+    } catch {
+      return '';
+    }
+  }
+
+  function markActiveNavigation() {
+    const current = normalizePath(location.href);
+    $$('.desktop-nav a[href],.mobile-menu-links a[href],.mobile-contact-dock a[href]').forEach(link => {
+      const target = normalizePath(link.href);
+      const exact = target && target === current;
+      const propertyDetail = current.startsWith('/properties/view/') && target === '/properties/';
+      if (exact || propertyDetail) link.setAttribute('aria-current','page');
+      else link.removeAttribute('aria-current');
+    });
+  }
+
   function decorateNode(node) {
     if (!node || node.dataset.neoLive === '1') return;
     node.dataset.neoLive = '1';
@@ -118,6 +140,7 @@
   function boot() {
     document.documentElement.classList.add('neo-live-ready');
     installHeadPolish();
+    markActiveNavigation();
     decorate();
     document.addEventListener('pointermove', onPointerMove, {passive:true});
     document.addEventListener('pointerdown', onPointerDown, {passive:true});
