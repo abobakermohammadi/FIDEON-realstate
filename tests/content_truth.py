@@ -34,6 +34,8 @@ if "data-save" in app or "fideon.saved" in app:
     errors.append("saved-list detour returned to minimal public runtime")
 if "sample-note" in app:
     errors.append("sample-listing UI returned to public runtime")
+if "isPublicProperty" not in app:
+    errors.append("public visibility guard missing from app runtime")
 
 for rel in ("index.html", "properties/index.html"):
     text = (ROOT / rel).read_text(encoding="utf-8")
@@ -48,10 +50,22 @@ if "data-clear-property" not in admin_html or "[data-clear-property]" not in adm
     errors.append("explicit admin editor clear action missing")
 if "addEventListener(\"reset\"" in admin_js:
     errors.append("admin editor should not depend on recursive reset-event handling")
+if 'canvas.toDataURL("image/webp", .72)' not in admin_js or "maxEdge = 1280" not in admin_js:
+    errors.append("admin photo compaction missing; phone photos can overflow localhost storage")
+if "isPublishedProperty" not in admin_js:
+    errors.append("admin published metric can drift from public visibility rules")
 
 whatsapp = (ROOT / "assets/whatsapp-forms.js").read_text(encoding="utf-8")
 if "Bu mesaj FIDEON web sitesinden hazırlandı" in whatsapp:
     errors.append("robotic WhatsApp footer returned")
+if "Array.isArray(stored)" not in whatsapp or "Local preview storage must never stand between a visitor and FIDEON" not in whatsapp:
+    errors.append("local lead storage can block or corrupt WhatsApp-first contact")
+
+real_detail = (ROOT / "assets/real-listing-detail.js").read_text(encoding="utf-8")
+if "F.store?.getProperties?.()" not in real_detail:
+    errors.append("real Aşiyan detail is not synced with current browser-local inventory")
+if "F.store?.isPublicProperty" not in real_detail:
+    errors.append("real Aşiyan detail bypasses public visibility guard")
 
 readme = (ROOT / "README.md").read_text(encoding="utf-8")
 for stale in ("four clearly labeled sample", "global referral flow", "sample inventory is labeled"):
