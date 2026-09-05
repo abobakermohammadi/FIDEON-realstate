@@ -52,7 +52,7 @@
   }
 
   function ensurePublicStyles() {
-    ["/assets/v2.css","/assets/minimal.css","/assets/delight.css","/assets/immersive.css","/assets/neo.css","/assets/neo-live.css"].forEach(href => {
+    ["/assets/signature.css"].forEach(href => {
       if ($(`link[href="${href}"]`)) return;
       const link = document.createElement("link");
       link.rel = "stylesheet";
@@ -62,7 +62,7 @@
   }
 
   function ensureExperienceScripts() {
-    [["fideon-delight","/assets/delight.js"],["fideon-immersive","/assets/immersive.js"],["fideon-neo-live","/assets/neo-live.js"]].forEach(([id,src]) => {
+    [["fideon-signature","/assets/signature.js"]].forEach(([id,src]) => {
       if ($(`#${id}`)) return;
       const script = document.createElement("script");
       script.id = id;

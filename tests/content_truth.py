@@ -34,56 +34,28 @@ if "data-save" in app or "fideon.saved" in app:
     errors.append("saved-list detour returned to public runtime")
 if "asiyan-konaklari-adnan-kahveci-3-1" not in app:
     errors.append("retired listing migration guard missing")
-for required in ('"/assets/delight.css"', '"/assets/immersive.css"', '"/assets/delight.js"', '"/assets/immersive.js"'):
+for required in ('"/assets/signature.css"', '"/assets/signature.js"'):
     if required not in app:
-        errors.append(f"public runtime does not load experience asset: {required}")
+        errors.append(f"public runtime does not load signature asset: {required}")
 
 index = (ROOT / "index.html").read_text(encoding="utf-8")
 if "/assets/asiyan-" in index or "Aşiyan" in index:
     errors.append("retired listing returned to homepage")
-for required in ("Gayrimenkul.", "Daha net.", "/properties/", "WhatsApp", "tel:+905013575635", "/find/", "/sell/"):
+for required in ("Yeni bir adres.", "/properties/", "WhatsApp", "tel:+905013575635", "/find/", "/sell/"):
     if required not in index:
         errors.append(f"homepage zero-effort path missing: {required}")
 
 properties = (ROOT / "properties/index.html").read_text(encoding="utf-8")
-if "Portföyümüz" not in properties or "FIDEON" not in properties:
+if "Portföy" not in properties or "FIDEON" not in properties:
     errors.append("FIDEON-owned portfolio positioning missing")
 
-minimal_css = (ROOT / "assets/minimal.css").read_text(encoding="utf-8")
-for required in ("--gold-500:#c9a66b", "--forest-950:#061d14", ".reveal{opacity:1!important", ".v2-home .hero", ".page-hero"):
-    if required not in minimal_css:
-        errors.append(f"minimal brand system missing: {required}")
+signature_css = (ROOT / "assets/signature.css").read_text(encoding="utf-8")
+for required in ("--gold-500:#c9a66b", "--forest-950:#061c16", ".signature-hero", ".page-hero", "prefers-reduced-motion"):
+    if required not in signature_css:
+        errors.append(f"signature brand system missing: {required}")
 
-delight_css = (ROOT / "assets/delight.css").read_text(encoding="utf-8")
-for required in (".fx-curtain", ".fx-ripple", ".fx-reveal", ".action-choice::before", ".flow-panel::before", "prefers-reduced-motion"):
-    if required not in delight_css:
-        errors.append(f"crafted interaction detail missing: {required}")
-if ".fx-magnetic" in delight_css:
-    errors.append("gimmicky magnetic-button layer returned")
-
-delight_js = (ROOT / "assets/delight.js").read_text(encoding="utf-8")
-for required in ("prefers-reduced-motion", "IntersectionObserver", "MutationObserver", "navigateWithSignal", "pulseForms", "bindCardGlow"):
-    if required not in delight_js:
-        errors.append(f"progressive interaction runtime missing: {required}")
-if "bindMagnetic" in delight_js:
-    errors.append("magnetic pointer gimmick returned to interaction runtime")
-
-immersive_css = (ROOT / "assets/immersive.css").read_text(encoding="utf-8")
-for required in (".fx-depth-scene", ".fx-orbit-stage", ".fx-live-meta", ".fx-form-meter", "FIDEON / ISTANBUL", "PORTFÖY · DOĞRUDAN İLETİŞİM", "prefers-reduced-motion"):
-    if required not in immersive_css:
-        errors.append(f"precision visual layer missing: {required}")
-if ".fx-depth-card" in immersive_css:
-    errors.append("tilting action-card gimmick returned")
-
-immersive_js = (ROOT / "assets/immersive.js").read_text(encoding="utf-8")
-for required in ("installScenes", "Europe/Istanbul", "installFormMeters", "MutationObserver", "prefers-reduced-motion"):
-    if required not in immersive_js:
-        errors.append(f"precision runtime missing: {required}")
-if "bindDepthCards" in immersive_js:
-    errors.append("3D card-tilt gimmick returned")
-
-if "fx-reveal" in index or "opacity:0" in index:
-    errors.append("homepage must not depend on JS-created reveal state for readable content")
+if "neo" in app.lower() or "immersive" in app.lower() or "delight" in app.lower():
+    errors.append("public runtime must not load retired experience assets")
 
 for rel in ("assets/fideon-mark.svg", "assets/fideon-logo.svg", "assets/fideon-wordmark.svg"):
     text = (ROOT / rel).read_text(encoding="utf-8")
@@ -98,9 +70,8 @@ if "data-clear-property" not in admin_html or "[data-clear-property]" not in adm
     errors.append("explicit admin editor clear action missing")
 if 'canvas.toDataURL("image/webp", .72)' not in admin_js or "maxEdge = 1280" not in admin_js:
     errors.append("admin phone-photo compaction missing")
-for required in ("/assets/delight.css", "/assets/delight.js", "/assets/immersive.css", "/assets/immersive.js"):
-    if required not in admin_html:
-        errors.append(f"admin is missing experience asset: {required}")
+if "/assets/signature.css" in admin_html:
+    errors.append("admin must not load the public signature stylesheet")
 
 whatsapp = (ROOT / "assets/whatsapp-forms.js").read_text(encoding="utf-8")
 if "Bu mesaj FIDEON web sitesinden hazırlandı" in whatsapp:

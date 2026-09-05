@@ -4,6 +4,17 @@ Minimal, mobile-first public website and localhost owner admin for FIDEON in Ist
 
 ## Current product rule
 
+## Signature rebuild · September 2026
+
+The public pages use one shared forest-green, antique-gold and ivory design in
+`assets/signature.css`. The homepage presents the supplied FIDEON artwork with
+CSS perspective, a subtle light sweep and optional pointer tilt. Reduced-motion
+preferences disable motion. Public text is always visible without animations.
+
+The buyer and seller paths remain simple WhatsApp handoffs. Local owner edits
+are browser-local previews, not a way to publish inventory to every visitor.
+No listings, business statistics or customer testimonials are fabricated.
+
 **Understand FIDEON → choose what you need → WhatsApp or call.**
 
 The public site is Turkish-first, Istanbul-wide and intentionally quiet. No seeded property is currently published. Private/off-market requests remain a secondary path.

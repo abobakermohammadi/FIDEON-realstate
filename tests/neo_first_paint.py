@@ -19,31 +19,34 @@ PAGES = [
 errors = []
 for rel in PAGES:
     text = (ROOT / rel).read_text(encoding="utf-8")
-    for asset in ("/assets/neo.css", "/assets/neo-live.css"):
-        marker = f'<link rel="stylesheet" href="{asset}">'
-        if marker not in text:
-            errors.append(f"neo first-paint stylesheet missing: {rel} -> {asset}")
-    if '<meta name="theme-color" content="#f4f3ef">' not in text:
-        errors.append(f"browser chrome does not match light neo canvas: {rel}")
+    if '<meta name="theme-color" content="#061c16">' not in text:
+        errors.append(f"browser chrome does not match signature forest theme: {rel}")
+    if '/assets/signature.css' not in text:
+        errors.append(f"signature first-paint stylesheet missing: {rel}")
+    if any(asset in text for asset in ("/assets/neo.css", "/assets/neo-live.css", "/assets/mobile-home-fix.css")):
+        errors.append(f"retired first-paint stylesheet loaded: {rel}")
 
 app = (ROOT / "assets/app.js").read_text(encoding="utf-8")
-for asset in ("/assets/neo.css", "/assets/neo-live.css", "/assets/neo-live.js"):
+for asset in ("/assets/signature.css", "/assets/signature.js"):
     if asset not in app:
-        errors.append(f"central runtime fallback missing: {asset}")
+        errors.append(f"central runtime signature fallback missing: {asset}")
 
-live_css = (ROOT / "assets/neo-live.css").read_text(encoding="utf-8")
-for required in (".neo-reactive", "backdrop-filter", "neo-live-drift", "prefers-reduced-motion"):
-    if required not in live_css:
-        errors.append(f"live glass detail missing: {required}")
+signature_css = (ROOT / "assets/signature.css").read_text(encoding="utf-8")
+for required in ("#061c16", ".signature-hero", ".site-header", "prefers-reduced-motion"):
+    if required not in signature_css:
+        errors.append(f"signature first-paint detail missing: {required}")
 
-live_js = (ROOT / "assets/neo-live.js").read_text(encoding="utf-8")
-for required in ("requestAnimationFrame", "MutationObserver", "prefers-reduced-motion", "neo-pressed"):
-    if required not in live_js:
-        errors.append(f"live glass runtime primitive missing: {required}")
+signature_js = (ROOT / "assets/signature.js").read_text(encoding="utf-8")
+for required in ("requestAnimationFrame", "prefers-reduced-motion", "brand-sculpture", "brand-plaque"):
+    if required not in signature_js:
+        errors.append(f"signature runtime primitive missing: {required}")
+
+if any(asset in app for asset in ("/assets/neo.css", "/assets/neo-live.css", "/assets/neo-live.js", "/assets/mobile-home-fix.css")):
+    errors.append("central runtime must not load retired neo/mobile assets")
 
 if errors:
     for error in errors:
         print("ERROR:", error)
     sys.exit(1)
 
-print(f"PASS: {len(PAGES)} public pages ship the neo glass first paint")
+print(f"PASS: {len(PAGES)} public pages ship the signature forest first paint")

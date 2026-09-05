@@ -12,9 +12,9 @@ EXPECTED = [
     "about/index.html", "journal/index.html", "contact/index.html", "saved/index.html",
     "admin/index.html", "privacy.html", "terms.html", "404.html",
     "assets/styles-base.css", "assets/styles-components-a.css", "assets/styles-components-b.css",
-    "assets/styles-admin-responsive.css", "assets/v2.css", "assets/minimal.css", "assets/delight.css", "assets/immersive.css",
+    "assets/styles-admin-responsive.css", "assets/v2.css", "assets/minimal.css", "assets/signature.css",
     "assets/portfolio-polish.css", "assets/real-listing.css", "assets/app.js",
-    "assets/admin.js", "assets/data.js", "assets/whatsapp-forms.js", "assets/delight.js", "assets/immersive.js",
+    "assets/admin.js", "assets/data.js", "assets/whatsapp-forms.js", "assets/signature.js",
     "assets/fideon-mark.svg", "assets/fideon-logo.svg", "assets/fideon-wordmark.svg", "assets/property-placeholder.svg",
 ]
 for rel in EXPECTED:
@@ -39,7 +39,7 @@ class Collector(HTMLParser):
             value=attrs.get(key)
             if value: self.refs.append((key,value))
 
-html_files=[p for p in ROOT.rglob("*.html") if "dist" not in p.parts]
+html_files=[ROOT / rel for rel in EXPECTED if rel.endswith(".html")]
 for path in html_files:
     text=path.read_text(encoding="utf-8")
     lower=text.lower()
@@ -90,9 +90,9 @@ for rel in ("index.html","properties/index.html"):
     if "/assets/public-polish.js" in text: errors.append(f"obsolete public patch runtime still loaded: {rel}")
 
 app=(ROOT/"assets/app.js").read_text(encoding="utf-8")
-for required in ('"/assets/delight.css"', '"/assets/immersive.css"', '"/assets/delight.js"', '"/assets/immersive.js"'):
+for required in ('"/assets/signature.css"', '"/assets/signature.js"'):
     if required not in app:
-        errors.append(f"public pages must receive experience asset through central runtime: {required}")
+        errors.append(f"public pages must receive signature asset through central runtime: {required}")
 if "/assets/property-placeholder.svg" not in app:
     errors.append("truthful property placeholder missing from public runtime")
 if "/assets/property-palm.svg" in app:
@@ -102,8 +102,7 @@ admin=(ROOT/"admin/index.html").read_text(encoding="utf-8")
 admin_js=(ROOT/"assets/admin.js").read_text(encoding="utf-8")
 if "/assets/app.js" in admin: errors.append("admin must not load public app runtime")
 if "/assets/admin.js" not in admin: errors.append("admin runtime missing")
-for required in ("/assets/delight.css", "/assets/delight.js", "/assets/immersive.css", "/assets/immersive.js"):
-    if required not in admin: errors.append(f"admin must share experience asset: {required}")
+if "/assets/signature.css" in admin: errors.append("admin must not load the public signature stylesheet")
 if 'if (Array.isArray(currentProps)) propertyState = currentProps;' not in admin_js:
     errors.append("admin must preserve an explicitly empty current inventory")
 
@@ -123,10 +122,9 @@ for rel in ("assets/fideon-mark.svg","assets/fideon-logo.svg","assets/fideon-wor
     if "#C9A66B" not in text or "fill-rule=\"evenodd\"" not in text:
         errors.append(f"uploaded FIDEON vector identity incomplete: {rel}")
 
-css="\n".join((ROOT/f"assets/{name}").read_text() for name in ["styles-base.css","styles-components-a.css","styles-components-b.css","styles-admin-responsive.css","v2.css","minimal.css","delight.css","immersive.css","real-listing.css","portfolio-polish.css"])
+css=(ROOT/"assets/signature.css").read_text(encoding="utf-8")
 if "prefers-reduced-motion" not in css: errors.append("reduced-motion handling missing")
-for required in (".fx-curtain", ".fx-ripple", ".fx-reveal", ".fx-depth-scene", ".fx-orbit-stage", ".fx-form-meter"):
-    if required not in css: errors.append(f"premium interaction primitive missing: {required}")
+if "#061c16" not in css: errors.append("signature forest theme missing")
 
 print(f"Validated {len(html_files)} HTML files.")
 for warning in warnings: print("WARN:", warning)

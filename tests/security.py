@@ -3,7 +3,12 @@ import re, sys
 
 ROOT = Path(__file__).resolve().parents[1]
 errors = []
-client_files = list((ROOT/'assets').glob('*.js')) + [p for p in ROOT.rglob('*.html') if 'dist' not in p.parts]
+import os
+html_files = []
+for directory, children, files in os.walk(ROOT):
+    children[:] = [name for name in children if name not in ('dist', 'build', '.git', 'node_modules')]
+    html_files.extend(Path(directory) / name for name in files if name.endswith('.html'))
+client_files = list((ROOT/'assets').glob('*.js')) + html_files
 
 for p in client_files:
     text = p.read_text(encoding='utf-8')

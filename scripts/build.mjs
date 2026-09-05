@@ -3,7 +3,7 @@ import { existsSync } from 'node:fs';
 import path from 'node:path';
 
 const root = process.cwd();
-const out = path.join(root, 'dist');
+const out = path.join(root, 'build');
 // The owner admin is intentionally localhost-only. Public Sites cannot securely
 // protect a static /admin/ route, so keep it in the source repository but never
 // include it in the published bundle.
@@ -18,4 +18,4 @@ if (existsSync(path.join(root, '.openai', 'hosting.json'))) {
   await mkdir(path.join(out, '.openai'), { recursive: true });
   await cp(path.join(root, '.openai', 'hosting.json'), path.join(out, '.openai', 'hosting.json'));
 }
-console.log('FIDEON localhost bundle complete -> dist/');
+console.log('FIDEON public bundle complete -> build/');
