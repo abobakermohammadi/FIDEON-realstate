@@ -41,8 +41,15 @@
     root.querySelectorAll?.(".property-card").forEach(patchCard);
   }
 
+  function syncHomeInventory() {
+    const grid = document.querySelector("[data-home-properties]");
+    const section = grid?.closest(".home-listings");
+    if (section) section.hidden = !grid.querySelector(".property-card");
+  }
+
   document.addEventListener("DOMContentLoaded", () => {
     patchCards();
+    syncHomeInventory();
     const observer = new MutationObserver(records => {
       for (const record of records) {
         for (const node of record.addedNodes) {
@@ -51,6 +58,7 @@
           patchCards(node);
         }
       }
+      syncHomeInventory();
     });
     observer.observe(document.body, { childList:true, subtree:true });
   });
