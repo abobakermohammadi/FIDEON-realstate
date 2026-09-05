@@ -1,0 +1,142 @@
+/* FIDEON Neo Live
+   Frozen glass, optical depth and tiny live detail without adding decisions. */
+:root{
+  --neo-live-edge:rgba(255,255,255,.78);
+  --neo-live-line:rgba(15,17,16,.08);
+  --neo-live-shadow:0 24px 70px rgba(28,31,29,.10);
+  --neo-live-x:50%;
+  --neo-live-y:50%;
+  --neo-live-ease:cubic-bezier(.16,1,.3,1);
+}
+
+.neo-reactive{position:relative;isolation:isolate;--neo-x:50%;--neo-y:50%}
+.neo-reactive::after{
+  content:"";position:absolute;inset:0;z-index:8;pointer-events:none;border-radius:inherit;opacity:0;
+  background:radial-gradient(420px circle at var(--neo-x) var(--neo-y),rgba(255,255,255,.48),rgba(255,255,255,.12) 24%,transparent 62%);
+  mix-blend-mode:soft-light;transition:opacity .28s ease;
+}
+.neo-reactive:hover::after,.neo-reactive:focus-within::after{opacity:.72}
+
+/* Refraction edge: reads as glass even when the blur is subtle. */
+.site-header,.action-choice,.flow-panel,.property-card,.empty-state,.mobile-menu,.mobile-contact-dock,.admin-panel,.metric-card,.admin-topbar,.real-listing-media-main{
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.68),inset 0 -1px 0 rgba(15,17,16,.035),var(--neo-live-shadow)!important;
+}
+.site-header::before,.action-choice::after,.flow-panel::after,.property-card::before,.empty-state::before,.admin-panel::before,.metric-card::before{
+  content:"";position:absolute;pointer-events:none;border-radius:inherit;
+  background:linear-gradient(125deg,rgba(255,255,255,.74),transparent 25%,transparent 72%,rgba(255,255,255,.28));
+  opacity:.45;
+}
+.site-header::before{inset:0;z-index:-1}
+.action-choice::after,.flow-panel::after,.property-card::before,.empty-state::before,.admin-panel::before,.metric-card::before{inset:1px;z-index:0}
+.action-choice>* ,.flow-panel>* ,.property-card>* ,.empty-state>* ,.admin-panel>* ,.metric-card>*{position:relative;z-index:1}
+
+/* Homepage: layered glass without becoming a dashboard. */
+.v2-home .hero{overflow:hidden!important}
+.v2-home .hero::after{
+  content:"";position:absolute;z-index:2;right:-9vw;top:8%;width:min(740px,56vw);aspect-ratio:1;border-radius:50%;pointer-events:none;
+  background:conic-gradient(from 210deg,rgba(255,155,113,.12),rgba(159,140,255,.16),rgba(104,215,230,.12),rgba(184,228,108,.08),rgba(255,155,113,.12));
+  filter:blur(42px);opacity:.7;animation:neo-live-drift 16s ease-in-out infinite alternate;
+}
+.v2-home .fx-orbit-stage{will-change:transform,filter}
+.v2-home .fx-orbit-stage::selection{background:transparent}
+.v2-home .fx-orbit-b::after,.v2-home .fx-orbit-c::after{
+  content:"";position:absolute;inset:12px;border-radius:15px;border:1px solid rgba(15,17,16,.05);
+  background:linear-gradient(180deg,rgba(255,255,255,.42),rgba(255,255,255,.08));
+}
+.v2-home .fx-orbit-b::before{
+  content:"01";position:absolute;left:16px;top:14px;font-size:9px;font-weight:760;letter-spacing:.12em;color:rgba(15,17,16,.34)
+}
+.v2-home .fx-orbit-c::before{
+  content:"FIDEON";position:absolute;right:16px;bottom:14px;font-size:9px;font-weight:760;letter-spacing:.15em;color:rgba(15,17,16,.30)
+}
+
+/* Tiny live signal, only decorative. */
+.v2-home .hero-v2-copy::after{
+  content:"";display:block;width:112px;height:2px;margin-top:32px;border-radius:99px;
+  background:linear-gradient(90deg,var(--neo-peach),var(--neo-violet),var(--neo-cyan),var(--neo-lime));
+  background-size:220% 100%;opacity:.72;animation:neo-live-signal 8s ease-in-out infinite alternate;
+}
+
+/* Core paths: each gets its own atmosphere, not a loud color fill. */
+.action-choice{overflow:hidden!important;transition:border-color .28s ease,box-shadow .38s ease,background .32s ease!important}
+.action-choice::before{
+  content:""!important;position:absolute!important;inset:-35%!important;z-index:0!important;opacity:.18!important;filter:blur(34px)!important;transition:opacity .35s ease,transform .8s var(--neo-live-ease)!important;
+  background:radial-gradient(circle at 50% 50%,rgba(159,140,255,.48),transparent 58%)!important;
+}
+.action-choice:nth-child(1)::before{background:radial-gradient(circle at 50% 50%,rgba(104,215,230,.46),transparent 58%)!important}
+.action-choice:nth-child(2)::before{background:radial-gradient(circle at 50% 50%,rgba(159,140,255,.44),transparent 58%)!important}
+.action-choice:nth-child(3)::before{background:radial-gradient(circle at 50% 50%,rgba(255,155,113,.42),transparent 58%)!important}
+.action-choice:hover::before{opacity:.32!important;transform:translate3d(4%,2%,0) scale(1.04)!important}
+.action-choice:hover{border-color:rgba(15,17,16,.12)!important;box-shadow:0 24px 76px rgba(28,31,29,.12)!important}
+.action-arrow{width:34px;height:34px;border:1px solid rgba(15,17,16,.09);border-radius:11px;background:rgba(255,255,255,.46);backdrop-filter:blur(10px)}
+.action-choice:hover .action-arrow{transform:translateX(2px)!important;background:rgba(255,255,255,.74)!important}
+
+/* Inner pages: not flat white sheets. */
+.page-hero::after{
+  content:"";position:absolute;right:-120px;top:-120px;width:460px;height:460px;border-radius:50%;pointer-events:none;
+  background:conic-gradient(from 190deg,rgba(255,155,113,.14),rgba(159,140,255,.13),rgba(104,215,230,.10),rgba(255,255,255,0));
+  filter:blur(48px);opacity:.68;animation:neo-live-drift 18s ease-in-out infinite alternate;
+}
+.page-hero .container{position:relative;z-index:3}
+.section-stone{background:linear-gradient(180deg,rgba(242,240,235,.74),rgba(247,245,241,.94))!important}
+.flow-panel{backdrop-filter:blur(24px) saturate(1.14)!important;-webkit-backdrop-filter:blur(24px) saturate(1.14)!important}
+.flow-panel::before{
+  content:"";position:absolute;left:22px;right:22px;top:0;height:1px!important;
+  background:linear-gradient(90deg,transparent,rgba(255,155,113,.72),rgba(159,140,255,.70),rgba(104,215,230,.62),transparent)!important;
+  opacity:.8!important;
+}
+.field input,.field select,.field textarea{
+  transition:border-color .22s ease,background .22s ease,box-shadow .28s ease!important;
+}
+.field:focus-within input,.field:focus-within select,.field:focus-within textarea{
+  border-color:rgba(15,17,16,.18)!important;background:rgba(255,255,255,.76)!important;
+  box-shadow:0 0 0 4px rgba(159,140,255,.07),inset 0 1px 0 rgba(255,255,255,.8)!important;
+}
+
+/* Portfolio and detail: product-grade surfaces even before inventory exists. */
+.properties-grid .empty-state{min-height:280px;display:grid;place-items:center;align-content:center;border:1px solid rgba(255,255,255,.72)!important;background:rgba(255,255,255,.50)!important;backdrop-filter:blur(24px)!important}
+.properties-grid .empty-state::after{
+  content:"";position:absolute;width:160px;height:160px;right:8%;top:50%;transform:translateY(-50%);border-radius:36px;
+  border:1px solid rgba(255,255,255,.8);background:linear-gradient(145deg,rgba(255,255,255,.52),rgba(255,255,255,.14));
+  box-shadow:0 22px 58px rgba(28,31,29,.08);opacity:.58;pointer-events:none;
+}
+.property-card{background:rgba(255,255,255,.62)!important;backdrop-filter:blur(18px)!important}
+.property-image{overflow:hidden}.property-image img{transition:transform .9s var(--neo-live-ease),filter .5s ease!important}
+.property-card:hover .property-image img{transform:scale(1.018)!important}
+.real-listing-media-main{border:1px solid rgba(255,255,255,.7);background:rgba(255,255,255,.48)!important;backdrop-filter:blur(20px)}
+.real-listing-feature{background:rgba(255,255,255,.58)!important;backdrop-filter:blur(12px)!important;border-color:rgba(15,17,16,.08)!important}
+
+/* Mobile should feel designed, not compressed desktop. */
+.mobile-menu{border:1px solid rgba(255,255,255,.84)!important;background:rgba(247,246,242,.82)!important;backdrop-filter:blur(30px) saturate(1.22)!important;-webkit-backdrop-filter:blur(30px) saturate(1.22)!important}
+.mobile-menu::before{
+  content:"";position:absolute;right:-80px;top:80px;width:240px;height:240px;border-radius:50%;pointer-events:none;
+  background:radial-gradient(circle,rgba(159,140,255,.18),rgba(104,215,230,.08) 42%,transparent 70%);filter:blur(22px)
+}
+.mobile-contact-dock{backdrop-filter:blur(28px) saturate(1.18)!important;-webkit-backdrop-filter:blur(28px) saturate(1.18)!important}
+
+/* Admin gets the same care, but remains a tool. */
+.admin-panel,.metric-card,.admin-topbar{position:relative;overflow:hidden;backdrop-filter:blur(22px) saturate(1.12)!important;-webkit-backdrop-filter:blur(22px) saturate(1.12)!important}
+.metric-card::after{
+  content:"";position:absolute;right:-18px;bottom:-28px;width:88px;height:88px;border-radius:50%;
+  background:radial-gradient(circle,rgba(159,140,255,.13),transparent 68%);pointer-events:none
+}
+.admin-panel:nth-of-type(even)::after{background:radial-gradient(circle,rgba(104,215,230,.10),transparent 68%)}
+
+.neo-pressed{animation:neo-live-press .34s var(--neo-live-ease)}
+@keyframes neo-live-press{0%{filter:brightness(1)}35%{filter:brightness(.985)}100%{filter:brightness(1)}}
+@keyframes neo-live-drift{0%{transform:translate3d(-1%,0,0) scale(.98)}100%{transform:translate3d(3%,2%,0) scale(1.04)}}
+@keyframes neo-live-signal{0%{background-position:0% 50%;transform:scaleX(.88);transform-origin:left}100%{background-position:100% 50%;transform:scaleX(1)}}
+
+@media(max-width:760px){
+  .v2-home .hero::after{right:-52vw;top:22%;width:120vw;opacity:.48}
+  .v2-home .hero-v2-copy::after{width:82px;margin-top:24px}
+  .page-hero::after{right:-180px;top:-160px;opacity:.42}
+  .properties-grid .empty-state::after{width:110px;height:110px;right:-28px;opacity:.34}
+  .neo-reactive::after{display:none}
+}
+
+@media(prefers-reduced-motion:reduce){
+  .v2-home .hero::after,.page-hero::after,.v2-home .hero-v2-copy::after{animation:none!important}
+  .neo-pressed{animation:none!important}
+  .neo-reactive::after{display:none!important}
+}
