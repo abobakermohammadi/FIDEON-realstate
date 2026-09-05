@@ -25,6 +25,13 @@
     return Array.isArray(local) ? local : (F.seedLeads || []);
   }
 
+  function isPublicProperty(property = {}) {
+    const visibility = String(property.visibility || "Public").toLocaleLowerCase("tr-TR").trim();
+    if (visibility === "hidden" || visibility === "private") return false;
+    const status = String(property.status || "").toLocaleLowerCase("tr-TR").trim();
+    return !["taslak", "draft", "arşiv", "arsiv", "archived"].includes(status);
+  }
+
   let toastTimer;
   function toast(message) {
     const node = $("#toast");
@@ -149,7 +156,7 @@
   function initHomeProperties() {
     const grid = $("[data-home-properties]");
     if (!grid) return;
-    const items = getProperties().filter(property => String(property.visibility || "Public").toLowerCase() !== "hidden").slice(0, 3);
+    const items = getProperties().filter(isPublicProperty).slice(0, 3);
     const section = grid.closest(".home-listings");
     if (!items.length) {
       if (section) section.hidden = true;
@@ -163,10 +170,7 @@
   function initPropertyListing() {
     const grid = $("[data-properties-grid]");
     if (!grid) return;
-    const items = getProperties().filter(property => {
-      const visibility = String(property.visibility || "Public").toLowerCase();
-      return visibility !== "hidden" && visibility !== "private";
-    });
+    const items = getProperties().filter(isPublicProperty);
     const count = $("[data-result-count]");
     if (count) count.textContent = `${items.length} ilan`;
     grid.innerHTML = items.length
@@ -208,7 +212,7 @@
     const root = $("[data-dynamic-property]");
     if (!root) return;
     const slug = new URLSearchParams(location.search).get("slug");
-    const property = getProperties().find(item => String(item.slug || item.id) === String(slug));
+    const property = getProperties().find(item => String(item.slug || item.id) === String(slug) && isPublicProperty(item));
     if (!property) {
       root.innerHTML = `<div class="empty-state"><h3>İlan bulunamadı.</h3><p>İlan kaldırılmış veya bağlantı değişmiş olabilir.</p><a class="btn btn-dark" href="/properties/">İlanlara Dön</a></div>`;
       return;
@@ -259,6 +263,6 @@
     initYear();
   });
 
-  F.store = { getProperties, getLeads };
+  F.store = { getProperties, getLeads, isPublicProperty };
   F.ui = { toast, propertyCard };
 })();
