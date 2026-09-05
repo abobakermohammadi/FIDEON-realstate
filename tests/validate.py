@@ -9,7 +9,6 @@ warnings = []
 EXPECTED = [
     "index.html",
     "properties/index.html",
-    "properties/aurora-palm-villa/index.html",
     "properties/view/index.html",
     "private/index.html",
     "sell/index.html",
@@ -27,10 +26,16 @@ EXPECTED = [
     "assets/styles-components-a.css",
     "assets/styles-components-b.css",
     "assets/styles-admin-responsive.css",
+    "assets/v2.css",
+    "assets/portfolio-polish.css",
+    "assets/real-listing.css",
     "assets/app.js",
     "assets/admin.js",
     "assets/data.js",
-    "assets/fideon-mark.svg"
+    "assets/real-listing-detail.js",
+    "assets/fideon-mark.svg",
+    "assets/asiyan-exterior.svg",
+    "assets/asiyan-reel-preview.svg",
 ]
 
 for rel in EXPECTED:
@@ -58,7 +63,7 @@ for path in html_files:
     if "lorem ipsum" in lower:
         errors.append(f"lorem ipsum found: {path.relative_to(ROOT)}")
     if "wa.me/" in lower or "whatsapp.com/send" in lower:
-        errors.append(f"unverified WhatsApp deep link found: {path.relative_to(ROOT)}")
+        errors.append(f"hard-coded WhatsApp deep link found in HTML: {path.relative_to(ROOT)}")
     if path.name != "404.html" and "<main" not in lower and "admin/index.html" not in str(path):
         warnings.append(f"no <main> landmark: {path.relative_to(ROOT)}")
     parser = Collector()
@@ -92,10 +97,19 @@ if "supabase" in all_html.lower():
     errors.append("localhost-only HTML must not present Supabase as part of the active phase")
 if "fideon.official@gmail.com" not in all_html:
     errors.append("verified public email missing from site")
-if "Sample" not in all_html and "sample" not in all_html:
-    errors.append("development sample inventory is not labeled")
+if "+90 501 357 56 35" not in all_html:
+    errors.append("verified public phone missing from site")
 
-css = "\n".join((ROOT/f"assets/{name}").read_text() for name in ["styles-base.css","styles-components-a.css","styles-components-b.css","styles-admin-responsive.css"])
+data = (ROOT/"assets/data.js").read_text(encoding="utf-8")
+if 'whatsapp: "905013575635"' not in data:
+    errors.append("verified WhatsApp number missing from central config")
+if "asiyan-konaklari-adnan-kahveci-3-1" not in data:
+    errors.append("real Aşiyan Konakları listing missing from inventory")
+for obsolete in ("skyline-residence", "waterfront-house", "desert-retreat", "aurora-palm-villa"):
+    if obsolete in data:
+        errors.append(f"obsolete sample listing still present in active inventory: {obsolete}")
+
+css = "\n".join((ROOT/f"assets/{name}").read_text() for name in ["styles-base.css","styles-components-a.css","styles-components-b.css","styles-admin-responsive.css","v2.css","real-listing.css","portfolio-polish.css"])
 if "prefers-reduced-motion" not in css:
     errors.append("reduced-motion handling missing")
 if "overflow-x" not in css and "overflow:hidden" not in css:
