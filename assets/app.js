@@ -17,12 +17,14 @@
     toastTimer = setTimeout(() => node.classList.remove("show"), 2600);
   }
 
-  function ensureV2Styles() {
-    if ($('link[href="/assets/v2.css"]')) return;
-    const link = document.createElement("link");
-    link.rel = "stylesheet";
-    link.href = "/assets/v2.css";
-    document.head.appendChild(link);
+  function ensurePublicStyles() {
+    ["/assets/v2.css", "/assets/minimal.css"].forEach(href => {
+      if ($(`link[href="${href}"]`)) return;
+      const link = document.createElement("link");
+      link.rel = "stylesheet";
+      link.href = href;
+      document.head.appendChild(link);
+    });
   }
 
   function getSaved() { return read(STORE.saved, []); }
@@ -160,7 +162,7 @@
       const key = el.textContent.trim(); if (replacements.has(key)) el.textContent = replacements.get(key);
     });
     $$(".mobile-menu-links a,.desktop-nav a,.footer-col a").forEach(a => { if (a.getAttribute("href") === "/referrals/") a.remove(); });
-    $$(".preview-strip").forEach(el => el.innerHTML = '<span class="preview-dot"></span> Localhost geliştirme sürümü · örnek ilanlar işaretlidir');
+    $$(".preview-strip").forEach(el => el.innerHTML = '<span class="preview-dot"></span> Localhost geliştirme sürümü');
   }
 
   function initWhatsApp() {
@@ -179,7 +181,11 @@
 
   function ensureMobileDock() {
     if ($(".mobile-contact-dock") || document.body.classList.contains("admin-page")) return;
-    const dock = document.createElement("div"); dock.className = "mobile-contact-dock"; dock.innerHTML = `<a href="/properties/" class="dock-link"><span>⌂</span><b>İlanlar</b></a><a href="#" class="dock-link dock-whatsapp" data-whatsapp data-whatsapp-message="Merhaba FIDEON, web sitenizden yazıyorum."><span>◉</span><b>WhatsApp</b></a><a href="mailto:${esc(F.config?.email || "fideon.official@gmail.com")}" class="dock-link"><span>✉</span><b>E-posta</b></a>`; document.body.appendChild(dock);
+    const phoneRaw = String(F.config?.phone || "+90 501 357 56 35").replace(/\D/g, "");
+    const dock = document.createElement("div");
+    dock.className = "mobile-contact-dock";
+    dock.innerHTML = `<a href="/properties/" class="dock-link"><span>⌂</span><b>İlanlar</b></a><a href="#" class="dock-link dock-whatsapp" data-whatsapp data-whatsapp-message="Merhaba FIDEON, web sitenizden yazıyorum."><span>◉</span><b>WhatsApp</b></a><a href="tel:+${phoneRaw}" class="dock-link"><span>☎</span><b>Ara</b></a>`;
+    document.body.appendChild(dock);
   }
 
   function initSearchRibbon() {
@@ -194,7 +200,7 @@
   function initShare() { $$("[data-share]").forEach(btn => btn.addEventListener("click", async () => { try { if (navigator.share) await navigator.share({title:document.title,url:location.href}); else { await navigator.clipboard.writeText(location.href); toast("Bağlantı kopyalandı."); } } catch {} })); }
   function initYear() { $$("[data-year]").forEach(n => n.textContent = new Date().getFullYear()); }
 
-  ensureV2Styles();
+  ensurePublicStyles();
   document.addEventListener("DOMContentLoaded", () => {
     normalizeSharedShell(); initMenu(); initHeader(); initReveal(); initSaveButtons(); initHomeProperties(); initPropertyListing(); initSavedPage(); initDynamicPropertyDetail(); initForms(); initSearchRibbon(); initShare(); ensureMobileDock(); initWhatsApp(); initYear();
   });
