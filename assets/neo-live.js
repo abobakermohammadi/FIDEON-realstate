@@ -12,11 +12,25 @@
     '.real-listing-media-main'
   ].join(',');
 
+  function decorateNode(node) {
+    if (!node || node.dataset.neoLive === '1') return;
+    node.dataset.neoLive = '1';
+    node.classList.add('neo-reactive');
+    if (!reduceMotion && !node.querySelector(':scope > .neo-glint')) {
+      const glint = document.createElement('i');
+      glint.className = 'neo-glint';
+      glint.setAttribute('aria-hidden','true');
+      node.appendChild(glint);
+    }
+  }
+
   function decorate(scope=document) {
-    if (scope.matches?.(selectors)) scope.classList.add('neo-reactive');
-    $$(selectors, scope).forEach(node => node.classList.add('neo-reactive'));
-    $('.hero', scope)?.classList.add('neo-alive');
-    $('.page-hero', scope)?.classList.add('neo-alive');
+    if (scope.matches?.(selectors)) decorateNode(scope);
+    $$(selectors, scope).forEach(decorateNode);
+    if (scope.matches?.('.hero')) scope.classList.add('neo-alive');
+    else $('.hero', scope)?.classList.add('neo-alive');
+    if (scope.matches?.('.page-hero')) scope.classList.add('neo-alive');
+    else $('.page-hero', scope)?.classList.add('neo-alive');
   }
 
   function flushPointer() {
@@ -57,7 +71,7 @@
     const observer = new MutationObserver(records => {
       for (const record of records) {
         for (const node of record.addedNodes) {
-          if (node.nodeType === 1) decorate(node);
+          if (node.nodeType === 1 && !node.classList.contains('neo-glint')) decorate(node);
         }
       }
     });
