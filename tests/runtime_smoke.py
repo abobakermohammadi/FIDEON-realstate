@@ -11,8 +11,8 @@ ROUTES = [
     "/admin/", "/privacy.html", "/terms.html", "/404.html",
     "/assets/styles-base.css", "/assets/styles-components-a.css", "/assets/styles-components-b.css", "/assets/styles-admin-responsive.css",
     "/assets/v2.css", "/assets/portfolio-polish.css", "/assets/real-listing.css", "/assets/minimal.css",
-    "/assets/data.js", "/assets/app.js", "/assets/admin.js", "/assets/real-listing-detail.js", "/assets/whatsapp-forms.js",
-    "/assets/asiyan-exterior.svg", "/assets/asiyan-reel-preview.svg", "/assets/property-palm.svg",
+    "/assets/data.js", "/assets/app.js", "/assets/admin.js", "/assets/whatsapp-forms.js",
+    "/assets/fideon-mark.svg", "/assets/fideon-logo.svg", "/assets/property-palm.svg",
 ]
 
 class Quiet(SimpleHTTPRequestHandler):
