@@ -52,7 +52,7 @@
   }
 
   function ensurePublicStyles() {
-    ["/assets/v2.css","/assets/minimal.css","/assets/delight.css","/assets/immersive.css"].forEach(href => {
+    ["/assets/v2.css","/assets/minimal.css","/assets/delight.css","/assets/immersive.css","/assets/neo.css"].forEach(href => {
       if ($(`link[href="${href}"]`)) return;
       const link = document.createElement("link");
       link.rel = "stylesheet";
