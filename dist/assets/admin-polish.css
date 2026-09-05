@@ -1,0 +1,10 @@
+/* FIDEON admin finishing layer */
+.admin-media-count{margin:10px 2px 0;color:var(--ink-500);font-size:10px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;transition:color .2s ease}
+.admin-media-count.has-media{color:#7d684b}
+.admin-preview-property{min-height:40px!important;padding-inline:12px!important;text-decoration:none}
+[data-save-property]{min-width:92px;transition:background .22s ease,color .22s ease,transform .18s cubic-bezier(.16,1,.3,1),box-shadow .24s ease!important}
+[data-save-property].is-saved{background:#174837!important;border-color:#174837!important;color:#fff!important;box-shadow:0 10px 28px rgba(23,72,55,.16)!important}
+#property-editor input[name="roomPlanManual"]{font-variant-numeric:tabular-nums;letter-spacing:.01em}
+.media-preview{position:relative}
+.media-preview img{background:linear-gradient(145deg,#f6f3ed,#ece6dc)}
+@media(max-width:760px){.admin-preview-property{order:-1;width:100%;justify-content:center}.admin-media-count{margin-top:8px}}

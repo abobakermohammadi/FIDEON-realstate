@@ -4,7 +4,10 @@ import path from 'node:path';
 
 const root = process.cwd();
 const out = path.join(root, 'dist');
-const dirs = ['assets','properties','properties/view','private','sell','find','referrals','about','journal','contact','saved','admin'];
+// The owner admin is intentionally localhost-only. Public Sites cannot securely
+// protect a static /admin/ route, so keep it in the source repository but never
+// include it in the published bundle.
+const dirs = ['assets','properties','properties/view','private','sell','find','referrals','about','journal','contact','saved'];
 const files = ['index.html','privacy.html','terms.html','404.html','manifest.webmanifest','robots.txt','sitemap.xml'];
 
 await rm(out, { recursive:true, force:true });
