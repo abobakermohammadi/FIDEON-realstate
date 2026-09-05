@@ -16,7 +16,10 @@
     style.textContent = `
       .fx-progress{position:fixed;left:0;top:0;z-index:10001;width:100%;height:1px;pointer-events:none;transform:scaleX(var(--fx-progress,0));transform-origin:left;background:linear-gradient(90deg,#9f7948,#dfc79d,#c9a66b);box-shadow:0 0 10px rgba(201,166,107,.30);opacity:0;transition:opacity .25s ease;will-change:transform}
       .fx-progress.fx-progress-active{opacity:.82}
+      .fx-curtain::after{content:"";position:absolute;left:50%;top:50%;width:72px;height:72px;transform:translate(-50%,-50%) scale(.82) rotate(-3deg);background:url('/assets/fideon-mark.svg') center/contain no-repeat;opacity:0;filter:drop-shadow(0 12px 28px rgba(0,0,0,.18));transition:opacity .22s ease .08s,transform .46s cubic-bezier(.16,1,.3,1) .05s}
+      html.fx-leaving .fx-curtain::after{opacity:.9;transform:translate(-50%,-50%) scale(1) rotate(0)}
       .mobile-menu{color:var(--forest-950)!important}
+      .mobile-menu::before{content:"";position:absolute;right:-54px;bottom:78px;width:220px;aspect-ratio:1;background:url('/assets/fideon-mark.svg') center/contain no-repeat;opacity:.035;pointer-events:none;transform:rotate(-7deg)}
       .mobile-menu .icon-btn{color:var(--forest-950)!important;border-color:rgba(6,29,20,.16)!important}
       .mobile-menu-links a{color:var(--forest-950)!important;border-bottom-color:rgba(6,29,20,.10)!important}
       .mobile-menu-links a:hover,.mobile-menu-links a:focus-visible,.mobile-menu-links a[aria-current="page"]{color:var(--gold-700)!important}
@@ -29,8 +32,8 @@
       .story-block:first-child::before{top:0}
       .story-block:hover{border-color:rgba(159,121,72,.24)}
       .story-block:hover::before{transform:translateX(-5px);opacity:1}
-      @media(max-width:760px){.story-block::before{right:2px}.fx-progress{height:1px}}
-      @media(prefers-reduced-motion:reduce){.fx-progress{display:none!important}.v2-home .mobile-contact-dock.fx-smart-dock{transition:none!important}.story-block,.story-block::before{transition:none!important}}
+      @media(max-width:760px){.story-block::before{right:2px}.fx-progress{height:1px}.fx-curtain::after{width:62px;height:62px}.mobile-menu::before{width:190px;right:-60px}}
+      @media(prefers-reduced-motion:reduce){.fx-progress,.fx-curtain::after{display:none!important}.v2-home .mobile-contact-dock.fx-smart-dock{transition:none!important}.story-block,.story-block::before{transition:none!important}}
     `;
     document.head.appendChild(style);
   }
@@ -139,15 +142,10 @@
     dock.dataset.fxSmartDock = '1';
     if (!matchMedia('(max-width:760px)').matches) return;
     dock.classList.add('fx-smart-dock');
-    const sync = visible => dock.classList.toggle('fx-dock-visible', visible);
-    if ('IntersectionObserver' in window) {
-      const observer = new IntersectionObserver(entries => sync(!entries[0].isIntersecting), { threshold:.18 });
-      observer.observe(heroActions);
-    } else {
-      const fallback = () => sync(heroActions.getBoundingClientRect().bottom < 0);
-      fallback();
-      addEventListener('scroll', fallback, { passive:true });
-    }
+    const sync = () => dock.classList.toggle('fx-dock-visible', heroActions.getBoundingClientRect().bottom < Math.min(300, innerHeight * .36));
+    sync();
+    addEventListener('scroll', sync, { passive:true });
+    addEventListener('resize', sync, { passive:true });
   }
 
   function pointerLight(event) {
