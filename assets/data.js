@@ -25,11 +25,28 @@ window.FIDEON.sampleProperties = [
     priceLabel: "Fiyat için WhatsApp'tan sorun",
     beds: 3,
     roomPlan: "3+1",
-    image: "/assets/property-palm.svg",
-    hero: "/assets/property-palm.svg",
+    image: "/assets/asiyan-exterior.svg",
+    hero: "/assets/asiyan-exterior.svg",
+    reelPreview: "/assets/asiyan-reel-preview.svg",
     reference: "FIDEON-AK-001",
     summary: "Beylikdüzü Adnan Kahveci'de, Aşiyan Konakları içerisinde yer alan geniş ve ferah 3+1 aile dairesi. Site olanakları, merkezi konumu ve günlük ihtiyaç noktalarına kolay erişimiyle konforlu bir yaşam sunar.",
     description: "Aşiyan Konakları'nda merkezi konumda bulunan bu 3+1 daire; geniş kullanım alanı, aile yaşamına uygun planı, site içi sosyal olanakları ve güçlü ulaşım bağlantılarıyla öne çıkıyor. Beylikdüzü Yaşam Vadisi, Beylikdüzü Pazarı, toplu taşıma durakları, okullar, marketler ve alışveriş noktalarına kolay ulaşım sağlanıyor. Detaylı bilgi, güncel fiyat ve randevu için FIDEON ile doğrudan WhatsApp üzerinden iletişime geçebilirsiniz.",
+    siteFeatures: [
+      "Otopark",
+      "Asansör",
+      "Spor salonu",
+      "Sauna",
+      "Çocuk parkı ve oyun alanı",
+      "Sosyal alan",
+      "Yangın güvenlik sistemi"
+    ],
+    locationAdvantages: [
+      "Beylikdüzü Yaşam Vadisi'ne yakın",
+      "Beylikdüzü Pazarı'na yakın",
+      "Dolmuş ve otobüs duraklarına yakın",
+      "Okul ve günlük ihtiyaç noktalarına kolay ulaşım",
+      "Market ve alışveriş alanlarına yakın"
+    ],
     highlights: [
       "3+1 geniş aile planı",
       "Otopark",
