@@ -9,6 +9,7 @@
 
 .preview-strip{display:none}
 .site-header.header-over-hero{top:0}
+.reveal{opacity:1!important;transform:none!important;transition:none!important}
 
 /* Brand + navigation */
 .nav-wrap{min-height:64px;padding:0 clamp(16px,3vw,34px);gap:18px}
@@ -124,7 +125,8 @@
   .section-title{font-size:33px}
 
   .home-property-grid .property-card:only-child{display:block!important;min-height:0}
-  .home-property-grid .property-card:only-child .property-image{height:auto;min-height:0;aspect-ratio:4/3}
+  .home-property-grid .property-card:only-child .property-image{height:auto!important;min-height:0!important;aspect-ratio:4/3!important}
+  .home-property-grid .property-card:only-child .property-image img{height:100%!important;object-fit:cover!important}
   .home-property-grid .property-card:only-child .property-body{padding:16px!important}
   .home-property-grid .property-card:only-child .property-title{font-size:21px!important}
 
