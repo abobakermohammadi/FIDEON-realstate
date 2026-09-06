@@ -22,8 +22,8 @@ The public site is Turkish-first, Istanbul-wide and intentionally quiet. No seed
 ## Mode locked by owner
 
 The public experience is a lightweight static Site. No Supabase, cloud database,
-remote authentication or hosted media is required. The owner console stays local
-and is excluded from the public bundle.
+remote authentication or hosted media is required. The owner console is available
+at /admin/, while its records remain isolated to the browser that created them.
 
 The browser is the preview data layer. Owner-created properties, uploaded preview media and leads use `localStorage`, so the site can run without external services or credentials.
 
@@ -71,7 +71,7 @@ The common listing fields stay visible. Advanced fields are collapsed under **Di
 
 The public Site is static and intentionally has no remote authentication, multi-device database, hosted media storage or automated outbound messaging.
 
-The admin route is localhost-only and is excluded from the public build.
+The admin route is a browser-local console, not a shared or server-authenticated CMS.
 
 ## Run locally
 

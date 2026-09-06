@@ -2,7 +2,7 @@
 <html lang="tr">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#f4f3ef"><title>FIDEON Yönetim Paneli · Localhost</title><meta name="robots" content="noindex,nofollow">
+<meta name="theme-color" content="#061c16"><title>FIDEON Yönetim Paneli</title><meta name="robots" content="noindex,nofollow">
 <link rel="icon" href="/assets/fideon-mark.svg" type="image/svg+xml">
 <link rel="stylesheet" href="/assets/styles-base.css"><link rel="stylesheet" href="/assets/styles-components-a.css"><link rel="stylesheet" href="/assets/styles-components-b.css"><link rel="stylesheet" href="/assets/styles-admin-responsive.css"><link rel="stylesheet" href="/assets/delight.css"><link rel="stylesheet" href="/assets/immersive.css"><link rel="stylesheet" href="/assets/neo.css"><link rel="stylesheet" href="/assets/neo-live.css"><link rel="stylesheet" href="/assets/admin-polish.css">
 </head>
@@ -13,16 +13,16 @@
     <aside class="admin-sidebar">
       <div class="admin-brand"><a class="brand" href="/" aria-label="FIDEON web sitesine dön"><img class="brand-mark" src="/assets/fideon-mark.svg" alt=""><span class="brand-word">FIDEON / ADMIN</span></a></div>
       <nav class="admin-nav" aria-label="Yönetim"><button type="button" data-admin-nav="dashboard" class="active">Ana</button><button type="button" data-admin-nav="properties">Portföy</button><button type="button" data-admin-nav="leads">Talepler</button><button type="button" data-admin-nav="settings">Ayarlar</button></nav>
-      <div class="admin-sidebar-status">Localhost.<br>Veriler bu tarayıcıda kalır.</div>
+      <div class="admin-sidebar-status">FIDEON Console.<br>Veriler bu tarayıcıda kalır.</div>
     </aside>
 
     <section class="admin-main">
-      <div class="admin-topbar"><div><div class="section-kicker" style="margin-bottom:5px">FIDEON</div><h1 id="admin-title">Yönetim merkezi</h1></div><div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap"><span class="admin-badge">Localhost</span><button class="btn btn-dark" type="button" data-add-property>+ Portföye ekle</button></div></div>
+      <div class="admin-topbar"><div><div class="section-kicker" style="margin-bottom:5px">FIDEON</div><h1 id="admin-title">Yönetim merkezi</h1></div><div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap"><span class="admin-badge">Bu tarayıcı</span><button class="btn btn-dark" type="button" data-add-property>+ Portföye ekle</button></div></div>
 
       <section class="admin-view active" data-view="dashboard">
         <div class="metric-grid"><div class="metric-card"><div class="metric-label">Portföy</div><div class="metric-value" data-metric="inventory">0</div></div><div class="metric-card"><div class="metric-label">Yayında</div><div class="metric-value" data-metric="public">0</div></div><div class="metric-card"><div class="metric-label">Yeni talep</div><div class="metric-value" data-metric="leads">0</div></div><div class="metric-card" hidden><div data-metric="private">0</div></div></div>
         <div class="admin-grid-2"><div class="admin-panel"><div class="panel-head"><h2>Portföy</h2><button class="btn-link" type="button" data-admin-nav="properties">Aç</button></div><div class="admin-table-wrap"><table class="admin-table"><thead><tr><th>İlan</th><th>Tip</th><th>Görünürlük</th><th>Fiyat</th></tr></thead><tbody data-dashboard-properties></tbody></table></div></div><div class="admin-panel"><div class="panel-head"><h2>Yeni talepler</h2><button class="btn-link" type="button" data-admin-nav="leads">Aç</button></div><div data-dashboard-leads></div></div></div>
-        <p style="margin:16px 2px 0;color:var(--ink-500);font-size:11px;line-height:1.6">Localhost modu. Harici veritabanı veya deployment yok.</p>
+        <p style="margin:16px 2px 0;color:var(--ink-500);font-size:11px;line-height:1.6">Bu paneldeki ilanlar ve talepler bu tarayıcıda tutulur. Yayındaki ziyaretçiler kendi kayıtlarını görmez.</p>
       </section>
 
       <section class="admin-view" data-view="properties">
