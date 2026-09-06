@@ -117,7 +117,8 @@
       chip.className = 'admin-media-count';
       box.before(chip);
     }
-    chip.textContent = count ? `${count} / 16 fotoğraf` : 'Fotoğraf eklenmedi';
+    const label = count ? `${count} / 16 fotoğraf` : 'Fotoğraf eklenmedi';
+    if (chip.textContent !== label) chip.textContent = label;
     chip.classList.toggle('has-media', count > 0);
   }
 
