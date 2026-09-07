@@ -1,5 +1,6 @@
 /* MAMELAT admin finishing layer */
 .admin-page .text-logo{font:700 15px/1.2 Georgia,"Times New Roman",serif;letter-spacing:.12em;color:#d8b980;white-space:nowrap}
+.admin-page .text-logo .logo-a{font-family:Arial,sans-serif;font-size:.91em;font-weight:400;display:inline-block;transform:scaleX(.78);margin:0 -.04em}
 .admin-media-count{margin:10px 2px 0;color:var(--ink-500);font-size:10px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;transition:color .2s ease}
 .admin-media-count.has-media{color:#7d684b}
 .admin-preview-property{min-height:40px!important;padding-inline:12px!important;text-decoration:none}

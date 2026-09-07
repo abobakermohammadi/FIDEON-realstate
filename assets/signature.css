@@ -17,3 +17,5 @@
 .signature-hero h1{font-size:clamp(58px,6.1vw,88px)}
 @media(max-width:760px){.signature-hero h1{font-size:clamp(48px,12vw,76px)}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{animation:none!important;transition:none!important}.brand-plaque{transform:none!important}}
+.text-logo .logo-a{display:inline-block;font-family:Arial,sans-serif;font-size:.91em;font-weight:400;letter-spacing:.02em;transform:scaleX(.78);margin:0 -.04em}
+.plaque-wordmark .logo-a{font-family:Arial,sans-serif;font-size:.91em;transform:scaleX(.78);display:inline-block}
