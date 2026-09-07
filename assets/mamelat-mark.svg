@@ -1,5 +1,7 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="MAMELAT">
-  <rect width="64" height="64" fill="#F3F0E8"/>
-  <path d="M12 46V18l20 25 20-25v28" fill="none" stroke="#75644F" stroke-width="2.6" stroke-linecap="square" stroke-linejoin="miter"/>
-  <path d="M23 46V31c0-9 3.7-14 9-14s9 5 9 14v15" fill="none" stroke="#75644F" stroke-width="2.2" stroke-linecap="square"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="MAMELAT">
+  <rect width="64" height="64" rx="14" fill="#141716"/>
+  <rect x="1.5" y="1.5" width="61" height="61" rx="12.5" fill="none" stroke="#C5A059" stroke-width="1" stroke-opacity="0.35"/>
+  <!-- Precision architectural M monogram -->
+  <path d="M16 45V19h5.5l10.5 16.2L42.5 19H48v26h-5.2V26.8L33.2 41.5h-2.4L21.2 26.8V45H16z" fill="#FAF7F2"/>
+  <polygon points="32,23 35.5,28.5 28.5,28.5" fill="#C5A059"/>
 </svg>

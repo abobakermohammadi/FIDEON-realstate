@@ -1,177 +1,284 @@
-/* MAMELAT Atelier identity layer · 2026-09-07
-   Warm ivory, bronze and espresso. Architectural, editorial, quiet-luxury. */
-:root{
+/* MAMELAT Identity System · Architecture, Restraint & Precision */
+:root {
   --m-paper:#f3f0e8;
-  --m-paper-2:#e8e2d7;
-  --m-paper-3:#ddd4c7;
-  --m-ink:#24201c;
-  --m-ink-2:#51483e;
+  --m-paper-alt:#e8e3d8;
+  --m-paper-subtle:#ded8cb;
+  --m-ink:#151715;
+  --m-ink-muted:#525852;
   --m-bronze:#7a6954;
-  --m-bronze-2:#9b8973;
-  --m-line:#cfc6b9;
+  --m-bronze-alt:#93816c;
+  --m-line:#d2cbbe;
   --m-dark:#1b1815;
-  --m-cream:#fbf8f2;
-  --display:Didot,'Bodoni 72','Bodoni MT',Georgia,'Times New Roman',serif;
-  --sans:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;
-}
-html{background:var(--m-dark)}
-body{background:var(--m-paper);color:var(--m-ink)}
-::selection{background:var(--m-bronze);color:var(--m-cream)}
-:focus-visible{outline-color:var(--m-bronze)}
-
-/* Wordmark built from the supplied identity: high-contrast serif + arched A. */
-.text-logo,.plaque-wordmark{
-  color:inherit;
-  font-family:var(--display);
-  font-weight:400;
-  letter-spacing:.18em;
-  line-height:1;
-  text-transform:uppercase;
-  white-space:nowrap;
-}
-.text-logo{font-size:22px}
-.logo-a{
-  display:inline-block;
-  width:.63em;
-  height:.72em;
-  margin:0 .08em;
-  border:.085em solid currentColor;
-  border-bottom:0;
-  border-radius:52% 52% 0 0/70% 70% 0 0;
-  font-size:0;
-  line-height:0;
-  transform:translateY(.02em);
-  vertical-align:-.02em;
+  --m-cream:#faf8f4;
+  --display: Didot, 'Bodoni MT', 'Playfair Display', Georgia, 'Times New Roman', serif;
+  --sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
 }
 
-/* Header becomes a piece of stationery instead of a dark real-estate navbar. */
-.site-header{
-  background:rgba(243,240,232,.92)!important;
-  color:var(--m-ink)!important;
-  border-bottom:1px solid rgba(122,105,84,.26)!important;
-  box-shadow:0 10px 35px rgba(27,24,21,.035)!important;
-  backdrop-filter:blur(18px) saturate(.8);
-  -webkit-backdrop-filter:blur(18px) saturate(.8);
-}
-.nav-wrap{min-height:84px}
-.brand{color:var(--m-bronze)}
-.desktop-nav{gap:30px}
-.desktop-nav a{
-  color:var(--m-ink-2)!important;
-  font-size:11px!important;
-  letter-spacing:.11em;
-  text-transform:uppercase;
-}
-.desktop-nav a:hover,.desktop-nav a[aria-current=page]{color:var(--m-ink)!important;box-shadow:0 1px var(--m-bronze)!important}
-.nav-actions .btn-whatsapp{background:var(--m-dark)!important;color:var(--m-cream)!important;border-color:var(--m-dark)!important}
-.nav-actions .btn-whatsapp:hover{background:#332c26!important}
-.icon-btn{border-color:rgba(122,105,84,.45)!important;border-radius:0!important}
-.mobile-menu{background:var(--m-paper)!important;color:var(--m-ink)!important}
-.mobile-menu-links a{border-color:var(--m-line)!important;font-family:var(--display)!important}
-.mobile-menu-foot{color:var(--m-bronze)!important}
-
-/* Buttons: tailored, flat, architectural. */
-.btn{border-radius:0!important;box-shadow:none!important;letter-spacing:.025em;transition:transform .25s ease,background .25s ease,color .25s ease,border-color .25s ease!important}
-.btn:hover{transform:translateY(-2px)!important;box-shadow:none!important}
-.btn-gold,.btn-whatsapp{background:var(--m-dark)!important;color:var(--m-cream)!important;border-color:var(--m-dark)!important}
-.btn-gold:hover,.btn-whatsapp:hover{background:#342d27!important;color:#fff!important}
-.btn-dark{background:var(--m-dark)!important;color:var(--m-cream)!important}
-.btn-outline{border-color:var(--m-bronze)!important;color:inherit!important}
-.btn-link,.real-listing-back{border-bottom-color:var(--m-bronze)!important}
-
-.eyebrow,.section-kicker{color:var(--m-bronze)!important;letter-spacing:.22em!important}
-.eyebrow::before{background:currentColor!important}
-
-/* Inner pages. */
-.page-hero{
-  background:var(--m-dark)!important;
-  color:var(--m-cream)!important;
-  border-bottom-color:rgba(155,137,115,.35)!important;
-  position:relative;
-  overflow:hidden;
-}
-.page-hero::after{
-  content:"";
-  position:absolute;
-  width:460px;height:460px;
-  right:-110px;top:-220px;
-  border:1px solid rgba(155,137,115,.23);
-  border-bottom:0;
-  border-radius:50% 50% 0 0/62% 62% 0 0;
-  pointer-events:none;
-}
-.page-hero h1{color:var(--m-cream)}
-.page-hero p{color:#d8d0c4!important}
-.section,.section-tight,.section-stone{background:var(--m-paper)!important}
-.lede,.page-copy,.story-block p{color:var(--m-ink-2)!important}
-.story-block{border-color:var(--m-line)!important}
-
-/* Forms should feel like a private desk, not SaaS cards. */
-.flow-panel{
-  background:rgba(251,248,242,.78)!important;
-  border:1px solid var(--m-line)!important;
-  border-radius:0!important;
-  box-shadow:0 24px 70px rgba(36,32,28,.05)!important;
-}
-.field label{font-size:11px!important;letter-spacing:.09em;text-transform:uppercase;color:var(--m-ink-2)}
-.field input,.field select,.field textarea{
-  border:0!important;
-  border-bottom:1px solid var(--m-line)!important;
-  border-radius:0!important;
-  background:transparent!important;
-  color:var(--m-ink)!important;
-  padding-left:0!important;
-  padding-right:0!important;
-}
-.field input:focus,.field select:focus,.field textarea:focus{outline:0!important;border-bottom-color:var(--m-bronze)!important}
-.form-status{border-color:var(--m-line)!important}
-
-/* Portfolio. */
-.properties-grid{gap:22px!important}
-.property-card{background:var(--m-cream)!important;border:1px solid var(--m-line)!important;border-radius:0!important;box-shadow:none!important}
-.property-image{background:var(--m-paper-2)!important}
-.property-title{color:var(--m-ink)!important}
-.property-origin,.property-location,.property-meta{color:var(--m-ink-2)!important}
-.badge{background:var(--m-dark)!important;color:var(--m-cream)!important;border-radius:0!important}
-.empty-state{background:var(--m-paper-2)!important;border-color:var(--m-line)!important}
-.real-listing-section{border-color:var(--m-line)!important}
-
-/* Contact band and footer become the dark punctuation mark of the identity. */
-.contact-band{background:var(--m-dark)!important;color:var(--m-cream)!important}
-.contact-band p{color:#cfc5b8!important}
-.site-footer{background:var(--m-dark)!important;color:var(--m-cream)!important}
-.footer-brand p,.footer-col a,.footer-bottom{color:#bdb3a6!important}
-.footer-col h3{color:var(--m-bronze-2)!important}
-.footer-bottom{border-color:rgba(155,137,115,.28)!important}
-.footer-col a[href*="fideon.official"],.footer-col a[href^="mailto:fideon.official"]{display:none!important}
-
-.mobile-contact-dock{background:rgba(243,240,232,.96)!important;border-top:1px solid var(--m-line)!important;color:var(--m-ink)!important;backdrop-filter:blur(16px)}
-.dock-whatsapp{background:var(--m-dark)!important;color:var(--m-cream)!important}
-.toast{background:var(--m-dark)!important;color:var(--m-cream)!important;border-radius:0!important}
-
-/* Decorative arch motif, taken directly from the A in the new wordmark. */
-.paths-section,.process-section,.statement{position:relative;overflow:hidden}
-.paths-section::after{
-  content:"";
-  position:absolute;
-  width:320px;height:360px;
-  right:-145px;bottom:-180px;
-  border:1px solid rgba(122,105,84,.16);
-  border-bottom:0;
-  border-radius:50% 50% 0 0/58% 58% 0 0;
-  pointer-events:none;
+html {
+  background: var(--m-dark);
 }
 
-@media(max-width:760px){
-  .nav-wrap{min-height:72px!important}
-  .text-logo{font-size:19px;letter-spacing:.14em}
-  .mobile-menu-links a{font-size:36px!important;line-height:1.15!important;padding:18px 0!important}
-  .flow-panel{padding:28px 20px!important}
-  .page-hero{padding-top:52px!important}
-  .page-hero::after{width:280px;height:300px;right:-130px;top:-130px}
-  .footer-grid{gap:30px!important}
+body {
+  background: var(--m-paper);
+  color: var(--m-ink);
 }
 
-@media(prefers-reduced-motion:reduce){
-  *{scroll-behavior:auto!important}
+::selection {
+  background: var(--m-dark);
+  color: var(--m-cream);
+}
+
+:focus-visible {
+  outline-color: var(--m-bronze);
+}
+
+/* Wordmark & Brand Typography */
+.text-logo {
+  color: inherit;
+  font-family: var(--display);
+  font-weight: 600;
+  font-size: 21px;
+  letter-spacing: 0.22em;
+  line-height: 1;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.plaque-wordmark {
+  color: inherit;
+  font-family: var(--display);
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+
+.logo-a {
+  /* Architectural letterform token retained for identity compatibility */
+  font-family: inherit;
+}
+
+/* Header */
+.site-header {
+  background: rgba(243, 240, 232, 0.94);
+  color: var(--m-ink);
+  border-bottom: 1px solid var(--m-line);
+  box-shadow: 0 4px 24px rgba(27, 24, 21, 0.03);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+
+.brand {
+  color: var(--m-ink);
+}
+
+.desktop-nav a {
+  color: var(--m-ink-muted);
+}
+
+.desktop-nav a:hover,
+.desktop-nav a[aria-current=page] {
+  color: var(--m-ink);
+}
+
+/* Buttons */
+.btn {
+  border-radius: 2px;
+  letter-spacing: 0.04em;
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), background 0.2s, color 0.2s, border-color 0.2s;
+}
+
+.btn:hover {
+  transform: translateY(-1px);
+}
+
+.btn-dark {
+  background: var(--m-dark);
+  color: var(--m-cream);
+  border-color: var(--m-dark);
+}
+
+.btn-dark:hover {
+  background: #2b2723;
+  border-color: #2b2723;
+  color: #fff;
+}
+
+.btn-gold, .btn-whatsapp {
+  background: var(--m-dark);
+  color: var(--m-cream);
+  border-color: var(--m-dark);
+}
+
+.btn-gold:hover, .btn-whatsapp:hover {
+  background: #2b2723;
+  border-color: #2b2723;
+  color: #fff;
+}
+
+.btn-outline {
+  border-color: var(--m-line);
+  color: var(--m-ink);
+}
+
+.btn-outline:hover {
+  border-color: var(--m-ink);
+  background: rgba(21, 23, 21, 0.04);
+}
+
+.btn-link, .real-listing-back {
+  border-bottom-color: var(--m-bronze);
+}
+
+/* Eyebrows & Accents */
+.eyebrow, .section-kicker {
+  color: var(--m-bronze);
+  letter-spacing: 0.2em;
+}
+
+/* Inner Page Heroes */
+.page-hero {
+  background: var(--m-dark);
+  color: var(--m-cream);
+  border-bottom: 1px solid rgba(210, 203, 190, 0.16);
+}
+
+.page-hero h1 {
+  color: var(--m-cream);
+}
+
+.page-hero p {
+  color: #cfc7ba !important;
+}
+
+.page-hero .eyebrow {
+  color: var(--m-bronze-alt);
+}
+
+.section, .section-tight, .section-stone {
+  background: var(--m-paper);
+}
+
+.lede, .page-copy, .story-block p {
+  color: var(--m-ink-muted);
+}
+
+.story-block {
+  border-color: var(--m-line);
+}
+
+/* Forms */
+.flow-panel {
+  background: #fff;
+  border: 1px solid var(--m-line);
+  box-shadow: 0 8px 32px rgba(27, 24, 21, 0.04);
+}
+
+.field label {
+  color: var(--m-ink-muted);
+  letter-spacing: 0.08em;
+}
+
+.field input, .field select, .field textarea {
+  border: 1px solid var(--m-line);
+  background: var(--m-cream);
+  color: var(--m-ink);
+}
+
+.field input:focus, .field select:focus, .field textarea:focus {
+  outline: none;
+  border-color: var(--m-dark);
+  background: #fff;
+}
+
+.form-status {
+  border-color: var(--m-line);
+}
+
+/* Portfolio Cards */
+.property-card {
+  background: #fff;
+  border: 1px solid var(--m-line);
+}
+
+.property-image {
+  background: var(--m-paper-alt);
+}
+
+.property-title {
+  color: var(--m-ink);
+}
+
+.property-origin, .property-location, .property-meta {
+  color: var(--m-ink-muted);
+}
+
+.badge {
+  background: var(--m-dark);
+  color: var(--m-cream);
+}
+
+.empty-state {
+  background: #fff;
+  border-color: var(--m-line);
+}
+
+.real-listing-section {
+  border-color: var(--m-line);
+}
+
+/* Contact & Footer */
+.contact-band {
+  background: var(--m-dark);
+  color: var(--m-cream);
+}
+
+.contact-band p {
+  color: #cfc8ba;
+}
+
+.site-footer {
+  background: var(--m-dark);
+  color: var(--m-cream);
+  border-top: 1px solid rgba(210, 203, 190, 0.14);
+}
+
+.footer-brand p, .footer-col a, .footer-bottom {
+  color: #a8a194;
+}
+
+.footer-col h3 {
+  color: var(--m-bronze-alt);
+}
+
+.footer-bottom {
+  border-color: rgba(210, 203, 190, 0.14);
+}
+
+.mobile-contact-dock {
+  background: rgba(243, 240, 232, 0.96);
+  border-top: 1px solid var(--m-line);
+  color: var(--m-ink);
+  backdrop-filter: blur(16px);
+}
+
+.dock-whatsapp {
+  background: var(--m-dark);
+  color: var(--m-cream);
+}
+
+.toast {
+  background: var(--m-dark);
+  color: var(--m-cream);
+}
+
+@media (max-width: 760px) {
+  .nav-wrap { min-height: 68px; }
+  .text-logo { font-size: 19px; letter-spacing: 0.18em; }
+  .mobile-menu-links a { font-size: 28px; line-height: 1.2; padding: 14px 0; }
+  .flow-panel { padding: 24px 18px; }
+  .page-hero { padding: 56px 0 44px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { scroll-behavior: auto !important; }
 }

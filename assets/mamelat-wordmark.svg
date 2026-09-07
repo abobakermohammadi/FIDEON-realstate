@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 40" width="240" height="40" role="img" aria-label="MAMELAT">
+  <style>
+    .brand-title {
+      font-family: Didot, "Bodoni MT", "Playfair Display", Georgia, "Times New Roman", serif;
+      font-size: 26px;
+      font-weight: 600;
+      letter-spacing: 0.24em;
+      fill: currentColor;
+    }
+  </style>
+  <text x="50%" y="29" text-anchor="middle" class="brand-title">MAMELAT</text>
+</svg>
