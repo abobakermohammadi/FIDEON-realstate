@@ -50,9 +50,19 @@ if "Portföy" not in properties or "MAMELAT" not in properties:
     errors.append("MAMELAT-owned portfolio positioning missing")
 
 signature_css = (ROOT / "assets/signature.css").read_text(encoding="utf-8")
-for required in ("--gold-500:#c9a66b", "--forest-950:#061c16", ".signature-hero", ".page-hero", "prefers-reduced-motion"):
-    if required not in signature_css:
-        errors.append(f"signature brand system missing: {required}")
+signature_base = (ROOT / "assets/signature-base.css").read_text(encoding="utf-8")
+atelier_css = (ROOT / "assets/mamelat-atelier.css").read_text(encoding="utf-8")
+cinematic_css = (ROOT / "assets/mamelat-cinematic.css").read_text(encoding="utf-8")
+if "signature-base.css" not in signature_css or "mamelat-atelier.css" not in signature_css:
+    errors.append("public signature wrapper does not compose base + MAMELAT atelier layers")
+for required in (".signature-hero", ".page-hero"):
+    if required not in signature_base and required not in atelier_css:
+        errors.append(f"signature brand surface missing: {required}")
+for required in ("--m-paper:#f3f0e8", "--m-bronze:#7a6954", "--m-dark:#1b1815", ".logo-a"):
+    if required not in atelier_css:
+        errors.append(f"MAMELAT atelier brand system missing: {required}")
+if "prefers-reduced-motion" not in atelier_css and "prefers-reduced-motion" not in cinematic_css:
+    errors.append("MAMELAT brand system missing reduced-motion handling")
 
 if "neo" in app.lower() or "immersive" in app.lower() or "delight" in app.lower():
     errors.append("public runtime must not load retired experience assets")
