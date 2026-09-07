@@ -118,6 +118,17 @@ p:last-child { margin-bottom: 0; }
   flex-shrink: 0;
 }
 
+.brand-wordmark {
+  height: 22px;
+  width: auto;
+  display: block;
+  object-fit: contain;
+  transition: opacity 0.2s ease;
+}
+.brand:hover .brand-wordmark {
+  opacity: 0.8;
+}
+
 .brand-mark {
   width: 34px;
   height: 34px;
@@ -577,6 +588,9 @@ p:last-child { margin-bottom: 0; }
 }
 .footer-brand .brand {
   color: var(--m-cream);
+}
+.footer-brand .brand-wordmark {
+  height: 20px;
 }
 .footer-brand .text-logo {
   color: var(--m-cream);

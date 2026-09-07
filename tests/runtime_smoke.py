@@ -13,7 +13,7 @@ ROUTES = [
     "/assets/v2.css", "/assets/portfolio-polish.css", "/assets/real-listing.css", "/assets/minimal.css", "/assets/delight.css", "/assets/immersive.css",
     "/assets/neo.css", "/assets/neo-live.css", "/assets/portfolio-viewer.css", "/assets/admin-polish.css", "/assets/reading-polish.css",
     "/assets/data.js", "/assets/app.js", "/assets/admin.js", "/assets/admin-hygiene.js", "/assets/whatsapp-forms.js", "/assets/delight.js", "/assets/immersive.js", "/assets/neo-live.js", "/assets/portfolio-viewer.js",
-    "/assets/fideon-mark.svg", "/assets/fideon-logo.svg", "/assets/fideon-wordmark.svg", "/assets/mamelat-mark.svg", "/assets/mamelat-wordmark.svg", "/assets/property-placeholder.svg",
+    "/assets/fideon-mark.svg", "/assets/fideon-logo.svg", "/assets/fideon-wordmark.svg", "/assets/mamelat-mark.svg", "/assets/mamelat-wordmark.svg", "/assets/mamelat-wordmark-light.svg", "/assets/property-placeholder.svg",
 ]
 
 class Quiet(SimpleHTTPRequestHandler):
