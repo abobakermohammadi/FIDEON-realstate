@@ -27,7 +27,7 @@ for rel in ("find/index.html", "sell/index.html", "private/index.html"):
         errors.append(f"redundant identity fields returned to WhatsApp-first flow: {rel}")
 
 app = (ROOT / "assets/app.js").read_text(encoding="utf-8")
-for required in ("property.whatsappMessage", "İlanı Gör", "isPublicProperty", "RETIRED", "FIDEON PORTFÖYÜ", "property-placeholder.svg"):
+for required in ("property.whatsappMessage", "İlanı Gör", "isPublicProperty", "RETIRED", "MAMELAT PORTFÖYÜ", "property-placeholder.svg"):
     if required not in app:
         errors.append(f"public runtime truth missing: {required}")
 if "data-save" in app or "fideon.saved" in app:
@@ -46,8 +46,8 @@ for required in ("Yeni bir adres.", "/properties/", "WhatsApp", "tel:+9050135756
         errors.append(f"homepage zero-effort path missing: {required}")
 
 properties = (ROOT / "properties/index.html").read_text(encoding="utf-8")
-if "Portföy" not in properties or "FIDEON" not in properties:
-    errors.append("FIDEON-owned portfolio positioning missing")
+if "Portföy" not in properties or "MAMELAT" not in properties:
+    errors.append("MAMELAT-owned portfolio positioning missing")
 
 signature_css = (ROOT / "assets/signature.css").read_text(encoding="utf-8")
 for required in ("--gold-500:#c9a66b", "--forest-950:#061c16", ".signature-hero", ".page-hero", "prefers-reduced-motion"):

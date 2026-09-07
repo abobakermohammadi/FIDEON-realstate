@@ -1,13 +1,13 @@
-# FIDEON Real Estate
+# MAMELAT Real Estate
 
-Minimal, mobile-first public website and localhost owner admin for FIDEON in Istanbul.
+Minimal, mobile-first public website and localhost owner admin for MAMELAT in Istanbul.
 
 ## Current product rule
 
 ## Signature rebuild · September 2026
 
 The public pages use one shared forest-green, antique-gold and ivory design in
-`assets/signature.css`. The homepage presents the supplied FIDEON artwork with
+`assets/signature.css`. The homepage presents the supplied MAMELAT artwork with
 CSS perspective, a subtle light sweep and optional pointer tilt. Reduced-motion
 preferences disable motion. Public text is always visible without animations.
 
@@ -15,7 +15,7 @@ The buyer and seller paths remain simple WhatsApp handoffs. Local owner edits
 are browser-local previews, not a way to publish inventory to every visitor.
 No listings, business statistics or customer testimonials are fabricated.
 
-**Understand FIDEON → choose what you need → WhatsApp or call.**
+**Understand MAMELAT → choose what you need → WhatsApp or call.**
 
 The public site is Turkish-first, Istanbul-wide and intentionally quiet. No seeded property is currently published. Private/off-market requests remain a secondary path.
 
@@ -31,11 +31,11 @@ The browser is the preview data layer. Owner-created properties, uploaded previe
 
 The previously seeded Aşiyan Konakları listing and its media have been retired from the repository and from the public runtime.
 
-Fresh localhost sessions start with an empty public inventory. The owner can add future listings from `/admin/`. If a listing has no photo, the UI shows a neutral FIDEON placeholder rather than synthetic property art.
+Fresh localhost sessions start with an empty public inventory. The owner can add future listings from `/admin/`. If a listing has no photo, the UI shows a neutral MAMELAT placeholder rather than synthetic property art.
 
 ## Brand
 
-The FIDEON favicon/monogram and full logo lockup are code-based SVG vectors traced from the owner-supplied reference artwork:
+The MAMELAT favicon/monogram and full logo lockup are code-based SVG vectors traced from the owner-supplied reference artwork:
 
 - `assets/fideon-mark.svg`
 - `assets/fideon-logo.svg`
@@ -94,4 +94,4 @@ npm run check
 
 `npm run check` runs structural validation, localhost route smoke tests, static safety checks, JavaScript syntax checks and the static localhost build. GitHub Actions runs the same gate on `main`.
 
-The canonical durable context is maintained in Notion under **🏛️ FIDEON Real Estate — Canonical Build Vault**. Live GitHub `main` remains implementation truth.
+The canonical durable context is maintained in Notion under **🏛️ MAMELAT Real Estate — Canonical Build Vault**. Live GitHub `main` remains implementation truth.

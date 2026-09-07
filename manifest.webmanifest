@@ -1,6 +1,6 @@
 {
-  "name":"FIDEON Gayrimenkul",
-  "short_name":"FIDEON",
+  "name":"MAMELAT Gayrimenkul",
+  "short_name":"MAMELAT",
   "lang":"tr",
   "start_url":"/",
   "scope":"/",
@@ -9,7 +9,7 @@
   "theme_color":"#061c16",
   "icons":[
     {
-      "src":"/assets/fideon-mark.svg",
+      "src":"/assets/mamelat-mark.svg",
       "sizes":"any",
       "type":"image/svg+xml",
       "purpose":"any"

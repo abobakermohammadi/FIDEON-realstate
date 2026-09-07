@@ -40,15 +40,15 @@
       };
       localStorage.setItem(STORE_KEY, JSON.stringify([lead, ...current]));
     } catch {
-      // Local preview storage must never stand between a visitor and FIDEON.
+      // Local preview storage must never stand between a visitor and MAMELAT.
     }
   }
 
   function introFor(form) {
     switch (form.dataset.whatsappKind) {
-      case "buyer": return "Merhaba FIDEON, İstanbul'da gayrimenkul arıyorum.";
-      case "seller": return "Merhaba FIDEON, gayrimenkulümü satmak veya kiraya vermek istiyorum.";
-      default: return "Merhaba FIDEON, web sitenizden yazıyorum.";
+      case "buyer": return "Merhaba MAMELAT, İstanbul'da gayrimenkul arıyorum.";
+      case "seller": return "Merhaba MAMELAT, gayrimenkulümü satmak veya kiraya vermek istiyorum.";
+      default: return "Merhaba MAMELAT, web sitenizden yazıyorum.";
     }
   }
 

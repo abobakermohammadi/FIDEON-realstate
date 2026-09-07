@@ -57,7 +57,7 @@
     $$(".admin-view").forEach(view => view.classList.toggle("active", view.dataset.view === name));
     $$(".admin-nav button,.admin-mobile-bar button").forEach(button => button.classList.toggle("active", button.dataset.adminNav === name));
     const labels = {dashboard:"Yönetim merkezi", properties:"İlanlar", leads:"Müşteri talepleri", settings:"Ayarlar"};
-    if ($("#admin-title")) $("#admin-title").textContent = labels[name] || "FIDEON";
+    if ($("#admin-title")) $("#admin-title").textContent = labels[name] || "MAMELAT";
     if (name === "dashboard") renderDashboard();
     if (name === "properties") renderProperties();
     if (name === "leads") renderLeads();
@@ -156,11 +156,11 @@
     };
     record.priceLabel = record.priceOnRequest || record.price == null ? "Fiyat için WhatsApp'tan sorun" : formatPrice(record.currency, record.price);
     const previousGeneratedMessage = existing.title && (existing.reference || existing.referenceCode)
-      ? `Merhaba FIDEON, ${existing.title} (${existing.reference || existing.referenceCode}) ilanı hakkında bilgi almak istiyorum.`
+      ? `Merhaba MAMELAT, ${existing.title} (${existing.reference || existing.referenceCode}) ilanı hakkında bilgi almak istiyorum.`
       : "";
     record.whatsappMessage = !existing.whatsappMessage || existing.whatsappMessage === previousGeneratedMessage
-      ? `Merhaba FIDEON, ${record.title} (${record.reference}) ilanı hakkında bilgi almak istiyorum.`
-      : existing.whatsappMessage;
+      ? `Merhaba MAMELAT, ${record.title} (${record.reference}) ilanı hakkında bilgi almak istiyorum.`
+      : String(existing.whatsappMessage).replace(/\bFIDEON\b/g, "MAMELAT");
 
     const previous = propertyState;
     propertyState = editing ? propertyState.map(p => p.id === editing ? record : p) : [record, ...propertyState];

@@ -184,8 +184,8 @@
   }
 
   async function shareProperty(button) {
-    const title = $('.real-listing-head h1')?.textContent?.trim() || document.title.replace(/\s*\|\s*FIDEON.*$/i, '') || 'FIDEON Portföy';
-    const shareData = {title:`${title} | FIDEON`, text:`FIDEON portföyü: ${title}`, url:location.href};
+    const title = $('.real-listing-head h1')?.textContent?.trim() || document.title.replace(/\s*\|\s*MAMELAT.*$/i, '') || 'MAMELAT Portföy';
+    const shareData = {title:`${title} | MAMELAT`, text:`MAMELAT portföyü: ${title}`, url:location.href};
     const original = button.dataset.originalLabel || button.querySelector('span')?.textContent || 'Paylaş';
     button.dataset.originalLabel = original;
     try {

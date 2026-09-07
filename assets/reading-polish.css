@@ -1,4 +1,4 @@
-/* FIDEON quiet reading surface
+/* MAMELAT quiet reading surface
    Forgotten pages still deserve the same precision as the homepage. */
 .legal-page .page-hero{min-height:360px!important}
 .legal-page .section{padding-top:34px!important;padding-bottom:88px!important}
@@ -15,7 +15,7 @@
   background:linear-gradient(90deg,transparent,rgba(255,155,113,.72),rgba(159,140,255,.68),rgba(104,215,230,.62),transparent);opacity:.72
 }
 .legal-page .page-copy::after{
-  content:"FIDEON";position:absolute;right:-12px;bottom:-14px;font-size:86px;font-weight:750;letter-spacing:-.07em;
+  content:"MAMELAT";position:absolute;right:-12px;bottom:-14px;font-size:86px;font-weight:750;letter-spacing:-.07em;
   color:rgba(15,17,16,.025);pointer-events:none;user-select:none
 }
 .legal-page .page-copy h2{

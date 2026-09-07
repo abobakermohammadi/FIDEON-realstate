@@ -1,6 +1,6 @@
-/* FIDEON Neo Glass v1
+/* MAMELAT Neo Glass v1
    Reference direction: modern product sites with restrained motion, translucent layers,
-   large system typography and obsessive micro-detail. Brand remains FIDEON, not a clone. */
+   large system typography and obsessive micro-detail. Brand remains MAMELAT, not a clone. */
 :root{
   --neo-bg:#f4f3ef;
   --neo-paper:#fbfaf7;
@@ -150,7 +150,7 @@ body:not(.admin-page) .brand-word{width:86px!important;height:18px!important}
   transform:translate3d(var(--scene-x),calc(-50% + var(--scene-y) + var(--hero-scroll)*.02),0) rotateX(var(--scene-rx)) rotateY(var(--scene-ry))!important;
   overflow:visible!important;
 }
-.v2-home .fx-orbit-stage::before{content:"FIDEON / ISTANBUL"!important;color:rgba(15,17,16,.48)!important;font-size:9px!important;letter-spacing:.16em!important;top:22px!important;left:24px!important}
+.v2-home .fx-orbit-stage::before{content:"MAMELAT / ISTANBUL"!important;color:rgba(15,17,16,.48)!important;font-size:9px!important;letter-spacing:.16em!important;top:22px!important;left:24px!important}
 .v2-home .fx-orbit-stage::after{content:"PORTFÖY  ·  EV ARA  ·  SAT / KİRALA"!important;color:rgba(15,17,16,.34)!important;bottom:22px!important;left:24px!important}
 .v2-home .fx-orbit-a{
   left:24px!important;right:24px!important;top:58px!important;bottom:56px!important;

@@ -87,9 +87,9 @@
     return media;
   }
   function whatsappMessage(property) {
-    if (property.whatsappMessage) return property.whatsappMessage;
+    if (property.whatsappMessage) return String(property.whatsappMessage).replace(/\bFIDEON\b/g, "MAMELAT");
     const ref = property.reference || property.referenceCode;
-    return `Merhaba FIDEON, ${property.title}${ref ? ` (${ref})` : ""} ilanı hakkında bilgi almak istiyorum.`;
+    return `Merhaba MAMELAT, ${property.title}${ref ? ` (${ref})` : ""} ilanı hakkında bilgi almak istiyorum.`;
   }
   function whatsappHref(message) {
     const raw = String(F.config?.whatsapp || "").replace(/\D/g,"");
@@ -107,7 +107,7 @@
         ${property.status ? `<div class="property-badges"><span class="badge">${esc(property.status)}</span></div>` : ""}
       </div>
       <div class="property-body">
-        <div class="property-origin">FIDEON PORTFÖYÜ</div>
+        <div class="property-origin">MAMELAT PORTFÖYÜ</div>
         <h2 class="property-title"><a href="${url}">${esc(property.title)}</a></h2>
         <div class="property-location">${esc(property.location || "İstanbul")}</div>
         <div class="property-meta"><span class="property-price">${esc(property.priceLabel || "Fiyat için WhatsApp'tan sorun")}</span>${room ? `<span>${esc(room)}</span>` : ""}${property.area ? `<span>${esc(property.area)}</span>` : ""}</div>
@@ -174,7 +174,7 @@
     if (count) count.textContent = items.length ? `${items.length} portföy ilanı` : "";
     grid.innerHTML = items.length
       ? items.map(propertyCard).join("")
-      : `<div class="empty-state"><h3>Portföy şu an sakin.</h3><p>Aradığınız yeri bize anlatın. Uygun bir seçenek olduğunda direkt konuşalım.</p><a class="btn btn-whatsapp" href="#" data-whatsapp data-whatsapp-message="Merhaba FIDEON, İstanbul'da gayrimenkul arıyorum.">WhatsApp'tan Yaz</a></div>`;
+      : `<div class="empty-state"><h3>Portföy şu an sakin.</h3><p>Aradığınız yeri bize anlatın. Uygun bir seçenek olduğunda direkt konuşalım.</p><a class="btn btn-whatsapp" href="#" data-whatsapp data-whatsapp-message="Merhaba MAMELAT, İstanbul'da gayrimenkul arıyorum.">WhatsApp'tan Yaz</a></div>`;
   }
 
   function bindListingGallery(root) {
@@ -216,7 +216,7 @@
     const gallery = media.length > 1
       ? `<div class="real-listing-gallery" data-listing-gallery aria-label="İlan fotoğrafları">${media.map((src,index) => `<button type="button" class="real-listing-thumb" data-listing-media="${esc(src)}" aria-pressed="${index === 0 ? "true" : "false"}" aria-label="Fotoğraf ${index + 1}"><img src="${esc(src)}" alt="" loading="lazy"></button>`).join("")}</div>`
       : "";
-    document.title = `${property.title} | FIDEON`;
+    document.title = `${property.title} | MAMELAT`;
     const meta = $('meta[name="description"]');
     if (meta && property.summary) meta.content = property.summary;
     root.closest("main")?.classList.add("real-listing-page");
@@ -225,7 +225,7 @@
       <div class="real-listing-media-main"><img data-listing-main-image src="${esc(image)}" alt="${esc(property.title)}" fetchpriority="high"></div>
       ${gallery}
       <div class="real-listing-head">
-        <div class="real-listing-kicker"><span>FIDEON PORTFÖYÜ</span>${property.status ? `<span>${esc(property.status)}</span>` : ""}${room ? `<span>${esc(room)}</span>` : ""}</div>
+        <div class="real-listing-kicker"><span>MAMELAT PORTFÖYÜ</span>${property.status ? `<span>${esc(property.status)}</span>` : ""}${room ? `<span>${esc(room)}</span>` : ""}</div>
         <h1>${esc(property.title)}</h1>
         <p class="real-listing-location">${esc(property.location || "İstanbul")}</p>
         <div class="real-listing-price-row"><strong>${esc(property.priceLabel || "Fiyat için WhatsApp'tan sorun")}</strong>${property.reference || property.referenceCode ? `<span>${esc(property.reference || property.referenceCode)}</span>` : ""}</div>
@@ -244,7 +244,7 @@
     const slug = new URLSearchParams(location.search).get("slug");
     const property = getProperties().find(item => String(item.slug || item.id) === String(slug) && isPublicProperty(item));
     if (!property) {
-      root.innerHTML = `<div class="empty-state"><h3>Bu portföy ilanı artık yayında değil.</h3><p>Aradığınız evi bize direkt yazabilirsiniz.</p><a class="btn btn-whatsapp" href="#" data-whatsapp data-whatsapp-message="Merhaba FIDEON, İstanbul'da gayrimenkul arıyorum.">WhatsApp'tan Yaz</a></div>`;
+      root.innerHTML = `<div class="empty-state"><h3>Bu portföy ilanı artık yayında değil.</h3><p>Aradığınız evi bize direkt yazabilirsiniz.</p><a class="btn btn-whatsapp" href="#" data-whatsapp data-whatsapp-message="Merhaba MAMELAT, İstanbul'da gayrimenkul arıyorum.">WhatsApp'tan Yaz</a></div>`;
       return;
     }
     renderPropertyDetail(root, property);
@@ -253,7 +253,7 @@
   function initWhatsApp() {
     const raw = String(F.config?.whatsapp || "").replace(/\D/g,"");
     $$("[data-whatsapp]").forEach(link => {
-      const message = link.dataset.whatsappMessage || "Merhaba FIDEON, web sitenizden yazıyorum.";
+      const message = link.dataset.whatsappMessage || "Merhaba MAMELAT, web sitenizden yazıyorum.";
       if (!raw) {
         link.href = "#";
         link.setAttribute("aria-disabled","true");
@@ -272,7 +272,7 @@
     const dock = document.createElement("div");
     dock.className = "mobile-contact-dock";
     dock.setAttribute("aria-label","Hızlı iletişim");
-    dock.innerHTML = `<a href="/properties/" class="dock-link"><span>⌂</span><b>Portföy</b></a><a href="#" class="dock-link dock-whatsapp" data-whatsapp data-whatsapp-message="Merhaba FIDEON, web sitenizden yazıyorum."><span>◉</span><b>WhatsApp</b></a><a href="tel:+${phoneRaw}" class="dock-link"><span>☎</span><b>Ara</b></a>`;
+    dock.innerHTML = `<a href="/properties/" class="dock-link"><span>⌂</span><b>Portföy</b></a><a href="#" class="dock-link dock-whatsapp" data-whatsapp data-whatsapp-message="Merhaba MAMELAT, web sitenizden yazıyorum."><span>◉</span><b>WhatsApp</b></a><a href="tel:+${phoneRaw}" class="dock-link"><span>☎</span><b>Ara</b></a>`;
     document.body.appendChild(dock);
   }
 

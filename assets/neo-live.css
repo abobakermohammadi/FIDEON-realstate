@@ -1,4 +1,4 @@
-/* FIDEON Neo Live v1.2
+/* MAMELAT Neo Live v1.2
    Frozen glass, optical depth and tiny live detail without adding decisions. */
 :root{
   --neo-live-edge:rgba(255,255,255,.78);
@@ -41,7 +41,7 @@
   content:"01";position:absolute;left:16px;top:14px;font-size:9px;font-weight:760;letter-spacing:.12em;color:rgba(15,17,16,.34)
 }
 .v2-home .fx-orbit-c::before{
-  content:"FIDEON";position:absolute;right:16px;bottom:14px;font-size:9px;font-weight:760;letter-spacing:.15em;color:rgba(15,17,16,.30)
+  content:"MAMELAT";position:absolute;right:16px;bottom:14px;font-size:9px;font-weight:760;letter-spacing:.15em;color:rgba(15,17,16,.30)
 }
 
 /* Tiny live signal, only decorative. */

@@ -15,7 +15,7 @@ EXPECTED = [
     "assets/styles-admin-responsive.css", "assets/v2.css", "assets/minimal.css", "assets/signature.css",
     "assets/portfolio-polish.css", "assets/real-listing.css", "assets/app.js",
     "assets/admin.js", "assets/data.js", "assets/whatsapp-forms.js", "assets/signature.js",
-    "assets/fideon-mark.svg", "assets/fideon-logo.svg", "assets/fideon-wordmark.svg", "assets/property-placeholder.svg",
+    "assets/fideon-mark.svg", "assets/fideon-logo.svg", "assets/fideon-wordmark.svg", "assets/mamelat-mark.svg", "assets/property-placeholder.svg",
 ]
 for rel in EXPECTED:
     if not (ROOT / rel).exists():

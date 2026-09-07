@@ -29,7 +29,7 @@
     if (!$('meta[name="apple-mobile-web-app-title"]')) {
       const title = document.createElement('meta');
       title.name = 'apple-mobile-web-app-title';
-      title.content = 'FIDEON';
+      title.content = 'MAMELAT';
       document.head.appendChild(title);
     }
   }

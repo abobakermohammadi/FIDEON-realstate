@@ -1,4 +1,4 @@
-/* FIDEON Precision Layer
+/* MAMELAT Precision Layer
    Simple is not empty. Calm surface, deep craft. */
 :root{
   --imm-gold:#b28b53;
@@ -72,7 +72,7 @@ html.fx-loaded .fx-intro{animation:none;opacity:1;transform:none;filter:none;tra
 
 /* Existing scene DOM becomes a clean architectural panel. */
 .fx-orbit-stage{position:absolute;right:clamp(28px,5.5vw,88px);top:50%;width:clamp(360px,35vw,560px);aspect-ratio:1.08/1;transform-style:preserve-3d;transform:translate3d(var(--scene-x),calc(-50% + var(--scene-y) + var(--hero-scroll)*.025),0) rotateX(var(--scene-rx)) rotateY(var(--scene-ry));transition:transform .65s var(--imm-spring);border:1px solid rgba(234,221,198,.18);border-radius:30px;background:linear-gradient(155deg,rgba(255,255,255,.065),rgba(255,255,255,.018));box-shadow:inset 0 1px 0 rgba(255,255,255,.08),0 36px 90px rgba(0,0,0,.16);backdrop-filter:blur(2px)}
-.fx-orbit-stage::before{content:"FIDEON / ISTANBUL";position:absolute;left:22px;top:20px;font-size:9px;font-weight:760;letter-spacing:.19em;color:rgba(238,222,194,.58)}
+.fx-orbit-stage::before{content:"MAMELAT / ISTANBUL";position:absolute;left:22px;top:20px;font-size:9px;font-weight:760;letter-spacing:.19em;color:rgba(238,222,194,.58)}
 .fx-orbit-stage::after{content:"PORTFÖY · DOĞRUDAN İLETİŞİM";position:absolute;left:22px;bottom:19px;font-size:9px;font-weight:650;letter-spacing:.13em;color:rgba(255,255,255,.36)}
 .fx-orbit{position:absolute;border-radius:0!important;box-shadow:none!important;animation:none!important;margin:0!important}
 .fx-orbit-a{left:22px;right:22px;top:52px;bottom:48px;width:auto!important;height:auto!important;border:1px solid rgba(234,221,198,.10)!important;background:linear-gradient(180deg,rgba(255,255,255,.018),transparent 70%)}

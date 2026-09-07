@@ -86,7 +86,7 @@ for required in ("function openHandoff", "popup.opener = null", "location.assign
 if 'window.open(url, "_blank", "noopener,noreferrer")' in whatsapp:
     errors.append("ambiguous popup return path can cause duplicate WhatsApp navigation")
 
-for required in ('"name":"FIDEON Gayrimenkul"', '"lang":"tr"', '"background_color":"#061c16"', '"theme_color":"#061c16"', '"src":"/assets/fideon-mark.svg"'):
+for required in ('"name":"MAMELAT Gayrimenkul"', '"short_name":"MAMELAT"', '"lang":"tr"', '"background_color":"#061c16"', '"theme_color":"#061c16"', '"src":"/assets/mamelat-mark.svg"'):
     if required not in manifest:
         errors.append(f"install identity detail missing: {required}")
 

@@ -1,6 +1,6 @@
 window.FIDEON = window.FIDEON || {};
 window.FIDEON.config = {
-  brand: "FIDEON",
+  brand: "MAMELAT",
   email: "fideon.official@gmail.com",
   instagram: "https://www.instagram.com/fideon.official/",
   domain: "",
