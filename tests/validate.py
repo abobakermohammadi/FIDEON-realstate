@@ -13,6 +13,7 @@ EXPECTED = [
     "admin/index.html", "privacy.html", "terms.html", "404.html",
     "assets/styles-base.css", "assets/styles-components-a.css", "assets/styles-components-b.css",
     "assets/styles-admin-responsive.css", "assets/v2.css", "assets/minimal.css", "assets/signature.css",
+    "assets/signature-base.css", "assets/mamelat-atelier.css", "assets/cinematic-base.css", "assets/mamelat-cinematic.css",
     "assets/portfolio-polish.css", "assets/real-listing.css", "assets/app.js",
     "assets/admin.js", "assets/data.js", "assets/whatsapp-forms.js", "assets/signature.js",
     "assets/fideon-mark.svg", "assets/fideon-logo.svg", "assets/fideon-wordmark.svg", "assets/mamelat-mark.svg", "assets/property-placeholder.svg",
@@ -122,9 +123,14 @@ for rel in ("assets/fideon-mark.svg","assets/fideon-logo.svg","assets/fideon-wor
     if "#C9A66B" not in text or "fill-rule=\"evenodd\"" not in text:
         errors.append(f"uploaded FIDEON vector identity incomplete: {rel}")
 
-css=(ROOT/"assets/signature.css").read_text(encoding="utf-8")
-if "prefers-reduced-motion" not in css: errors.append("reduced-motion handling missing")
-if "#061c16" not in css: errors.append("signature forest theme missing")
+signature=(ROOT/"assets/signature.css").read_text(encoding="utf-8")
+atelier=(ROOT/"assets/mamelat-atelier.css").read_text(encoding="utf-8")
+cinematic=(ROOT/"assets/mamelat-cinematic.css").read_text(encoding="utf-8")
+if "mamelat-atelier.css" not in signature: errors.append("MAMELAT atelier layer missing from public signature")
+if "prefers-reduced-motion" not in atelier and "prefers-reduced-motion" not in cinematic:
+    errors.append("reduced-motion handling missing")
+if "--m-paper:#f3f0e8" not in atelier or "--m-bronze:#7a6954" not in atelier or "--m-dark:#1b1815" not in atelier:
+    errors.append("MAMELAT atelier theme missing")
 
 print(f"Validated {len(html_files)} HTML files.")
 for warning in warnings: print("WARN:", warning)
