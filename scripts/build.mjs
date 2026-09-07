@@ -18,4 +18,4 @@ if (existsSync(path.join(root, '.openai', 'hosting.json'))) {
   await mkdir(path.join(out, '.openai'), { recursive: true });
   await cp(path.join(root, '.openai', 'hosting.json'), path.join(out, '.openai', 'hosting.json'));
 }
-console.log('FIDEON public bundle complete -> build/');
+console.log('MAMELAT public bundle complete -> build/');

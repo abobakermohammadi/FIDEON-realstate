@@ -7,7 +7,7 @@
 - no Supabase or cloud backend
 - owner console remains localhost-only
 - Turkish-first, Istanbul-wide
-- minimum effort to browse, understand and contact FIDEON
+- minimum effort to browse, understand and contact MAMELAT
 
 ### Proven in repository
 - portfolio is intentionally empty until the owner adds current inventory
@@ -19,7 +19,7 @@
 - listing cards use the listing-specific WhatsApp message when available
 - saved-list UI is retired from the minimal public flow
 - stale Dubai/global positioning, sample routes and unused synthetic property art are removed
-- missing-photo fallback is a neutral FIDEON placeholder
+- missing-photo fallback is a neutral MAMELAT placeholder
 - public inventory now has one shared visibility rule: Private, Hidden, Taslak/Draft and Arşiv/Archived records cannot leak through the homepage, listings or direct detail URLs
 - property details read the current browser-local inventory, so owner edits and deletions are not silently replaced by stale seed data
 - owner admin is isolated from the public runtime

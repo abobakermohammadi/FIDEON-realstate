@@ -1,4 +1,4 @@
-# FIDEON localhost mode
+# MAMELAT localhost mode
 
 This phase intentionally uses no backend service.
 
@@ -15,7 +15,7 @@ Legacy `v1` keys are migration-only. Once a current `v2` property store exists, 
 The admin does not load the public app runtime. This keeps public navigation, contact docks and public-only styles out of the owner interface.
 
 ## Inventory truth
-The included Aşiyan Konakları listing is real supplied FIDEON inventory, not sample content. Unknown facts are left unknown. Owner-created listings without photos receive a neutral FIDEON placeholder instead of synthetic real-estate art.
+The included Aşiyan Konakları listing is real supplied MAMELAT inventory, not sample content. Unknown facts are left unknown. Owner-created listings without photos receive a neutral MAMELAT placeholder instead of synthetic real-estate art.
 
 ## Contact
 Public WhatsApp actions use the verified number `+90 501 357 56 35`. Buyer, seller and private request forms build a WhatsApp message locally and open WhatsApp for the visitor to review before sending.

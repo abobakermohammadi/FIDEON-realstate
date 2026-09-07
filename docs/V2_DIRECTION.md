@@ -1,6 +1,6 @@
-# FIDEON v2 direction
+# MAMELAT v2 direction
 
-FIDEON is an Istanbul real-estate business. The public website must prioritize fast property discovery, direct human contact, WhatsApp convenience, mobile usability, and trustworthy local presentation. It must not present FIDEON as a Dubai/global brokerage.
+MAMELAT is an Istanbul real-estate business. The public website must prioritize fast property discovery, direct human contact, WhatsApp convenience, mobile usability, and trustworthy local presentation. It must not present MAMELAT as a Dubai/global brokerage.
 
 Private/off-market property remains a secondary capability, not the main brand identity.
 

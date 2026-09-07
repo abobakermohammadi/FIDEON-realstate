@@ -1,6 +1,6 @@
 # City photography
 
-City atmosphere images, not FIDEON property listings:
+City atmosphere images, not MAMELAT property listings:
 
 - assets/istanbul-bosphorus.jpg — Misael Silvera, https://unsplash.com/photos/UFzccUkLB_0
 - assets/istanbul-waterfront.jpg — Berkin Üregen, https://unsplash.com/photos/sshu_8ClPqk

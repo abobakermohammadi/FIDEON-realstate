@@ -1,4 +1,4 @@
-# FIDEON architecture · localhost phase
+# MAMELAT architecture · localhost phase
 
 ## Truth model
 - **Notion** preserves durable product decisions and continuation context.
