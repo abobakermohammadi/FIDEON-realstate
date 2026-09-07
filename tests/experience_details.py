@@ -10,7 +10,11 @@ detail_html = (ROOT / "properties/view/index.html").read_text(encoding="utf-8")
 index_html = (ROOT / "index.html").read_text(encoding="utf-8")
 admin_html = (ROOT / "admin/index.html").read_text(encoding="utf-8")
 admin_hygiene = (ROOT / "assets/admin-hygiene.js").read_text(encoding="utf-8")
-signature_css = (ROOT / "assets/signature.css").read_text(encoding="utf-8")
+signature_wrapper = (ROOT / "assets/signature.css").read_text(encoding="utf-8")
+signature_base = (ROOT / "assets/signature-base.css").read_text(encoding="utf-8")
+atelier_css = (ROOT / "assets/mamelat-atelier.css").read_text(encoding="utf-8")
+cinematic_css = (ROOT / "assets/mamelat-cinematic.css").read_text(encoding="utf-8")
+signature_css = "\n".join((signature_wrapper, signature_base, atelier_css, cinematic_css))
 signature_js = (ROOT / "assets/signature.js").read_text(encoding="utf-8")
 whatsapp = (ROOT / "assets/whatsapp-forms.js").read_text(encoding="utf-8")
 manifest = (ROOT / "manifest.webmanifest").read_text(encoding="utf-8")
@@ -76,9 +80,12 @@ if "if (!id || !manual) return" in admin_hygiene:
 for required in ("prefers-reduced-motion", "brand-sculpture", "brand-plaque", "requestAnimationFrame"):
     if required not in signature_js:
         errors.append(f"signature interaction runtime missing: {required}")
-for required in ("#061c16", ".signature-hero", ".mobile-contact-dock", "prefers-reduced-motion"):
+for required in (".signature-hero", ".mobile-contact-dock", "prefers-reduced-motion"):
     if required not in signature_css:
         errors.append(f"signature responsive styling missing: {required}")
+for required in ("--m-paper:#f3f0e8", "--m-bronze:#7a6954", "--m-dark:#1b1815"):
+    if required not in atelier_css:
+        errors.append(f"MAMELAT atelier responsive identity missing: {required}")
 
 for required in ("function openHandoff", "popup.opener = null", "location.assign(url)"):
     if required not in whatsapp:
