@@ -1,5 +1,5 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-labelledby="title">
-  <title id="title">MAMELAT</title>
-  <circle cx="256" cy="256" r="196" fill="none" stroke="#C9A66B" stroke-width="10"/>
-  <text x="256" y="352" text-anchor="middle" font-family="Georgia, Times New Roman, serif" font-size="260" fill="#C9A66B">M</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="MAMELAT">
+  <rect width="64" height="64" fill="#F3F0E8"/>
+  <path d="M12 46V18l20 25 20-25v28" fill="none" stroke="#75644F" stroke-width="2.6" stroke-linecap="square" stroke-linejoin="miter"/>
+  <path d="M23 46V31c0-9 3.7-14 9-14s9 5 9 14v15" fill="none" stroke="#75644F" stroke-width="2.2" stroke-linecap="square"/>
 </svg>
