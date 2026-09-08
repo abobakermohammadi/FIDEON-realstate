@@ -1,0 +1,3 @@
+User-agent: *
+Disallow: /
+# Development preview. Remove block only after launch approval.

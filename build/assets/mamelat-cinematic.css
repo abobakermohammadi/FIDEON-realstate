@@ -1,0 +1,248 @@
+/* MAMELAT Editorial Cinematic Layer */
+.v2-home .site-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(243, 240, 232, 0.94);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--m-line);
+}
+
+.restored-hero {
+  background: var(--m-paper);
+  color: var(--m-ink);
+  min-height: 680px;
+  position: relative;
+  overflow: hidden;
+}
+
+.restored-hero .hero-layout {
+  min-height: 680px;
+  padding: 88px 0 60px;
+  align-items: center;
+  gap: 56px;
+}
+
+.restored-hero .eyebrow {
+  color: var(--m-bronze);
+  letter-spacing: 0.22em;
+  font-size: 11px;
+}
+
+.restored-hero h1 {
+  font-size: clamp(52px, 6.2vw, 88px);
+  line-height: 1.02;
+  letter-spacing: -0.045em;
+  margin: 0 0 24px;
+}
+
+.restored-hero h1 em {
+  color: var(--m-bronze);
+  font-style: italic;
+  font-weight: 400;
+}
+
+.restored-hero .hero-copy {
+  color: var(--m-ink-muted);
+  font-size: 17px;
+  line-height: 1.65;
+  max-width: 480px;
+}
+
+.restored-hero .hero-actions {
+  display: flex;
+  gap: 14px;
+  margin-top: 32px;
+}
+
+.restored-hero .hero-note {
+  font-size: 13px;
+  color: var(--m-ink-muted);
+  margin-top: 22px;
+}
+
+.restored-hero .hero-note a {
+  color: var(--m-ink);
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.restored-hero .btn-outline {
+  border-color: var(--m-line);
+  color: var(--m-ink);
+}
+
+.restored-hero .btn-outline:hover {
+  border-color: var(--m-ink);
+  background: rgba(20, 23, 21, 0.04);
+}
+
+/* Hero Media Component */
+.hero-media-card {
+  position: relative;
+  border: 1px solid var(--m-line);
+  background: #fff;
+  padding: 12px;
+  box-shadow: 0 16px 48px rgba(27, 24, 21, 0.08);
+}
+
+.hero-media-card-inner {
+  position: relative;
+  aspect-ratio: 4 / 3.2;
+  overflow: hidden;
+  background: var(--m-dark);
+}
+
+.hero-media-card-inner img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: contrast(1.04) saturate(0.92);
+  transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.hero-media-card:hover .hero-media-card-inner img {
+  transform: scale(1.025);
+}
+
+.hero-media-meta {
+  padding: 14px 4px 4px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--m-ink);
+}
+
+.hero-media-meta span {
+  color: var(--m-bronze);
+}
+
+/* Defensive fallback for brand sculpture / plaque if present */
+.brand-sculpture {
+  display: none;
+}
+
+.brand-plaque {
+  display: none;
+}
+
+.restored-hero .hero-foot {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  border-top: 1px solid var(--m-line);
+  padding: 20px 0;
+  color: var(--m-ink-muted);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.restored-hero .hero-foot a {
+  color: var(--m-ink);
+  transition: opacity 0.2s;
+}
+
+.restored-hero .hero-foot a:hover {
+  opacity: 0.7;
+}
+
+/* Editorial & Process Refinement */
+.city-editorial {
+  background: var(--m-paper-alt);
+}
+
+.editorial-copy h2 {
+  color: var(--m-ink);
+}
+
+.editorial-copy h2 em {
+  color: var(--m-bronze);
+}
+
+.editorial-copy p {
+  color: var(--m-ink-muted);
+}
+
+.editorial-index {
+  color: var(--m-bronze);
+}
+
+.process-section {
+  background: var(--m-paper);
+}
+
+.contact-band {
+  background: var(--m-dark);
+  color: var(--m-cream);
+}
+
+.contact-band h2 {
+  color: var(--m-cream);
+}
+
+.contact-band p {
+  color: #cfc8ba;
+}
+
+@media (max-width: 960px) {
+  .restored-hero .hero-layout {
+    grid-template-columns: 1fr;
+    gap: 40px;
+    padding: 64px 0 44px;
+  }
+}
+
+@media (max-width: 760px) {
+  .restored-hero {
+    min-height: auto;
+  }
+  .restored-hero .hero-layout {
+    padding: 44px 0 24px;
+    gap: 24px;
+  }
+  .restored-hero h1 {
+    font-size: clamp(40px, 11vw, 54px);
+    line-height: 1.05;
+    margin-bottom: 18px;
+  }
+  .restored-hero .hero-copy {
+    font-size: 15px;
+    line-height: 1.6;
+  }
+  .restored-hero .hero-actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-top: 24px;
+  }
+  .restored-hero .hero-actions .btn {
+    padding: 12px 10px;
+    font-size: 12px;
+    min-height: 46px;
+  }
+  .hero-media-card {
+    padding: 8px;
+  }
+  .restored-hero .hero-foot {
+    font-size: 10px;
+    letter-spacing: 0.1em;
+  }
+  .restored-hero .hero-foot span {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-media-card-inner img {
+    transition: none !important;
+  }
+}
