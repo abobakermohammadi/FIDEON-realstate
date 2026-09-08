@@ -154,6 +154,40 @@ body {
   color: var(--m-bronze-alt);
 }
 
+.page-hero .btn-whatsapp,
+.page-hero .btn-gold,
+.page-hero .btn-dark {
+  background: var(--m-cream);
+  color: var(--m-dark);
+  border-color: var(--m-cream);
+}
+
+.page-hero .btn-whatsapp:hover,
+.page-hero .btn-gold:hover,
+.page-hero .btn-dark:hover {
+  background: #ffffff;
+  color: var(--m-dark);
+  border-color: #ffffff;
+}
+
+.page-hero .btn-outline {
+  background: transparent;
+  color: var(--m-cream);
+  border-color: rgba(250, 248, 244, 0.4);
+}
+
+.page-hero .btn-outline:hover {
+  background: rgba(250, 248, 244, 0.12);
+  color: #ffffff;
+  border-color: rgba(250, 248, 244, 0.7);
+}
+
+.page-hero-meta {
+  margin-top: 22px;
+  font-size: 13px;
+  color: rgba(250, 248, 244, 0.6) !important;
+}
+
 .section, .section-tight, .section-stone {
   background: var(--m-paper);
 }
@@ -264,6 +298,18 @@ body {
 .dock-whatsapp {
   background: var(--m-dark);
   color: var(--m-cream);
+}
+
+body:has([data-whatsapp-form]) .mobile-contact-dock,
+body:has(.page-hero .cta-actions) .mobile-contact-dock,
+body:has(.properties-grid .empty-state) .mobile-contact-dock {
+  display: none !important;
+}
+
+body:has([data-whatsapp-form]),
+body:has(.page-hero .cta-actions),
+body:has(.properties-grid .empty-state) {
+  padding-bottom: 0 !important;
 }
 
 .toast {
