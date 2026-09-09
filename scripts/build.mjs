@@ -14,6 +14,16 @@ await rm(out, { recursive:true, force:true });
 await mkdir(out, { recursive:true });
 for (const dir of dirs) if (existsSync(path.join(root, dir))) await cp(path.join(root, dir), path.join(out, dir), { recursive:true });
 for (const file of files) if (existsSync(path.join(root, file))) await cp(path.join(root, file), path.join(out, file));
+// Keep consent silent and consistent across every public route. The script
+// records the essential-only choice without adding a visual interruption.
+for (const file of [...files, ...dirs.flatMap(dir => [`${dir}/index.html`])]) {
+  const target = path.join(out, file);
+  if (!existsSync(target) || !target.endsWith('.html')) continue;
+  const html = await (await import('node:fs/promises')).readFile(target, 'utf8');
+  if (!html.includes('/assets/cookie-consent.js')) {
+    await (await import('node:fs/promises')).writeFile(target, html.replace('</body>', '<script src="/assets/cookie-consent.js"></script>\n</body>'));
+  }
+}
 if (existsSync(path.join(root, '.openai', 'hosting.json'))) {
   await mkdir(path.join(out, '.openai'), { recursive: true });
   await cp(path.join(root, '.openai', 'hosting.json'), path.join(out, '.openai', 'hosting.json'));
